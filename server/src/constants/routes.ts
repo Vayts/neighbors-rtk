@@ -1,0 +1,43 @@
+export const ROUTES = {
+  NEIGHBORHOOD: {
+    DEFAULT: '/api/neighborhood',
+    CREATE: '/create',
+    GET_BY_CODE: '/get-by-code',
+    JOIN_BY_CODE: '/join-by-code',
+    GET_USER_NEIGHBORHOODS: '/get-user-neighborhoods',
+    GET_CURRENT: '/get-current',
+    SET_FAVORITE: '/set-favorite',
+    REMOVE_FAVORITE: '/remove-favorite',
+  },
+  AUTH: {
+    DEFAULT: '/api/auth',
+    LOGIN: '/login',
+    REGISTER: '/register',
+    LOGOUT: '/logout',
+    REFRESH: '/refresh',
+  },
+  DEBT: {
+    DEFAULT: '/api/debt',
+    CREATE: '/create',
+    EDIT: '/edit',
+    GET_USER_DEBTS: '/get',
+    DELETE: '/delete',
+    ADD_PAYMENT: '/add-payment',
+    CLOSE_DEBT: '/close-debt',
+  },
+  PLAN: {
+    DEFAULT: '/api/plan',
+    CREATE: '/create',
+    GET_USER_PLANS: '/get',
+    EDIT: '/edit',
+    CHANGE_TASK_STATUS: '/change-task-status',
+    ADD_PAYMENT: '/add-payment',
+    CLOSE_PLAN: '/close-plan',
+    REOPEN_PLAN: '/reopen-plan',
+    DELETE: '/delete',
+  },
+  CHAT: {
+    DEFAULT: '/api/chat',
+    UPDATE_VIEWED_MESSAGES: '/update-viewed-message',
+  },
+};
