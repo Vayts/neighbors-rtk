@@ -1,0 +1,32 @@
+@import "variables";
+
+@mixin for-tablet {
+  @media screen and (min-width: 744px) {
+    @content;
+  }
+}
+
+@mixin for-laptop {
+  @media screen and (min-width: 1044px) {
+    @content;
+  }
+}
+
+@mixin for-desktop {
+  @media screen and (min-width: 1260px) {
+    @content;
+  }
+}
+
+@mixin title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 24px;
+  color: $title-text-color;
+}
+
+@mixin container {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 10px;
+}

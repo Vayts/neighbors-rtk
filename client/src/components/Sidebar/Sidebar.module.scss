@@ -1,0 +1,193 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.SidebarWrapper {
+  position: fixed;
+  top: $header-height;
+  left: -100%;
+  bottom: 0;
+  background-color: $component-bg;
+  width: 100%;
+  max-width: 450px;
+  padding: 0;
+  z-index: 10;
+  transition: all 0.3s;
+  border-right: 1px solid $border-color;
+
+  &--active {
+    left: 0;
+  }
+
+  @include for-tablet {
+    left: 0;
+    width: $sidebar-width;
+    padding: 0;
+  }
+
+}
+
+.SidebarHeader {
+  width: 100%;
+  max-width: 450px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0 17px;
+  height: $header-height;
+  display: flex;
+  z-index: 10;
+  justify-content: flex-start;
+  align-items: center;
+
+  a {
+    width: 44px;
+    height: 44px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  @include for-tablet {
+    display: none;
+  }
+}
+
+.SidebarMenuButton {
+  position: absolute;
+  right: 0;
+  left: 80px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 23px;
+  border: 1px solid transparent;
+  transition: all 0.3s;
+  border-radius: 50%;
+
+  &--active {
+    left: 85%;
+    font-size: 16px;
+    background-color: $content-color;
+    color: $primary-color-hover;
+    border-color: $primary-color-light;
+  }
+
+  @include for-tablet {
+    display: none;
+  }
+}
+
+.SidebarUser {
+  @include for-tablet {
+    display: none;
+  }
+}
+
+.SidebarNav {
+  padding: 0;
+
+  @include for-tablet {
+    padding: 10px 0;
+  }
+}
+
+.SidebarNavItem {
+  text-decoration: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 20px 15px;
+  color: $text-color;
+  border-bottom: 1px solid $border-color;
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 4px;
+    height: 70%;
+    background-color: transparent;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 5px;
+    transition: all 0.2s;
+
+    @include for-tablet {
+      right: 0;
+      left: unset;
+      height: 100%;
+    }
+  }
+
+  &:first-child {
+    border-top: 1px solid $border-color;
+  }
+
+  @include for-tablet {
+    flex-direction: column;
+    align-items: center;
+    color: $light-text-color;
+    transition: all 0.2s;
+    padding: 5px 0;
+    margin-bottom: 15px;
+    border-bottom: unset;
+
+    &:first-child {
+      border-top: unset;
+    }
+
+    &:hover {
+      color: $dark-text-color;
+
+      &:after {
+        background-color: $primary-color-light;
+      }
+    }
+  }
+
+  &--active {
+    color: $dark-text-color;
+    font-weight: 600;
+
+    &:after {
+      background-color: $primary-color;
+    }
+
+    &:hover {
+      color: $dark-text-color;
+
+      &:after {
+        background-color: $primary-color;
+      }
+    }
+  }
+
+  span {
+    font-size: 26px;
+    margin-right: 10px;
+
+    @include for-tablet {
+      margin-right: unset;
+      font-size: 16px;
+    }
+  }
+}
+
+.SidebarNavText {
+  font-size: 18px;
+  margin: 0 0 0 10px;
+
+  @include for-tablet {
+    word-break: break-all;
+    text-align: center;
+    padding: 0 4px;
+    font-size: 12px;
+    margin: 5px 0 0;
+  }
+}

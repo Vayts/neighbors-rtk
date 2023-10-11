@@ -27,7 +27,7 @@ export class TokenService {
     };
     return {
       access: this.jwtService.sign(payload, {
-        expiresIn: '30m',
+        expiresIn: '1h',
         privateKey: process.env.JWT_ACCESS_SECRET || 'access',
       }),
       refresh: this.jwtService.sign(payload, {

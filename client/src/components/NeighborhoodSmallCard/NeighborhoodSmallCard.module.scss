@@ -1,0 +1,32 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.NeighborhoodWrapper {
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+}
+
+.NeighborhoodAvatarFiller {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: $light-bg-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    font-size: 25px;
+    color: $title-text-color;
+  }
+}
+
+.NeighborhoodName {
+  @include title;
+  font-size: 18px;
+  color: $title-text-color;
+  margin: 0 0 0 10px;
+}
