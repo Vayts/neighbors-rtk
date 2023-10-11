@@ -1,7 +1,6 @@
 import { Socket } from 'socket.io';
 import { wsJwtGuard } from '../guards/wsJwt.guard';
 import { UnauthorizedException } from '@nestjs/common';
-import { ERRORS } from '../constants/errors';
 
 type SocketIOMiddleware = {
   (client: Socket, next: (err?: Error) => void);

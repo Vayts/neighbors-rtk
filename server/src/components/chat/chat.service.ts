@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel, Prop } from '@nestjs/mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { Message, MessageDocument } from '../../schemas/message.schema';
 import {
