@@ -1,6 +1,14 @@
 import { RootState } from '@src/store';
-import { membersAdapter } from '@src/store/members/slice';
+import { createSelector } from 'reselect';
 
-export const {
-  selectAll: selectAllMembers,
-} = membersAdapter.getSelectors((state: RootState) => state.members);
+const members = (state: RootState) => state.members;
+
+export const selectMembersByIds = createSelector(
+  [
+    members,
+    (state, ids) => ids,
+  ],
+  (state, ids) => {
+    return ids.map((item: string) => state.entities[item]);
+  },
+);

@@ -55,8 +55,7 @@ const DebtPaymentForm: React.FC<Props> = ({ debt }) => {
     e.preventDefault();
     dispatch(setLoadingDebts(debt._id));
     dispatch(addDebtPayment({ id: debt._id, amount: values.amount }))
-      .unwrap()
-      .then(() => {
+      .finally(() => {
         dispatch(setLoadingDebts(debt._id));
       });
   };
@@ -70,8 +69,10 @@ const DebtPaymentForm: React.FC<Props> = ({ debt }) => {
     dispatch(closeDebt(debt._id))
       .unwrap()
       .then(() => {
-        dispatch(setLoadingDebts(debt._id));
         setInClose(!isInClose);
+      })
+      .finally(() => {
+        dispatch(setLoadingDebts(debt._id));
       });
   };
   

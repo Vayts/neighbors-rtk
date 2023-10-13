@@ -9,13 +9,19 @@ import { appFirstLoad } from '@src/store/core/thunks';
 import { selectAppLoading } from '@src/store/core/selectors';
 import Loader from '@src/components/Loader/Loader';
 import { withSuspense } from '@hoc/WithSuspense/WithSuspense';
+import CreatePlanPage from '@src/pages/CreatePlanPage/CreatePlanPage';
 import styles from './App.module.scss';
 
-const NeighborhoodsPage = withSuspense(React.lazy(() => import('@src/pages/NeighborhoodsPage/NeighborhoodsPage')));
-const CreateNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/CreateNeighborhoodPage/CreateNeighborhoodPage')));
-const DebtsPage = withSuspense(React.lazy(() => import('@src/pages/DebtsPage/DebtsPage')));
-const CreateDebtPage = withSuspense(React.lazy(() => import('@src/pages/CreateDebtPage/CreateDebtPage')));
+// const CreatePlanPage = withSuspense(React.lazy(() => import('@src/pages/CreatePlanPage/CreatePlanPage')));
+const PlansPage = withSuspense(React.lazy(() => import('@src/pages/PlansPage/PlansPage')));
 const EditDebtPage = withSuspense(React.lazy(() => import('@src/pages/EditDebtPage/EditDebtPage')));
+const CreateDebtPage = withSuspense(React.lazy(() => import('@src/pages/CreateDebtPage/CreateDebtPage')));
+const DebtsPage = withSuspense(React.lazy(() => import('@src/pages/DebtsPage/DebtsPage')));
+// const CurrentNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/CurrentNeighborhoodPage/CurrentNeighborhoodPage')));
+const CreateNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/CreateNeighborhoodPage/CreateNeighborhoodPage')));
+const NeighborhoodsPage = withSuspense(React.lazy(() => import('@src/pages/NeighborhoodsPage/NeighborhoodsPage')));
+// const ChatsPage = withSuspense(React.lazy(() => import('@src/pages/ChatsPage/ChatsPage')));
+const EditPlanPage = withSuspense(React.lazy(() => import('@src/pages/EditPlanPage/EditPlanPage')));
 
 export const App: React.FC = () => {
   const isLoading = useAppSelector(selectAppLoading);
@@ -43,9 +49,9 @@ export const App: React.FC = () => {
             <Route path='/debts/create' element={<CreateDebtPage/>} />
             <Route path='/debts/edit/:debtId' element={<EditDebtPage/>} />
             
-            {/*<Route path='/plans' element={<PlansPage/>} />*/}
-            {/*<Route path='/plans/create' element={<CreatePlanPage/>} />*/}
-            {/*<Route path='/plans/edit/:planId' element={<EditPlanPage/>} />*/}
+            <Route path='/plans' element={<PlansPage/>} />
+            <Route path='/plans/create' element={<CreatePlanPage/>} />
+            <Route path='/plans/edit/:planId' element={<EditPlanPage/>} />
             
             {/*<Route path='/chats' element={<ChatsPage/>}/>*/}
           </Route>

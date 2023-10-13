@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { getFavoriteNeighborhoods } from '@helpers/neighborhood.helper';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { selectAllNeighborhoods } from '@src/store/neighborhoods/selectors';
+import { selectAllNeighborhoods } from '@src/store/userNeighborhoods/selectors';
 import { useAppSelector } from '@src/hooks/hooks';
 import styles from './NeighborhoodSwitcher.module.scss';
 

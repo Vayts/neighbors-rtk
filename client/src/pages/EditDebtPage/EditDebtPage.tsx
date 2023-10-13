@@ -17,7 +17,7 @@ import styles from './EditDebtPage.module.scss';
 const EditDebtPage: React.FC = () => {
   const { debtId } = useParams();
   const debtForEdit = useAppSelector((state) => state.debts.entities[debtId]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const id = searchParams.get('neighborhood_id');
   const [values, setValues] = useState<IEditDebt>({
     debtAmount: debtForEdit ? debtForEdit.debtAmount.toString() : '',
@@ -25,7 +25,7 @@ const EditDebtPage: React.FC = () => {
     errors: {},
     dueDate: debtForEdit?.dueDate ? new Date(debtForEdit.dueDate) : null,
   });
-  const isLoading = useAppSelector((state) => state.debts.isLoading);
+  const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -55,11 +55,14 @@ const EditDebtPage: React.FC = () => {
   const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     if (!Object.values(values.errors).length) {
+      setLoading(true);
       const dto = getEditDebtDto(values);
       dispatch(editDebt({ id: debtId, values: dto }))
-        .unwrap()
         .then(() => {
           navigate(`/debts${id ? `?neighborhood_id=${id}` : ''}`);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   };

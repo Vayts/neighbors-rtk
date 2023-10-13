@@ -9,13 +9,13 @@ import Loader from '@src/components/Loader/Loader';
 import Modal from '@src/components/Modal/Modal';
 import NeighborhoodsInviteModal from '@src/pages/NeighborhoodsPage/NeighborhoodsInviteModal/NeighborhoodsInviteModal';
 import NeighborhoodSwitcher from '@src/components/NeighborhoodSwitcher/NeighborhoodSwitcher';
-import { getUserNeighborhoods } from '@src/store/neighborhoods/thunks';
+import { getUserNeighborhoods } from '@src/store/userNeighborhoods/thunks';
 import styles from './NeighborhoodsPage.module.scss';
 
 const NeighborhoodsPage: React.FC = () => {
   const [isInviteOpen, setInviteOpen] = useState(false);
-  const neighborhoods = useAppSelector((state) => state.neighborhoods.ids);
-  const isLoading = useAppSelector((state) => state.neighborhoods.isLoading);
+  const neighborhoods = useAppSelector((state) => state.userNeighborhoods.ids);
+  const isLoading = useAppSelector((state) => state.userNeighborhoods.isLoading);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();

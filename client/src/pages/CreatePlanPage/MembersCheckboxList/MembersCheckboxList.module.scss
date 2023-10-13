@@ -1,0 +1,13 @@
+@import "@src/styles/variables";
+
+.MembersWrapper {
+  border: 2px dotted $border-color;
+
+  &--invalid {
+    border-color: $primary-color;
+  }
+}
+
+.MemberNotification {
+  padding-left: 15px;
+}

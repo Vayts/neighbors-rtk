@@ -43,12 +43,7 @@ export class CreatePlanDto {
 
   @IsArray()
   @Transform(({ value }) =>
-    value.map((item) => {
-      return {
-        participant_id: new mongoose.Types.ObjectId(item),
-        payment: 0,
-      };
-    }),
+    value.map((item) => new mongoose.Types.ObjectId(item)),
   )
   @ArrayNotEmpty({ message: PLAN_ERRORS.NOT_ENOUGH_PARTICIPANTS })
   readonly participants: string[];

@@ -23,6 +23,15 @@ export class PlanService {
         isClosed: false,
         participants: [
           ...dto.participants,
+          new mongoose.Types.ObjectId(req.user._id),
+        ],
+        participantPayments: [
+          ...dto.participants.map((item) => {
+            return {
+              participant_id: item,
+              payment: 0,
+            };
+          }),
           {
             participant_id: new mongoose.Types.ObjectId(req.user._id),
             payment: 0,
@@ -40,9 +49,7 @@ export class PlanService {
     const matchStage: any = [
       {
         $match: {
-          'participants.participant_id': new mongoose.Types.ObjectId(
-            req.user._id,
-          ),
+          participants: new mongoose.Types.ObjectId(req.user._id),
         },
       },
     ];
@@ -55,46 +62,14 @@ export class PlanService {
       });
     }
 
-    const res = await this.planModel.aggregate([
+    return this.planModel.aggregate([
       ...matchStage,
       {
         $lookup: {
           from: 'users',
-          localField: 'participants.participant_id',
+          localField: 'participants',
           foreignField: '_id',
-          as: 'userDetails',
-        },
-      },
-      {
-        $addFields: {
-          participants: {
-            $map: {
-              input: '$participants',
-              as: 'participant',
-              in: {
-                $mergeObjects: [
-                  '$$participant',
-                  {
-                    $arrayElemAt: [
-                      {
-                        $filter: {
-                          input: '$userDetails',
-                          as: 'userDetail',
-                          cond: {
-                            $eq: [
-                              '$$userDetail._id',
-                              '$$participant.participant_id',
-                            ],
-                          },
-                        },
-                      },
-                      0,
-                    ],
-                  },
-                ],
-              },
-            },
-          },
+          as: 'participants',
         },
       },
       {
@@ -121,7 +96,7 @@ export class PlanService {
       },
       {
         $addFields: {
-          currentPayment: { $sum: '$participants.payment' },
+          currentPayment: { $sum: '$participantPayments.payment' },
         },
       },
       {
@@ -145,8 +120,6 @@ export class PlanService {
         $sort: { eventDate: -1 },
       },
     ]);
-
-    return res;
   }
 
   async changeTaskStatus(planId, taskId, req) {
@@ -178,7 +151,7 @@ export class PlanService {
   async addPayment(planId, req, amount) {
     const document = await this.planModel.findById(planId);
 
-    const participantToUpdate = document.participants.find(
+    const participantToUpdate = document.participantPayments.find(
       (item) => item.participant_id.toString() === req.user._id,
     );
 
@@ -201,41 +174,9 @@ export class PlanService {
       {
         $lookup: {
           from: 'users',
-          localField: 'participants.participant_id',
+          localField: 'participants',
           foreignField: '_id',
-          as: 'userDetails',
-        },
-      },
-      {
-        $addFields: {
-          participants: {
-            $map: {
-              input: '$participants',
-              as: 'participant',
-              in: {
-                $mergeObjects: [
-                  '$$participant',
-                  {
-                    $arrayElemAt: [
-                      {
-                        $filter: {
-                          input: '$userDetails',
-                          as: 'userDetail',
-                          cond: {
-                            $eq: [
-                              '$$userDetail._id',
-                              '$$participant.participant_id',
-                            ],
-                          },
-                        },
-                      },
-                      0,
-                    ],
-                  },
-                ],
-              },
-            },
-          },
+          as: 'participants',
         },
       },
       {
@@ -262,7 +203,7 @@ export class PlanService {
       },
       {
         $addFields: {
-          currentPayment: { $sum: '$participants.payment' },
+          currentPayment: { $sum: '$participantPayments.payment' },
         },
       },
       {

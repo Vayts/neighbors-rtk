@@ -15,7 +15,7 @@ import Input from '@src/components/UI/Input/Input';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { createDebt } from '@src/store/debts/thunks';
 import { selectUser } from '@src/store/auth/selectors';
-import { selectAllNeighborhoods } from '@src/store/neighborhoods/selectors';
+import { selectAllNeighborhoods } from '@src/store/userNeighborhoods/selectors';
 import styles from './CreateDebtPage.module.scss';
 
 const initialValues: ICreateDebt = {
@@ -39,11 +39,11 @@ const CreateDebtPage: React.FC = () => {
   const user = useAppSelector(selectUser);
   const [isLoading, setLoading] = useState(false);
   
-  const neighborhood = useAppSelector((state) => state.neighborhoods.entities[values.neighborhood_id]);
+  const neighborhood = useAppSelector((state) => state.userNeighborhoods.entities[values.neighborhood_id]);
   const neighborhoodsSelectArr = useMemo(() => getSelectArrFromNeighborhoods(neighborhoods), [neighborhoods]);
   const members = useAppSelector((state) => state.members.entities);
   const membersSelectArr = useMemo(() => getSelectArrFromNeighborhoodMembers(neighborhood, members, user._id),
-    [neighborhoods, neighborhood, user]);
+    [neighborhood, members, user]);
   
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -85,7 +85,6 @@ const CreateDebtPage: React.FC = () => {
       const dto = getCreateDebtDto(values);
       setLoading(true);
       dispatch(createDebt(dto))
-        .unwrap()
         .then(() => {
           navigate(`/debts${id ? `?neighborhood_id=${id}` : ''}`);
         })

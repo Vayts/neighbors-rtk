@@ -1,6 +1,7 @@
 import { ErrorType } from '@src/types/default.types';
-import { IMember, IUser } from '@src/types/user.types';
+import { IMember } from '@src/types/user.types';
 import { INeighborhood } from '@src/types/neighborhood.types';
+import { EntityId } from '@reduxjs/toolkit';
 
 export interface ICreatePlan {
   name: string,
@@ -33,18 +34,24 @@ export interface IEditPlanDto {
 
 export interface IPlan {
   _id: string,
-  author: IUser,
+  author: EntityId,
   neighborhood: INeighborhood,
   name: string,
   description: string,
   createdAt: Date,
   isPaymentRequired: boolean,
-  participants: IPlanParticipant[],
+  participants: EntityId[],
+  participantPayments: IParticipantPayment[],
   eventDate: Date | null,
   paymentAmount: number | null,
   currentPayment: number,
   isClosed: boolean,
   tasksList: IPlanTask[],
+}
+
+export interface IParticipantPayment {
+  participant_id: EntityId,
+  payment: number,
 }
 
 export interface IPlanParticipant extends IMember{
@@ -53,7 +60,7 @@ export interface IPlanParticipant extends IMember{
 
 export interface IPlanTask {
   _id: string,
-  completedBy: string;
+  completedBy: EntityId;
   completedAt: Date | null,
   completed: boolean;
   text: string;
@@ -64,7 +71,7 @@ export interface ICreatePlanDto {
   description: string,
   neighborhood_id: string,
   isPaymentRequired: boolean,
-  participants: string[],
+  participants: EntityId[],
   eventDate: string | null,
   paymentAmount: string | null,
   tasksList: string[] | null,

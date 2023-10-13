@@ -38,7 +38,7 @@ const DebtCard: React.FC<Props> = ({ debt, onClick }) => {
   return (
     <li className={styles.DebtWrapper}>
       {
-        author._id === user._id && (
+        author._id === user?._id && (
           <div className={styles.DebtMenuWrapper}>
             <Menu>
               <DebtMenu debt={debt}/>

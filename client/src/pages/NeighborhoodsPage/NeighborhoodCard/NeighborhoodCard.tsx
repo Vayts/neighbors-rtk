@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { EntityId } from '@reduxjs/toolkit';
-import { removeNeighborhoodFavorite, setNeighborhoodFavorite } from '@src/store/neighborhoods/thunks';
+import { removeNeighborhoodFavorite, setNeighborhoodFavorite } from '@src/store/userNeighborhoods/thunks';
 import styles from './NeighborhoodCard.module.scss';
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 }
 
 const NeighborhoodCard: React.FC<Props> = ({ neighborhoodId }) => {
-  const neighborhood = useAppSelector((state) => state.neighborhoods.entities[neighborhoodId]) as INeighborhood;
+  const neighborhood = useAppSelector((state) => state.userNeighborhoods.entities[neighborhoodId]) as INeighborhood;
   const { name, _id, avatar, role } = neighborhood;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

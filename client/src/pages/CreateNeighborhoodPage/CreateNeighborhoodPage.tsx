@@ -9,7 +9,7 @@ import Button from '@src/components/UI/Button/Button';
 import { useAppDispatch } from '@src/hooks/hooks';
 import { useNavigate } from 'react-router-dom';
 import Select from '@src/components/UI/Select/Select';
-import { createNeighborhood } from '@src/store/neighborhoods/thunks';
+import { createNeighborhood } from '@src/store/userNeighborhoods/thunks';
 import { CURRENT_CURRENCIES } from '@constants/core';
 import styles from './CreateNeighborhoodPage.module.scss';
 
@@ -50,7 +50,6 @@ const CreateNeighborhoodPage: React.FC = () => {
     if (!Object.values(values.errors).length) {
       setLoading(true);
       dispatch(createNeighborhood(values))
-        .unwrap()
         .then(() => {
           navigate('/neighborhoods');
         })

@@ -24,12 +24,18 @@ export const debtsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getUserDebts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUserDebts.rejected, (state) => {
+        state.isLoading = false;
+      })
       .addCase(getUserDebts.fulfilled, (state, { payload }) => {
-        debtsAdapter.setAll(state, payload.debts ?? {});
+        debtsAdapter.setAll(state, payload?.debts ?? {});
         state.isLoading = false;
       })
       .addCase(createDebt.fulfilled, (state, { payload }) => {
-        debtsAdapter.upsertMany(state, payload.debts ?? {});
+        debtsAdapter.upsertMany(state, payload?.debts ?? {});
       })
       .addCase(deleteDebt.fulfilled, (state, { payload }) => {
         debtsAdapter.removeOne(state, payload._id);

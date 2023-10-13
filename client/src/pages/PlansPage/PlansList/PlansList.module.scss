@@ -1,0 +1,17 @@
+@import "@src/styles/variables";
+
+.PlansList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.NoPlansInList {
+  background-color: $component-bg;
+  padding: 20px 15px;
+  align-self: flex-start;
+  margin: 0;
+  text-align: center;
+  color: $light-text-color;
+  border-radius: $border-radius;
+}
