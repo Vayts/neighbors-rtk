@@ -1,0 +1,24 @@
+@import "@src/styles/variables";
+
+.PlanMenuList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.PlanMenuItem {
+  padding: 10px;
+  user-select: none;
+
+  &:hover {
+    background-color: $content-color-hover;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $light-bg-color;
+  }
+
+  &--danger {
+    color: $danger-color;
+  }
+}

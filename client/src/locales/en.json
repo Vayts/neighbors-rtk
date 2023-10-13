@@ -14,6 +14,7 @@
   "atLeast1Number": "At least 1 digit",
   "atLeast1UpperCase": "At least 1 letter in upper case",
   "atLeastNumber": "At least {{ value }}",
+  "atLeastOneParticipant": "At least one participant",
   "atLeastOneTask": "At least one task",
   "authError": {
     "userAlreadyExist": "User with this login already exists"

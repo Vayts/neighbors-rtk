@@ -104,7 +104,7 @@ const DebtsPage: React.FC = () => {
             <Select
               value={filter}
               onChange={handleSelectFilter}
-              name='neighborhood_id'
+              name='debts_filter'
               placeholder={t('selectNeighborhood')}
               valuesArr={DEBT_FILTERS}
               disabled={!isLoading && Boolean(!debts.length)}

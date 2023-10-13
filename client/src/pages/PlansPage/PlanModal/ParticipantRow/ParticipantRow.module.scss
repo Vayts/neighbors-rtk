@@ -1,0 +1,58 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+
+.ParticipantRow {
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+
+  td {
+    padding: 0 5px;
+    font-size: 14px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+
+    &:first-child {
+      margin-right: 5px;
+    }
+
+    &:nth-child(2) {
+      display: none;
+
+      @include for-tablet {
+        display: flex;
+      }
+    }
+
+    &:nth-child(3) {
+      margin-left: 5px;
+      line-height: 14px;
+      width: 40%;
+      flex-grow: 1;
+      color: $title-text-color;
+
+      p {
+        margin: 0;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+      }
+    }
+
+    &:nth-child(4) {
+      font-size: 14px;
+      text-align: right;
+      font-weight: 600;
+    }
+  }
+}
+
+.ParticipantAvatar {
+  width: 25px;
+  height: 25px;
+  max-width: 25px;
+  max-height: 25px;
+}

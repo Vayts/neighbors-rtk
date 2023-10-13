@@ -1,0 +1,28 @@
+@import "@src/styles/variables";
+
+.TaskWrapper {
+  margin: 10px 0;
+  //display: flex;
+
+  &--checked p {
+    text-decoration: line-through;
+  }
+}
+
+.TaskComment {
+  border-top: 1px solid $border-color;
+  font-size: 12px;
+  color: $light-text-color;
+  display: flex;
+  justify-content: flex-end;
+
+  span:first-child {
+    margin-right: 5px;
+  }
+
+  &--byUser {
+    span:first-child {
+      color: $primary-color;
+    }
+  }
+}

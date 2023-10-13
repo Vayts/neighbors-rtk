@@ -5,8 +5,8 @@ import Input from '@src/components/UI/Input/Input';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import NeighborhoodSmallCard from '@src/components/NeighborhoodSmallCard/NeighborhoodSmallCard';
 import { STATIC_HREF } from '@constants/core';
-import { resetNeighborhoodByCode } from '@src/store/neighborhoods/slice';
-import { getNeighborhoodByCode, joinNeighborhoodByCode } from '@src/store/neighborhoods/thunks';
+import { resetNeighborhoodByCode } from '@src/store/userNeighborhoods/slice';
+import { getNeighborhoodByCode, joinNeighborhoodByCode } from '@src/store/userNeighborhoods/thunks';
 import styles from './NeighborhoodsInviteModal.module.scss';
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
 const NeighborhoodsInviteModal: React.FC<Props> = ({ setInviteOpen }) => {
   const [inviteCode, setInviteCode] = useState('');
   const [isLoading, setLoading] = useState(false);
-  const neighborhood = useAppSelector((state) => state.neighborhoods.neighborhoodByCode);
+  const neighborhood = useAppSelector((state) => state.userNeighborhoods.neighborhoodByCode);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 

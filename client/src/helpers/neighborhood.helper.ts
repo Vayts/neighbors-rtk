@@ -1,6 +1,6 @@
 import { ICreateNeighborhood, INeighborhood } from '@src/types/neighborhood.types';
 import { ISelectValue } from '@src/components/UI/Select/types';
-import { IMember } from '@src/types/user.types';
+import { EntityId } from '@reduxjs/toolkit';
 
 export function getCreateNeighborhoodFormData(values: ICreateNeighborhood): FormData {
   const formData = new FormData();
@@ -21,10 +21,6 @@ export function getSelectArrFromNeighborhoods(neighborhoods: INeighborhood[]): I
   });
 }
 
-export function getSelectedNeighborhoodById(neighborhoods: INeighborhood[], id: string): INeighborhood | undefined {
-  return neighborhoods.find((item) => item._id === id);
-}
-
 export function getFavoriteNeighborhoods(neighborhoods: INeighborhood[], currentId: string | null): INeighborhood[] {
   const filteredNeighborhoods = neighborhoods.filter((item) => item.isFavorite || item._id === currentId);
   
@@ -38,28 +34,12 @@ export function getFavoriteNeighborhoods(neighborhoods: INeighborhood[], current
     return 0;
   });
 }
-export function getMembersFromNeighborhoodMembers(
-  neighborhoods: INeighborhood[],
-  neighborhoodId: string,
+export function getMembersWithoutUser(
+  neighborhood: INeighborhood,
   userId: string,
-): IMember[] {
-  if (!neighborhoodId) {
+): EntityId[] {
+  if (!neighborhood) {
     return [];
   }
-  
-  const currentNeighborhood = neighborhoods.find((item) => item._id === neighborhoodId);
-  
-  if (!currentNeighborhood) {
-    return [];
-  }
-  
-  const result: IMember[] = [];
-  
-  currentNeighborhood.members.forEach((item) => {
-    if (item._id !== userId) {
-      result.push(item);
-    }
-  });
-  
-  return result;
+  return neighborhood.members.filter((item) => item !== userId);
 }

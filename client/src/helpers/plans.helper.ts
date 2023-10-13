@@ -1,7 +1,7 @@
-import { ICreatePlan, ICreatePlanDto, IEditPlan, IEditPlanDto, IPlan, IPlanParticipant } from '@src/types/plan.types';
-import { IMember } from '@src/types/user.types';
+import { ICreatePlan, ICreatePlanDto, IEditPlan, IEditPlanDto, IParticipantPayment } from '@src/types/plan.types';
+import { EntityId } from '@reduxjs/toolkit';
 
-export function getCreatePlanDto(values: ICreatePlan, members: IMember[]): ICreatePlanDto {
+export function getCreatePlanDto(values: ICreatePlan, members: EntityId[]): ICreatePlanDto {
   return {
     name: values.name.trim(),
     description: values.description.trim(),
@@ -9,7 +9,7 @@ export function getCreatePlanDto(values: ICreatePlan, members: IMember[]): ICrea
     isPaymentRequired: values.isPaymentRequired,
     isTasksListRequired: values.isTasksListRequired,
     neighborhood_id: values.neighborhood_id,
-    participants: values.isAllMembersInvited ? members.map((item) => item._id) : values.participants,
+    participants: values.isAllMembersInvited ? members.map((item) => item) : values.participants,
     paymentAmount: values.isPaymentRequired ? values.paymentAmount.trim() : null,
     tasksList: values.isTasksListRequired ? values.tasksList.map((item) => item.text) : null,
   };
@@ -18,28 +18,16 @@ export function getCreatePlanDto(values: ICreatePlan, members: IMember[]): ICrea
 export function getDataForProgressBar(
   total: number,
   current: number,
-  participants: IPlanParticipant[],
+  participantPayments: IParticipantPayment[],
   userId: string,
 ): [number, number, number] {
-  const currentUserPayment = participants.find((item) => item._id === userId)?.payment as number;
+  const currentUserPayment = participantPayments.find((item) => item.participant_id === userId)?.payment as number;
   const currentPaymentWithoutUser = current - currentUserPayment;
   
   const percentageWithoutUser = Math.round((currentPaymentWithoutUser / total) * 100);
   const userPercentage = Math.round((currentUserPayment / total) * 100);
   
   return [percentageWithoutUser, userPercentage, currentUserPayment];
-}
-
-export function getPlanEditItem(plans: IPlan[], planId?: string): IPlan | null {
-  if (!planId) return null;
-  
-  const planForEdit = plans.find((item) => item._id === planId);
-  
-  if (planForEdit) {
-    return planForEdit;
-  }
-  
-  return null;
 }
 
 export function getEditPlanDto(values: IEditPlan): IEditPlanDto {

@@ -1,0 +1,39 @@
+@import "@src/styles/variables";
+
+.ParticipantsWrapper {
+  display: flex;
+}
+
+.ParticipantAvatar {
+  width: 40px;
+  height: 40px;
+  max-height: 40px;
+  max-width: 40px;
+  background-color: $component-bg;
+  border: 2px solid $component-bg;
+  border-radius: 50%;
+  position: relative;
+
+  &:not(:first-child) {
+    margin-left: -10px;
+  }
+}
+
+
+.ParticipantFiller {
+  width: 40px;
+  height: 40px;
+  max-height: 40px;
+  max-width: 40px;
+  background-color: $primary-color;
+  color: $reverse-text-color;
+  border: 2px solid $component-bg;
+  border-radius: 50%;
+  margin-left: -10px;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+}

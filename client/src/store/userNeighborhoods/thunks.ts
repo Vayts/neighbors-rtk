@@ -4,32 +4,34 @@ import { NEIGHBORHOOD_ROUTES } from '@constants/routes';
 import { errorManager } from '@helpers/errors.helper';
 import { ErrorEnum } from '@src/types/default.types';
 import { normalize } from 'normalizr';
-import { neighborhoodSchema } from '@src/store/neighborhoods/schema';
+import { neighborhoodSchema } from '@src/store/userNeighborhoods/schema';
 import { ICreateNeighborhood } from '@src/types/neighborhood.types';
 
 const MODULE_NAME = 'neighborhoods';
 
 export const getUserNeighborhoods = createAsyncThunk(
   `${MODULE_NAME}/getAll`,
-  async () => {
+  async (_, { rejectWithValue }) => {
     try {
       const response = await axiosPrivate.get(NEIGHBORHOOD_ROUTES.getUserNeighborhoods);
       const data = normalize(response.data, [neighborhoodSchema]);
       return data.entities ?? {};
     } catch (e: any) {
       errorManager(e?.response?.data?.message, ErrorEnum.neighborhood);
+      return rejectWithValue(e?.response?.data?.message);
     }
   },
 );
 
 export const getNeighborhoodByCode = createAsyncThunk(
   `${MODULE_NAME}/getByCode`,
-  async (code: string) => {
+  async (code: string, { rejectWithValue }) => {
     try {
       const response = await axiosPrivate.get(`${NEIGHBORHOOD_ROUTES.getByCode}?code=${code}`);
       return response.data.neighborhood;
     } catch (e: any) {
       errorManager(e?.response?.data?.message, ErrorEnum.neighborhood);
+      return rejectWithValue(e?.response?.data?.message);
     }
   },
 );

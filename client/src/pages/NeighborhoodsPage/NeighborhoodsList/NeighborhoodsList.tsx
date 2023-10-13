@@ -4,7 +4,7 @@ import NeighborhoodCard from '@src/pages/NeighborhoodsPage/NeighborhoodCard/Neig
 import styles from './NeighborhoodsList.module.scss';
 
 const NeighborhoodsList: React.FC = () => {
-  const neighborhoods = useAppSelector((state) => state.neighborhoods.ids);
+  const neighborhoods = useAppSelector((state) => state.userNeighborhoods.ids);
   
   return (
     <ul className={styles.NeighborhoodsList}>

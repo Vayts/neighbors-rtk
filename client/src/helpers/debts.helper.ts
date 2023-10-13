@@ -9,12 +9,12 @@ import {
   IEditDebt,
   IEditDebtDto,
 } from '@src/types/debt.types';
-import { IUser } from '@src/types/user.types';
+import { IMember, IUser } from '@src/types/user.types';
 import { Dictionary } from '@reduxjs/toolkit';
 
 export function getSelectArrFromNeighborhoodMembers(
   neighborhood: INeighborhood,
-  members: Dictionary<IUser>,
+  members: Dictionary<IMember>,
   userId: string,
 ): ISelectValue[] {
   if (!neighborhood) {

@@ -18,7 +18,6 @@ export class userInPlanGuard implements CanActivate {
       const plan = await this.planService.getPlanById(
         new mongoose.Types.ObjectId(plan_id),
       );
-
       const user = plan.participants.find(
         (item) => item._id.toString() === req.user._id,
       );

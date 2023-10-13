@@ -1,0 +1,64 @@
+@import "@src/styles/variables";
+
+.MemberLabel {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: $content-color-hover;
+  }
+}
+
+.MemberAvatar {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  margin-right: 10px;
+}
+
+.MemberName {
+  font-weight: 500;
+  margin: 0;
+}
+
+.MemberCustomCheckbox {
+  width: 17px;
+  height: 17px;
+  min-width: 17px;
+  min-height: 17px;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+  user-select: none;
+
+  span {
+    transition: all 0.2s;
+    opacity: 0;
+    font-size: 12px;
+    color: $reverse-text-color;
+  }
+
+  &--checked {
+    background-color: $primary-color;
+    border-color: $primary-color;
+
+    span {
+      opacity: 1;
+      color: $reverse-text-color;
+    }
+  }
+}
+
+
+.MemberContent {
+  display: flex;
+  align-items: center;
+}

@@ -4,11 +4,11 @@ import { CurrencySymbolEnum } from '@src/types/default.types';
 import { Tooltip } from 'react-tooltip';
 import { getDataForProgressBar } from '@helpers/plans.helper';
 import { useAppSelector } from '@src/hooks/hooks';
-import { selectUser } from '@src/store/user/selectors';
 import { IUser } from '@src/types/user.types';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import { IProgressBarWithUserPaymentProps } from '@src/components/ProgressBarWithUserPayment/types';
+import { selectUser } from '@src/store/auth/selectors';
 import styles from './ProgressBarWithUserPayment.module.scss';
 
 const ProgressBarWithUserPayment: React.FC<IProgressBarWithUserPaymentProps> = (props) => {
@@ -18,11 +18,11 @@ const ProgressBarWithUserPayment: React.FC<IProgressBarWithUserPaymentProps> = (
     big,
     total,
     currency,
-    participants,
+    participantPayments,
   } = props;
   const id = useId();
   const user = useAppSelector(selectUser) as IUser;
-  const [participantsPercentage, userPercentage, userPayment] = getDataForProgressBar(total, current, participants, user._id);
+  const [participantsPercentage, userPercentage, userPayment] = getDataForProgressBar(total, current, participantPayments, user._id);
   const formattedCurrent = useMemo(() => formatNumberWithK(total - current), [total, current]);
   const { t } = useTranslation();
   

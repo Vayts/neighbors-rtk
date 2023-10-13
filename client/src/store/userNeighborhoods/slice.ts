@@ -6,19 +6,19 @@ import {
   getUserNeighborhoods,
   joinNeighborhoodByCode, removeNeighborhoodFavorite,
   setNeighborhoodFavorite,
-} from '@src/store/neighborhoods/thunks';
-import { INeighborhoodsState } from '@src/store/neighborhoods/types';
+} from '@src/store/userNeighborhoods/thunks';
+import { INeighborhoodsState } from '@src/store/userNeighborhoods/types';
 
 const initialState: INeighborhoodsState = {
   isLoading: true,
   neighborhoodByCode: null,
 };
 
-export const neighborhoodsAdapter = createEntityAdapter<INeighborhood>({ selectId: (entity) => entity?._id });
+export const userNeighborhoodsAdapter = createEntityAdapter<INeighborhood>({ selectId: (entity) => entity?._id });
 
-export const neighborhoodsSlice = createSlice({
-  name: 'neighborhoods',
-  initialState: neighborhoodsAdapter.getInitialState(initialState),
+export const userNeighborhoodsSlice = createSlice({
+  name: 'userNeighborhoods',
+  initialState: userNeighborhoodsAdapter.getInitialState(initialState),
   reducers: {
     resetNeighborhoodByCode: (state) => {
       state.neighborhoodByCode = null;
@@ -27,30 +27,26 @@ export const neighborhoodsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUserNeighborhoods.fulfilled, (state, { payload }) => {
-        neighborhoodsAdapter.setAll(state, payload.neighborhoods ?? {});
+        userNeighborhoodsAdapter.setAll(state, payload?.neighborhoods ?? {});
         state.isLoading = false;
       })
-      // .addCase(getUserDebts.fulfilled, (state, { payload }) => {
-      //   neighborhoodsAdapter.setAll(state, payload.neighborhoods ?? {});
-      //   state.isLoading = false;
-      // })
       .addCase(getNeighborhoodByCode.fulfilled, (state, { payload }) => {
         state.neighborhoodByCode = payload;
       })
       .addCase(joinNeighborhoodByCode.fulfilled, (state, { payload }) => {
-        neighborhoodsAdapter.upsertMany(state, payload.neighborhoods);
+        userNeighborhoodsAdapter.upsertMany(state, payload.neighborhoods);
       })
       .addCase(createNeighborhood.fulfilled, (state, { payload }) => {
-        neighborhoodsAdapter.upsertMany(state, payload.neighborhoods);
+        userNeighborhoodsAdapter.upsertMany(state, payload.neighborhoods);
       })
       .addCase(setNeighborhoodFavorite.fulfilled, (state, { payload }) => {
-        neighborhoodsAdapter.updateOne(state, { id: payload,
+        userNeighborhoodsAdapter.updateOne(state, { id: payload,
           changes: {
             isFavorite: true,
           } });
       })
       .addCase(removeNeighborhoodFavorite.fulfilled, (state, { payload }) => {
-        neighborhoodsAdapter.updateOne(state, { id: payload,
+        userNeighborhoodsAdapter.updateOne(state, { id: payload,
           changes: {
             isFavorite: false,
           } });
@@ -58,4 +54,4 @@ export const neighborhoodsSlice = createSlice({
   },
 });
 
-export const { resetNeighborhoodByCode } = neighborhoodsSlice.actions;
+export const { resetNeighborhoodByCode } = userNeighborhoodsSlice.actions;
