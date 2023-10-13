@@ -42,13 +42,21 @@ export class DebtService {
     const debt = await this.getDebtById(id);
 
     if (debt[0].repaidAmount + value > debt[0].debtAmount) {
-      return this.debtModel.findByIdAndUpdate(id, {
-        repaidAmount: debt[0].debtAmount,
-      });
+      return this.debtModel.findByIdAndUpdate(
+        id,
+        {
+          repaidAmount: debt[0].debtAmount,
+        },
+        { new: true },
+      );
     } else {
-      return this.debtModel.findByIdAndUpdate(id, {
-        repaidAmount: debt[0].repaidAmount + value,
-      });
+      return this.debtModel.findByIdAndUpdate(
+        id,
+        {
+          repaidAmount: debt[0].repaidAmount + value,
+        },
+        { new: true },
+      );
     }
   }
 
@@ -199,8 +207,12 @@ export class DebtService {
   async closeDebt(id) {
     const debt = await this.getDebtById(id);
 
-    return this.debtModel.findByIdAndUpdate(debt[0]._id, {
-      repaidAmount: debt[0].debtAmount,
-    });
+    return this.debtModel.findByIdAndUpdate(
+      debt[0]._id,
+      {
+        repaidAmount: debt[0].debtAmount,
+      },
+      { new: true },
+    );
   }
 }

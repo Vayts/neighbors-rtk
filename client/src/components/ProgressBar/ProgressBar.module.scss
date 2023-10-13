@@ -1,0 +1,57 @@
+@import "@src/styles/variables";
+
+.ProgressBarWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.ProgressBarLine {
+  flex-grow: 1;
+  margin: 0 10px 0 0;
+  height: 15px;
+  border-radius: 2px;
+  background-color: $border-color;
+  position: relative;
+}
+
+
+.ProgressBarFiller {
+  transition: all 0.2s;
+  height: 100%;
+  border-radius: 2px;
+  background-color: $primary-color-hover;
+}
+
+
+.ProgressBarPercentage {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  font-size: 12px;
+  line-height: 12px;
+  color: $reverse-text-color;
+  transform: translateY(-50%);
+}
+
+.ProgressBarTextWrapper {
+  display: flex;
+  word-break: keep-all;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 15px;
+  width: 70px;
+}
+
+.ProgressBarText {
+  margin: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  &--right {
+    text-align: left;
+  }
+}
+
+.ProgressBarCurrency {
+  margin-left: 2px;
+}

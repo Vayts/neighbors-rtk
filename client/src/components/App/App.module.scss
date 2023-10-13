@@ -1,0 +1,8 @@
+@import "@src/styles/variables";
+
+.App {
+  position: relative;
+  background-color: $body-color;
+  min-height: 100vh;
+  overflow-x: hidden;
+}

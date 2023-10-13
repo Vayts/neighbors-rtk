@@ -1,0 +1,53 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.ModalWrapper {
+  background-color: $component-bg;
+  padding: 20px 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  max-width: 300px;
+
+
+  @include for-tablet {
+    max-width: 500px;
+  }
+}
+
+.ModalButtons {
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+
+  button {
+    height: 38px;
+
+    @include for-tablet {
+      min-width: 200px;
+    }
+  }
+
+  @include for-tablet {
+    gap: 40px;
+    flex-direction: row;
+  }
+}
+
+.ModalTitle {
+  @include title;
+  font-size: 22px;
+  color: $title-light-text-color;
+  text-align: center;
+  margin: 5px 0;
+}
+
+.ModalText {
+  color: $light-text-color;
+  text-align: center;
+  margin: 5px 0 15px;
+}

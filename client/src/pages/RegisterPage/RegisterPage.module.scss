@@ -1,0 +1,97 @@
+@import "@src/styles/mixins";
+
+.RegisterPageWrapper {
+  width: 100vw;
+}
+
+.RegisterContentWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.RegisterTitle {
+  @include title;
+  text-align: center;
+}
+
+.RegisterPageFormWrapper {
+  display: flex;
+  padding: 8px;
+  width: 100%;
+  flex-grow: 1;
+
+  @include for-tablet {
+    border-radius: $border-radius;
+    background-color: $content-color;
+    width: 720px;
+  }
+}
+
+.RegisterBanner {
+  display: none;
+  padding: 0 10px;
+
+  @include for-tablet {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  img {
+    align-self: flex-end;
+    width: 270px
+  }
+}
+
+.RegisterBannerList {
+  list-style: none;
+  margin: 0 0 0 15px;
+  padding: 0;
+}
+
+.RegisterBannerItem {
+  display: flex;
+  margin-bottom: 10px;
+
+  span {
+    color: $primary-color;
+    margin-right: 10px;
+  }
+}
+
+.RegisterBannerContent {
+  flex-grow: 1;
+}
+
+.RegisterBannerTitle {
+  color: $title-text-color;
+}
+
+.RegisterPageForm {
+  background-color: $component-bg;
+  padding: 24px;
+  width: 100%;
+}
+
+.RegisterBottomText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid $border-color-hover;
+  padding: 16px 0 0;
+  margin: 0;
+
+  a {
+    text-decoration: none;
+    color: $primary-color;
+    margin-left: 2px;
+    font-weight: 700;
+
+    &:hover {
+      color: $primary-color-hover
+    }
+  }
+}

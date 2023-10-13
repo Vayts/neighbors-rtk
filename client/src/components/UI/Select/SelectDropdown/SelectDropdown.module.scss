@@ -1,0 +1,30 @@
+@import "@src/styles/variables";
+
+.SelectDropdown {
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  background-color: $component-bg;
+  box-shadow: $light-box-shadow;
+  z-index: 10;
+  border-radius: $border-radius;
+  padding: 0;
+  list-style: none;
+  margin: 15px 0 0;
+}
+
+.SelectItem {
+  padding: 12px 10px;
+  transition: all 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $light-field-hover;
+  }
+
+  &--selected {
+    background-color: $content-color-hover;
+    color: $title-light-text-color;
+    font-weight: 600;
+  }
+}

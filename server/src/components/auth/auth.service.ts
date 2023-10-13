@@ -55,7 +55,10 @@ export class AuthService {
   async register(res, candidate) {
     const isExist = await this.userService.getUserByLogin(candidate.login);
     if (isExist)
-      throw new HttpException('USER_ALREADY_EXIST', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        ERRORS.USER_ALREADY_EXIST,
+        HttpStatus.BAD_REQUEST,
+      );
     const hashPassword = await bcrypt.hash(candidate.password, 10);
     const user: UserDocument[] = await this.userService.createUser({
       ...candidate,
@@ -97,7 +100,7 @@ export class AuthService {
 
       return { ...simpleUserBody, token: newTokens.access };
     } catch (e) {
-      if (e === ERRORS.UNDEFINED_TOKEN) {
+      if (e.message === 'jwt expired') {
         throw new HttpException(ERRORS.TOKEN_EXPIRED, HttpStatus.UNAUTHORIZED);
       }
       throw new HttpException(ERRORS.NOT_AUTHORIZED, HttpStatus.UNAUTHORIZED);

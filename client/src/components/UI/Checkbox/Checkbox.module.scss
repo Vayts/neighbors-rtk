@@ -1,0 +1,86 @@
+@import "@src/styles/variables";
+
+.CheckboxWrapper {
+  user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+}
+
+.CheckboxLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &--disabled-checked {
+    cursor: default;
+
+    .CheckboxCustom {
+      background-color: $primary-color-disabled;
+      border-color: $primary-color-disabled;
+
+      span {
+        opacity: 1;
+        color: $reverse-text-color;
+      }
+    }
+  }
+
+  &--disabled {
+    cursor: default;
+  }
+
+  &:hover {
+    .CheckboxCustom {
+      &:not(.CheckboxCustom--checked) {
+        background-color: $primary-color-light;
+
+        span {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.CheckboxText {
+  margin: 0;
+}
+
+.CheckboxInput {
+  display: none;
+}
+
+.CheckboxCustom {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+  user-select: none;
+
+
+  span {
+    transition: all 0.2s;
+    opacity: 0;
+    font-size: 12px;
+    color: $reverse-text-color;
+  }
+
+  &--checked {
+    background-color: $primary-color;
+    border-color: $primary-color;
+
+    span {
+      opacity: 1;
+      color: $reverse-text-color;
+    }
+  }
+
+}

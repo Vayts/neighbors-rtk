@@ -50,7 +50,10 @@ export class NeighborhoodService {
         },
       ]);
 
-      return this.getNeighborhoodById(neighborhood[0]._id);
+      return this.getFullNeighborhoodByIdAndMemberId(
+        neighborhood[0]._id,
+        req.user._id,
+      );
     } catch {
       throw new HttpException(
         { message: 'SOMETHING_WENT_WRONG' },
@@ -100,7 +103,10 @@ export class NeighborhoodService {
       },
     ]);
 
-    return this.getNeighborhoodById(neighborhood.neighborhood_id);
+    return this.getFullNeighborhoodByIdAndMemberId(
+      neighborhood.neighborhood_id,
+      req.user._id,
+    );
   }
 
   getNeighborhoodByMemberIdAndId(userId, neighborhoodId) {
@@ -213,6 +219,92 @@ export class NeighborhoodService {
       },
       {
         $sort: { isFavorite: -1 },
+      },
+    ]);
+  }
+
+  getFullNeighborhoodByIdAndMemberId(id, memberId) {
+    return this.neighborhoodUserModel.aggregate([
+      {
+        $match: {
+          neighborhood_id: new mongoose.Types.ObjectId(id),
+          user_id: new mongoose.Types.ObjectId(memberId),
+        },
+      },
+      {
+        $lookup: {
+          from: 'neighborhoods',
+          localField: 'neighborhood_id',
+          foreignField: '_id',
+          as: 'neighborhood',
+        },
+      },
+      {
+        $unwind: '$neighborhood',
+      },
+      {
+        $addFields: {
+          'neighborhood.role': '$role',
+        },
+      },
+      {
+        $lookup: {
+          from: 'neighborhood_users',
+          localField: 'neighborhood_id',
+          foreignField: 'neighborhood_id',
+          as: 'members',
+        },
+      },
+      {
+        $unwind: '$members',
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'members.user_id',
+          foreignField: '_id',
+          as: 'members.userDetails',
+        },
+      },
+      {
+        $unwind: '$members.userDetails',
+      },
+      {
+        $group: {
+          _id: '$_id',
+          neighborhood: { $first: '$neighborhood' },
+          members: {
+            $push: {
+              role: '$members.role',
+              _id: '$members.userDetails._id',
+              fullName: '$members.userDetails.fullName',
+              firstName: '$members.userDetails.firstName',
+              lastName: '$members.userDetails.lastName',
+              avatar: '$members.userDetails.avatar',
+              login: '$members.userDetails.login',
+            },
+          },
+        },
+      },
+      {
+        $group: {
+          _id: '$_id',
+          neighborhood: { $first: '$neighborhood' },
+          members: { $first: '$members' },
+        },
+      },
+      {
+        $addFields: {
+          'neighborhood.members': '$members',
+        },
+      },
+      {
+        $project: {
+          'neighborhood.members.userDetails.password': 0,
+        },
+      },
+      {
+        $replaceRoot: { newRoot: '$neighborhood' },
       },
     ]);
   }

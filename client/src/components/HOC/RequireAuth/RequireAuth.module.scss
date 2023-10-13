@@ -1,0 +1,12 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.ContentLayout {
+  min-height: 100vh;
+  padding-top: $header-height;
+  background-color: $content-color;
+
+  @include for-tablet {
+    padding-left: $sidebar-width;
+  }
+}

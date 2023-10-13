@@ -1,0 +1,43 @@
+@import "@src/styles/mixins";
+
+.EditDebtPageWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.EditDebtFormWrapper {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.EditDebtBack {
+  position: absolute;
+  grid-area: link;
+}
+
+.EditDebtTitleWrapper {
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-areas: "link title .";
+  grid-template-columns: minmax(100px,1fr) auto minmax(100px,1fr);
+  margin-bottom: 30px;
+}
+
+.EditDebtTitle {
+  @include title;
+  align-self: center;
+  font-size: 22px;
+  grid-area: title;
+  margin: 0;
+  flex-grow: 1;
+  color: $title-light-text-color;
+}
+
+.EditDebtForm {
+  padding: 30px 20px;
+  background-color: $component-bg;
+  border-radius: $border-radius;
+}
+

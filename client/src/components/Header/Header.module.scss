@@ -1,0 +1,42 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.HeaderWrapper {
+  height: $header-height;
+  background-color: $component-bg;
+  border-bottom: 1px solid $border-color;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  padding: 5px 17px;
+  z-index: 10;
+}
+
+.HeaderLogo {
+  display: none;
+  width: 44px;
+  height: 44px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  @include for-tablet {
+    display: block;
+  }
+}
+
+.HeaderContentWrapper {
+  display: none;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+
+  @include for-tablet {
+    display: flex;
+  }
+}
+
