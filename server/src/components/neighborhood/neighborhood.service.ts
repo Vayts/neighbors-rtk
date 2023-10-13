@@ -50,7 +50,10 @@ export class NeighborhoodService {
         },
       ]);
 
-      return this.getNeighborhoodById(neighborhood[0]._id);
+      return this.getFullNeighborhoodByIdAndMemberId(
+        neighborhood[0]._id,
+        req.user._id,
+      );
     } catch {
       throw new HttpException(
         { message: 'SOMETHING_WENT_WRONG' },

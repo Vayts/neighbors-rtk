@@ -4,13 +4,13 @@ import { format } from 'date-fns';
 import { IDateRange } from '@src/components/DateRange/types';
 import styles from './DateRange.module.scss';
 
-const DateRange: React.FC<IDateRange> = ({ end, start }) => {
+const DateRange: React.FC<IDateRange> = ({ end, start, withOverdue }) => {
   const isOverdue = end ? new Date() > new Date(end) : false;
   
   return (
     <div className={cn(
       styles.DateRange,
-      isOverdue && styles.DateRangeOverdue,
+      withOverdue && isOverdue && styles.DateRangeOverdue,
     )}
     >
       <span>{format(new Date(start), 'dd.MM.yyyy')}</span>

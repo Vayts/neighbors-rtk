@@ -12,6 +12,10 @@ import { withSuspense } from '@hoc/WithSuspense/WithSuspense';
 import styles from './App.module.scss';
 
 const NeighborhoodsPage = withSuspense(React.lazy(() => import('@src/pages/NeighborhoodsPage/NeighborhoodsPage')));
+const CreateNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/CreateNeighborhoodPage/CreateNeighborhoodPage')));
+const DebtsPage = withSuspense(React.lazy(() => import('@src/pages/DebtsPage/DebtsPage')));
+const CreateDebtPage = withSuspense(React.lazy(() => import('@src/pages/CreateDebtPage/CreateDebtPage')));
+const EditDebtPage = withSuspense(React.lazy(() => import('@src/pages/EditDebtPage/EditDebtPage')));
 
 export const App: React.FC = () => {
   const isLoading = useAppSelector(selectAppLoading);
@@ -23,21 +27,21 @@ export const App: React.FC = () => {
   
   return (
     <div className={styles.App}>
+      
       {isLoading ? <Loader/> : (
         <Routes>
           <Route path='/' element={<RequireAuth/>}>
             <Route path='/' element={<NeighborhoodsPage/>}/>
-            
-            {/*<Route path='/neighborhoods' element={<NeighborhoodsPage/>}/>*/}
-            {/*<Route path='/neighborhoods/create' element={<CreateNeighborhoodPage/>}/>*/}
+            <Route path='/neighborhoods' element={<NeighborhoodsPage/>}/>
+            <Route path='/neighborhoods/create' element={<CreateNeighborhoodPage/>}/>
             
             {/*<Route path='/neighborhood' element={<NeighborhoodLayout/>} >*/}
             {/*  <Route path='' element={<CurrentNeighborhoodPage/>} />*/}
             {/*</Route>*/}
             
-            {/*<Route path='/debts' element={<DebtsPage/>} />*/}
-            {/*<Route path='/debts/create' element={<CreateDebtPage/>} />*/}
-            {/*<Route path='/debts/edit/:debtId' element={<EditDebtPage/>} />*/}
+            <Route path='/debts' element={<DebtsPage/>} />
+            <Route path='/debts/create' element={<CreateDebtPage/>} />
+            <Route path='/debts/edit/:debtId' element={<EditDebtPage/>} />
             
             {/*<Route path='/plans' element={<PlansPage/>} />*/}
             {/*<Route path='/plans/create' element={<CreatePlanPage/>} />*/}

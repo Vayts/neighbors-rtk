@@ -1,0 +1,49 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.ModalText {
+  color: $light-text-color;
+  text-align: center;
+  margin: 5px 0 15px;
+}
+
+.ModalCloseContent {
+  padding: 15px;
+  border: 2px dotted $border-color;
+}
+
+.ModalConfirmCloseTitle {
+  @include title;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  margin: 5px 0;
+}
+
+.ModalConfirmCloseText {
+  color: $light-text-color;
+  margin: 10px 0 15px;
+  text-align: center;
+}
+
+.ModalButtons {
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 15px;
+
+  button {
+    height: 38px;
+
+    @include for-tablet {
+      min-width: 200px;
+    }
+  }
+
+  @include for-tablet {
+    gap: 40px;
+    flex-direction: row;
+  }
+}

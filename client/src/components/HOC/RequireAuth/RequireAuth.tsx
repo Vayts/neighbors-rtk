@@ -8,6 +8,7 @@ import { getUserNeighborhoods } from '@src/store/neighborhoods/thunks';
 import styles from './RequireAuth.module.scss';
 
 const RequireAuth: React.FC = () => {
+  console.log(1);
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

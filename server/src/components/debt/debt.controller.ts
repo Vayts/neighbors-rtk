@@ -24,7 +24,6 @@ export class DebtController {
   constructor(private debtService: DebtService) {}
 
   @Post(ROUTES.DEBT.CREATE)
-  @FormDataRequest()
   @UseGuards(JwtAuthGuard, debtorExistAndInNeighborhoodGuard)
   createDebt(@Req() request: Request, @Body() dto: CreateDebtDto) {
     return this.debtService.createDebt(request, dto);

@@ -15,7 +15,7 @@ type Props = {
 
 const NeighborhoodsInviteModal: React.FC<Props> = ({ setInviteOpen }) => {
   const [inviteCode, setInviteCode] = useState('');
-  const isLoading = useAppSelector((state) => state.neighborhoods.isLoading);
+  const [isLoading, setLoading] = useState(false);
   const neighborhood = useAppSelector((state) => state.neighborhoods.neighborhoodByCode);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -41,7 +41,15 @@ const NeighborhoodsInviteModal: React.FC<Props> = ({ setInviteOpen }) => {
   };
 
   const handleJoin = () => {
-    dispatch(joinNeighborhoodByCode({ id: neighborhood?._id as string, code: inviteCode }));
+    setLoading(true);
+    dispatch(joinNeighborhoodByCode({ id: neighborhood?._id as string, code: inviteCode }))
+      .unwrap()
+      .then(() => {
+        setInviteOpen(false);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { store } from '@src/store';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
@@ -29,9 +29,7 @@ root.render(
         pauseOnHover={false}
         theme="light"
       />
-      <Routes>
-        <Route path='*' element={<App/>}/>
-      </Routes>
+      <App/>
     </Provider>
   </BrowserRouter>
   ,

@@ -1,0 +1,109 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.ModalWrapper {
+  background-color: $component-bg;
+  padding: 20px 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  width: 300px;
+
+
+  @include for-tablet {
+    width: 600px;
+  }
+}
+
+.ModalContent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+
+  @include for-tablet {
+    flex-wrap: nowrap;
+  }
+}
+
+
+.ModalTitle {
+  @include title;
+  font-size: 22px;
+  color: $title-light-text-color;
+  text-align: center;
+  margin: 5px 0;
+}
+
+.ModalDates {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 14px;
+}
+
+.ModalUser {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  @include for-tablet {
+    flex-basis: 35%;
+  }
+}
+
+.ModalUserAvatar {
+  width: 90px;
+  height: 90px;
+  max-width: 90px;
+  max-height: 90px;
+  min-width: 90px;
+  min-height: 90px;
+  cursor: pointer;
+  border: 2px solid $component-bg;
+  background-color: $component-bg;
+
+  &--user {
+    border-color: $primary-color;
+    background-color: $primary-color;
+  }
+}
+
+.ModalUserRole {
+  font-weight: 600;
+}
+
+.ModalProgress {
+  flex-basis: 60%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  order: -1;
+  flex-grow: 1;
+
+  svg {
+    width: 50%;
+
+    @include for-tablet {
+      width: unset;
+    }
+  }
+
+  @include for-tablet {
+    flex-basis: 30%;
+    order: unset;
+    flex-grow: unset;
+  }
+}
+
+.ModalProgressText {
+  font-weight: 600;
+  text-align: center;
+}
+
+

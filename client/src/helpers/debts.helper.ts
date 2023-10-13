@@ -10,29 +10,24 @@ import {
   IEditDebtDto,
 } from '@src/types/debt.types';
 import { IUser } from '@src/types/user.types';
+import { Dictionary } from '@reduxjs/toolkit';
 
 export function getSelectArrFromNeighborhoodMembers(
-  neighborhoods: INeighborhood[],
-  neighborhoodId: string,
+  neighborhood: INeighborhood,
+  members: Dictionary<IUser>,
   userId: string,
 ): ISelectValue[] {
-  if (!neighborhoodId) {
-    return [];
-  }
-  
-  const currentNeighborhood = neighborhoods.find((item) => item._id === neighborhoodId);
-  
-  if (!currentNeighborhood) {
+  if (!neighborhood) {
     return [];
   }
   
   const result: ISelectValue[] = [];
   
-  currentNeighborhood.members.forEach((item) => {
-    if (item._id !== userId) {
+  neighborhood.members.forEach((item) => {
+    if (item !== userId) {
       result.push({
-        value: item._id,
-        text: item.fullName,
+        value: members[item]._id,
+        text: members[item].fullName,
       });
     }
   });
@@ -69,20 +64,15 @@ export function getCreateDebtFormData(values: ICreateDebtDto): FormData {
 
 export function getDebtTop(debts: IDebt[], userId: string, key: 'author' | 'debtor'): IDebtTopItem[] {
   return debts.filter((item) => item.debtAmount - item.repaidAmount > 0).reduce((acc: IDebtTopItem[], item) => {
-    if (item[key]._id !== userId) {
-      const alreadyAdded = acc.findIndex((debt) => debt.neighborhood_id === item.neighborhood._id && debt.user_id === item[key]._id);
-      
+    if (item[key] !== userId) {
+      const alreadyAdded = acc.findIndex((debt) => debt.neighborhood === item.neighborhood && debt.user === item[key]);
       if (alreadyAdded >= 0) {
         acc[alreadyAdded].amount += item.debtAmount - item.repaidAmount;
       } else {
         acc.push({
           amount: item.debtAmount - item.repaidAmount,
-          user_id: item[key]._id,
-          avatar: item[key].avatar,
-          neighborhoodTitle: item.neighborhood.name,
-          currency: item.neighborhood.currency,
-          userFullName: item[key].fullName,
-          neighborhood_id: item.neighborhood._id,
+          user: item[key],
+          neighborhood: item.neighborhood,
         });
       }
     }
@@ -104,9 +94,9 @@ export function getVisibleDebts(debts: IDebt[], filter: DebtsFilterEnum, user: I
       }
       return false;
     case DebtsFilterEnum.myDebts:
-      return debt.debtor._id === user._id && debt.debtAmount > debt.repaidAmount;
+      return debt.debtor === user._id && debt.debtAmount > debt.repaidAmount;
     case DebtsFilterEnum.myDebtors:
-      return debt.author._id === user._id && debt.debtAmount > debt.repaidAmount;
+      return debt.author === user._id && debt.debtAmount > debt.repaidAmount;
     case DebtsFilterEnum.all:
     default:
       return true;

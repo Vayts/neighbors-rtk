@@ -1,5 +1,5 @@
 import { CurrencyType, ErrorType } from '@src/types/default.types';
-import { IMember } from '@src/types/user.types';
+import { EntityId } from '@reduxjs/toolkit';
 
 export interface ICreateNeighborhood {
   name: string,
@@ -16,7 +16,7 @@ export interface INeighborhood {
   description: string,
   avatar: string | null,
   currency: CurrencyType,
-  members: IMember[],
+  members: EntityId[],
 }
 
 export enum NeighborhoodRoleEnum {

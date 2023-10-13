@@ -1,6 +1,7 @@
-import { createEntityAdapter, createSlice, EntityId } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { INeighborhood } from '@src/types/neighborhood.types';
 import {
+  createNeighborhood,
   getNeighborhoodByCode,
   getUserNeighborhoods,
   joinNeighborhoodByCode, removeNeighborhoodFavorite,
@@ -26,13 +27,20 @@ export const neighborhoodsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUserNeighborhoods.fulfilled, (state, { payload }) => {
-        neighborhoodsAdapter.setAll(state, payload.neighborhoods as Record<EntityId, INeighborhood>);
+        neighborhoodsAdapter.setAll(state, payload.neighborhoods ?? {});
         state.isLoading = false;
       })
+      // .addCase(getUserDebts.fulfilled, (state, { payload }) => {
+      //   neighborhoodsAdapter.setAll(state, payload.neighborhoods ?? {});
+      //   state.isLoading = false;
+      // })
       .addCase(getNeighborhoodByCode.fulfilled, (state, { payload }) => {
         state.neighborhoodByCode = payload;
       })
       .addCase(joinNeighborhoodByCode.fulfilled, (state, { payload }) => {
+        neighborhoodsAdapter.upsertMany(state, payload.neighborhoods);
+      })
+      .addCase(createNeighborhood.fulfilled, (state, { payload }) => {
         neighborhoodsAdapter.upsertMany(state, payload.neighborhoods);
       })
       .addCase(setNeighborhoodFavorite.fulfilled, (state, { payload }) => {

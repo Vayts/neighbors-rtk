@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { IDebt } from '@src/types/debt.types';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@src/hooks/hooks';
-import { selectUser } from '@src/store/user/selectors';
 import cn from 'classnames';
 import Modal from '@src/components/Modal/Modal';
 import DeleteModal from '@src/components/DeleteModal/DeleteModal';
-import { deleteDebtRequest } from '@src/store/debts/actions';
 import { useNavigate } from 'react-router-dom';
+import { selectUser } from '@src/store/auth/selectors';
+import { deleteDebt } from '@src/store/debts/thunks';
 import styles from './DebtMenu.module.scss';
 
 type Props = {
@@ -18,7 +18,8 @@ const DebtMenu: React.FC<Props> = ({ debt }) => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const navigate = useNavigate();
   const user = useAppSelector(selectUser);
-  const isAuthor = user?._id === debt.author._id;
+  const author = useAppSelector((state) => state.debtors.entities[debt.author]);
+  const isAuthor = user?._id === author._id;
   const isClosed = debt.debtAmount <= debt.repaidAmount;
   const { t } = useTranslation();
   
@@ -42,7 +43,7 @@ const DebtMenu: React.FC<Props> = ({ debt }) => {
         <Modal withCloseIcon outsideHandler={handleToggleModal}>
           <DeleteModal
             itemId={debt._id}
-            action={deleteDebtRequest}
+            action={deleteDebt}
             text={t('deleteDebtText')}
             onClose={handleToggleModal}
           />

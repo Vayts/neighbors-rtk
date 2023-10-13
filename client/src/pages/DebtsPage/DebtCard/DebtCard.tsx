@@ -1,15 +1,15 @@
 import React, { memo } from 'react';
 import { IDebt } from '@src/types/debt.types';
-import { STATIC_HREF } from '@constants/app.constants';
 import ProgressBar from '@src/components/ProgressBar/ProgressBar';
 import cn from 'classnames';
 import { Tooltip } from 'react-tooltip';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@src/hooks/hooks';
-import { selectUser } from '@src/store/user/selectors';
 import { Menu } from '@src/components/UI/Menu/Menu';
-import DebtMenu from '@src/components/DebtCard/DebtMenu/DebtMenu';
 import DateRange from '@src/components/DateRange/DateRange';
+import { selectUser } from '@src/store/auth/selectors';
+import { STATIC_HREF } from '@constants/core';
+import DebtMenu from '@src/pages/DebtsPage/DebtCard/DebtMenu/DebtMenu';
 import styles from './DebtCard.module.scss';
 
 type Props = {
@@ -18,8 +18,13 @@ type Props = {
 }
 
 const DebtCard: React.FC<Props> = ({ debt, onClick }) => {
-  const { author, debtAmount, repaidAmount, _id, debtor, text, neighborhood } = debt;
+  const { debtAmount, repaidAmount, _id, text } = debt;
   const user = useAppSelector(selectUser);
+  const neighborhood = useAppSelector((state) => state.neighborhoods.entities[debt.neighborhood]);
+  const author = useAppSelector((state) => state.debtors.entities[debt.author]);
+  const debtor = useAppSelector((state) => state.debtors.entities[debt.debtor]);
+  const isRepaid = repaidAmount >= debtAmount;
+  
   const { t } = useTranslation();
   
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -33,7 +38,7 @@ const DebtCard: React.FC<Props> = ({ debt, onClick }) => {
   return (
     <li className={styles.DebtWrapper}>
       {
-        author._id === user?._id && (
+        author._id === user._id && (
           <div className={styles.DebtMenuWrapper}>
             <Menu>
               <DebtMenu debt={debt}/>
@@ -52,7 +57,7 @@ const DebtCard: React.FC<Props> = ({ debt, onClick }) => {
                 styles.DebtAuthorAvatar,
                 user?._id === author._id && styles.DebtAuthorAvatarUser,
               )}
-              src={`${STATIC_HREF}/${debt.author.avatar}`}
+              src={`${STATIC_HREF}/${author.avatar}`}
               alt={`${author.fullName} avatar`}
             />
             <img
@@ -61,7 +66,7 @@ const DebtCard: React.FC<Props> = ({ debt, onClick }) => {
                 styles.DebtDebtorAvatar,
                 user?._id === debtor._id && styles.DebtAuthorAvatarUser,
               )}
-              src={`${STATIC_HREF}/${debt.debtor.avatar}`}
+              src={`${STATIC_HREF}/${debtor.avatar}`}
               alt={`${debtor.fullName} avatar`}
             />
           </div>
@@ -80,17 +85,27 @@ const DebtCard: React.FC<Props> = ({ debt, onClick }) => {
           </div>
           
           <div className={styles.DebtDates}>
-            <DateRange end={debt.dueDate} start={debt.createdAt}/>
+            <DateRange
+              end={debt.dueDate}
+              start={debt.createdAt}
+              withOverdue={!isRepaid}
+            />
           </div>
         
         </div>
         
         <Tooltip
+          style={{
+            zIndex: 100,
+          }}
           id={`${_id}-debtor`}
           place="bottom"
           content={`${t('debtor')}: ${debtor.fullName}`}
         />
         <Tooltip
+          style={{
+            zIndex: 100,
+          }}
           id={`${_id}-author`}
           place="bottom"
           content={`${t('author')}: ${author.fullName}`}

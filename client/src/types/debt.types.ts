@@ -1,6 +1,5 @@
-import { CurrencyType, ErrorType } from '@src/types/default.types';
-import { IUser } from '@src/types/user.types';
-import { INeighborhood } from '@src/types/neighborhood.types';
+import { ErrorType } from '@src/types/default.types';
+import { EntityId } from '@reduxjs/toolkit';
 
 export interface ICreateDebt {
   text: string,
@@ -35,10 +34,10 @@ export interface ICreateDebtDto {
 
 export interface IDebt {
   _id: string,
-  neighborhood: INeighborhood,
+  neighborhood: EntityId,
   text: string,
-  author: IUser,
-  debtor: IUser,
+  author: EntityId,
+  debtor: EntityId,
   createdAt: Date;
   repaidAmount: number,
   debtAmount: number,
@@ -46,13 +45,9 @@ export interface IDebt {
 }
 
 export interface IDebtTopItem {
-  neighborhoodTitle: string,
-  neighborhood_id: string,
-  avatar: string,
+  user: EntityId,
+  neighborhood: EntityId,
   amount: number,
-  currency: CurrencyType,
-  userFullName: string,
-  user_id: string,
 }
 
 export enum DebtsFilterEnum {
