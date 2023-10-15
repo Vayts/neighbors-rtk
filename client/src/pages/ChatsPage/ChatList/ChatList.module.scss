@@ -1,0 +1,82 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.ChatListWrapper {
+  height: calc(100vh - var(--header-height));
+  width: 340px;
+  min-width: 340px;
+  border-right: 1px solid $border-color;
+  background-color: $component-bg;
+}
+
+.ChatListTitle {
+  @include title;
+  margin: 0;
+  padding: 16px;
+  border-bottom: 1px solid $border-color;
+  font-size: 20px;
+}
+
+.ChatListContent {
+  padding: 5px 15px 0;
+}
+
+
+.ChatList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ChatItem {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 15px;
+  margin: 0 -15px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:first-child {
+    border-top: 1px solid $content-color-hover;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $content-color-hover;
+  }
+
+  p {
+    font-weight: 500;
+    margin: 0;
+  }
+
+  &:hover {
+    background-color: $light-field-hover;
+  }
+
+  &--selected {
+    background-color: $light-bg-color;
+
+    &:hover {
+      background-color: $disabled-text-field;
+    }
+
+    p {
+      color: $title-text-color;
+    }
+
+    .NeighborhoodAvatarFiller {
+      transition: all 0.2s;
+      span {
+        color: $title-text-color;
+      }
+    }
+  }
+}
+
+.NeighborhoodAvatarFiller {
+  span {
+    font-size: 16px;
+    color: $light-text-color;
+  }
+}

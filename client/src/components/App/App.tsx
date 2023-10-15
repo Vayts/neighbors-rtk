@@ -9,10 +9,9 @@ import { appFirstLoad } from '@src/store/core/thunks';
 import { selectAppLoading } from '@src/store/core/selectors';
 import Loader from '@src/components/Loader/Loader';
 import { withSuspense } from '@hoc/WithSuspense/WithSuspense';
-import CreatePlanPage from '@src/pages/CreatePlanPage/CreatePlanPage';
 import styles from './App.module.scss';
 
-// const CreatePlanPage = withSuspense(React.lazy(() => import('@src/pages/CreatePlanPage/CreatePlanPage')));
+const CreatePlanPage = withSuspense(React.lazy(() => import('@src/pages/CreatePlanPage/CreatePlanPage')));
 const PlansPage = withSuspense(React.lazy(() => import('@src/pages/PlansPage/PlansPage')));
 const EditDebtPage = withSuspense(React.lazy(() => import('@src/pages/EditDebtPage/EditDebtPage')));
 const CreateDebtPage = withSuspense(React.lazy(() => import('@src/pages/CreateDebtPage/CreateDebtPage')));
@@ -20,7 +19,7 @@ const DebtsPage = withSuspense(React.lazy(() => import('@src/pages/DebtsPage/Deb
 // const CurrentNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/CurrentNeighborhoodPage/CurrentNeighborhoodPage')));
 const CreateNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/CreateNeighborhoodPage/CreateNeighborhoodPage')));
 const NeighborhoodsPage = withSuspense(React.lazy(() => import('@src/pages/NeighborhoodsPage/NeighborhoodsPage')));
-// const ChatsPage = withSuspense(React.lazy(() => import('@src/pages/ChatsPage/ChatsPage')));
+const ChatsPage = withSuspense(React.lazy(() => import('@src/pages/ChatsPage/ChatsPage')));
 const EditPlanPage = withSuspense(React.lazy(() => import('@src/pages/EditPlanPage/EditPlanPage')));
 
 export const App: React.FC = () => {
@@ -53,7 +52,7 @@ export const App: React.FC = () => {
             <Route path='/plans/create' element={<CreatePlanPage/>} />
             <Route path='/plans/edit/:planId' element={<EditPlanPage/>} />
             
-            {/*<Route path='/chats' element={<ChatsPage/>}/>*/}
+            <Route path='/chats' element={<ChatsPage/>}/>
           </Route>
           <Route path='/' element={<AuthLayout/>}>
             <Route path='/register' element={<RegisterPage/>}/>
