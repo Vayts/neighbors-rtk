@@ -1,0 +1,49 @@
+@import "@src/styles/mixins";
+@import "@src/styles/variables";
+
+.ChatWindowTitle {
+  @include title;
+  margin: 0;
+  padding: 16px;
+  border-bottom: 1px solid $border-color;
+  font-size: 20px;
+}
+
+.ChatWindowWrapper {
+  width: 100%;
+  height: calc(100vh - var(--header-height));
+  max-height: calc(100vh - var(--header-height));
+  background-color: $component-bg;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ChatWindowContent {
+  -webkit-flex-grow: 1;
+  -moz-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.ChatListWrapper {
+  //flex-grow: 1;
+
+  //overflow-y: auto;
+}
+
+//.ChatContent {
+//  padding: 0 20px 20px;
+//}

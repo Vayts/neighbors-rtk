@@ -1,0 +1,88 @@
+@import "@src/styles/variables";
+
+.ChatFormWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: $chat-bg;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  margin: 0 5px 20px;
+
+  &--focused {
+    border-color: $border-color-active;
+  }
+}
+
+.ChatInputWrapper {
+  padding: 16px 24px 16px;
+  width: 100%;
+
+  border-bottom: 1px solid $border-color;
+}
+
+.ChatInput {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-size: 16px;
+  resize: none;
+  max-height: 250px;
+  height: 22px;
+  font-family: $font-family;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+  }
+
+
+  &::placeholder {
+    color: $light-text-color;
+    font-size: 16px;
+    font-family: $font-family;
+  }
+}
+
+.ChatBottomContent {
+  padding: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ChatButton {
+  background-color: transparent;
+  outline: none;
+  font-size: 24px;
+  color: $border-color-active;
+  padding: 0 8px 0 20px;
+  border: none;
+  border-left: 1px solid $border-color;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:focus {
+    color: $text-color;
+  }
+
+  &:hover {
+    color: $text-color;
+  }
+}

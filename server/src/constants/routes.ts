@@ -39,5 +39,6 @@ export const ROUTES = {
   CHAT: {
     DEFAULT: '/api/chat',
     UPDATE_VIEWED_MESSAGES: '/update-viewed-message',
+    LOAD_MORE_MESSAGES: '/load-more-messages',
   },
 };

@@ -38,4 +38,5 @@ export const PLAN_ROUTES = {
 
 export const CHAT_ROUTES = {
   updateSeenBy: '/chat/update-viewed-message',
+  loadMoreMessages: '/chat/load-more-messages',
 };

@@ -1,8 +1,8 @@
-import { IMember } from '@src/types/user.types';
+import { EntityId } from '@reduxjs/toolkit';
 
 export interface IMessage {
   _id: string,
-  author: IMember,
+  author: EntityId,
   text: string,
   sentAt: Date,
   chat_id: string,
@@ -14,8 +14,8 @@ export interface IChatRoom {
   avatar: string,
   name: string,
   chat_id: string,
-  messages: IMessage[],
+  messages: EntityId[],
   hasMoreMessages: boolean,
-  page: 1,
+  page: number,
   notificationCounter: number,
 }

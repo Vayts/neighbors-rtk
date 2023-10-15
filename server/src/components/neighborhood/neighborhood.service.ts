@@ -218,7 +218,7 @@ export class NeighborhoodService {
         $replaceRoot: { newRoot: '$neighborhood' },
       },
       {
-        $sort: { isFavorite: -1 },
+        $sort: { name: -1 },
       },
     ]);
   }

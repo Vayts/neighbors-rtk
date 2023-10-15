@@ -24,17 +24,42 @@ export class ChatService {
   ) {}
 
   async postMessage(userId, message, neighborhoodId): Promise<any> {
+    const filter = {
+      seenBy: {
+        $not: {
+          $in: [new mongoose.Types.ObjectId(userId)],
+        },
+      },
+    };
+
+    const updatedIds = await this.messageModel.distinct('_id', filter);
+
+    if (updatedIds.length) {
+      const update = {
+        $addToSet: {
+          seenBy: new mongoose.Types.ObjectId(userId),
+        },
+      };
+
+      await this.messageModel.updateMany(filter, update);
+    }
+
     const result = await this.messageModel.insertMany([
       {
         author_id: new mongoose.Types.ObjectId(userId),
         chat_id: new mongoose.Types.ObjectId(neighborhoodId),
         text: message,
         sentAt: new Date(),
-        seenBy: [userId],
+        seenBy: [new mongoose.Types.ObjectId(userId)],
       },
     ]);
 
-    return this.getMessageById(result[0]._id);
+    const addedMessage = await this.getMessageById(result[0]._id);
+
+    return {
+      message: addedMessage[0],
+      idsToUpdate: updatedIds,
+    };
   }
 
   getMessageById(id: string) {
@@ -54,28 +79,10 @@ export class ChatService {
     ]);
   }
 
-  getAllMessagesByNeighborhood(neighborhoodId) {
-    return this.messageModel.aggregate([
-      { $match: { chat_id: new mongoose.Types.ObjectId(neighborhoodId) } },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'author_id',
-          foreignField: '_id',
-          as: 'author',
-        },
-      },
-      {
-        $unwind: '$author',
-      },
-      { $sort: { sentAt: 1 } },
-    ]);
-  }
-
   updateMessageSeenBy(messageIds, req) {
     return this.messageModel.updateMany(
       { _id: { $in: messageIds } },
-      { $push: { seenBy: req.user._id } },
+      { $addToSet: { seenBy: new mongoose.Types.ObjectId(req.user._id) } },
     );
   }
 
@@ -169,8 +176,9 @@ export class ChatService {
           chat_id: 1,
           hasMoreMessages: 1,
           page: 1,
+          _id: '$chat_id',
           notificationCounter: 1,
-          messages: { $slice: ['$messages', 0, MESSAGES_PER_PAGE] },
+          messages: { $slice: ['$messages', -MESSAGES_PER_PAGE] },
         },
       },
       {
@@ -183,6 +191,68 @@ export class ChatService {
           'messages.author_id': 0,
         },
       },
+      {
+        $sort: { name: -1 },
+      },
     ]);
+  }
+
+  async loadMoreMessages(neighborhoodId, skip, date) {
+    // const nextPage = Number(page) + 1;
+    // const currentMessageCounter = nextPage * MESSAGES_PER_PAGE;
+    // const skipAmount = page * MESSAGES_PER_PAGE;
+    const result = await this.messageModel.aggregate([
+      { $match: { chat_id: new mongoose.Types.ObjectId(neighborhoodId) } },
+      {
+        $match: { sentAt: { $lte: new Date(date) } }, // Выбираем сообщения, отправленные до или в момент targetDate
+      },
+      {
+        $sort: { sentAt: -1 },
+      },
+      {
+        $facet: {
+          totalMessages: [{ $count: 'count' }],
+          messages: [
+            { $skip: Number(skip) },
+            { $limit: MESSAGES_PER_PAGE },
+            {
+              $sort: { sentAt: 1 },
+            },
+            {
+              $lookup: {
+                from: 'users',
+                localField: 'author_id',
+                foreignField: '_id',
+                as: 'author',
+              },
+            },
+            {
+              $unwind: '$author',
+            },
+            {
+              $addFields: {
+                chat_id: neighborhoodId,
+              },
+            },
+            {
+              $project: {
+                'author.password': 0,
+                'author.login': 0,
+                author_id: 0,
+              },
+            },
+          ],
+        },
+      },
+    ]);
+
+    const hasMoreMessages = result[0].totalMessages[0]
+      ? result[0].totalMessages[0].count > Number(skip) + MESSAGES_PER_PAGE
+      : false;
+
+    return {
+      messages: result[0].messages,
+      hasMoreMessages,
+    };
   }
 }
