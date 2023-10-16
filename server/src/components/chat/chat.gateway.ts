@@ -72,6 +72,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       message,
       roomId,
     );
+    this.server.to(client.id).emit('updateUnseenMessage', data.idsToUpdate);
     this.server.emit('receiveMessage', data);
   }
 }

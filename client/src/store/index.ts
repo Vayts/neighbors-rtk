@@ -10,7 +10,6 @@ import { plansSlice } from '@src/store/plans/slice';
 import { neighborhoodsSlice } from '@src/store/neighborhoodDebts/slice';
 import { chatSocketMiddleware } from '@src/store/chats/chat.middleware';
 import { messagesSlice } from '@src/store/messages/slice';
-import { messageSendersSlice } from '@src/store/messageSenders/slice';
 import { chatsSlice } from '@src/store/chats/slice';
 
 export const store = configureStore({
@@ -25,7 +24,6 @@ export const store = configureStore({
     [plansSlice.name]: plansSlice.reducer,
     [neighborhoodsSlice.name]: neighborhoodsSlice.reducer,
     [messagesSlice.name]: messagesSlice.reducer,
-    [messageSendersSlice.name]: messageSendersSlice.reducer,
     [chatsSlice.name]: chatsSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(chatSocketMiddleware('ws://localhost:4020')),

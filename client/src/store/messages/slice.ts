@@ -18,8 +18,10 @@ export const messagesSlice = createSlice({
       messagesAdapter.setAll(state, payload.messages ?? {});
     },
     addMessage: (state, { payload }) => {
-      const { message, idsToUpdate } = payload;
-      messagesAdapter.upsertOne(state, message ?? {});
+      messagesAdapter.upsertOne(state, payload ?? {});
+    },
+    updateUnseenMessage: (state, { payload }) => {
+      const { idsToUpdate, userId } = payload;
       
       if (idsToUpdate.length) {
         state.viewedMessages = state.viewedMessages.filter((item) => !idsToUpdate.includes(item));
@@ -28,13 +30,20 @@ export const messagesSlice = createSlice({
           const seenBy = state.entities[item]?.seenBy;
           
           if (seenBy) {
-            messagesAdapter.updateOne(state, { id: item, changes: { seenBy: [...seenBy, payload.userId] } });
+            messagesAdapter.updateOne(state, { id: item, changes: { seenBy: [...seenBy, userId] } });
           }
         });
       }
     },
     addViewedMessage: (state, { payload }) => {
-      state.viewedMessages.push(payload);
+      const { messageId, userId } = payload;
+      state.viewedMessages.push(messageId);
+      
+      const seenBy = state.entities[messageId].seenBy;
+
+      if (!seenBy.includes(userId)) {
+        messagesAdapter.updateOne(state, { id: messageId, changes: { seenBy: [...seenBy, userId] } });
+      }
     },
   },
   extraReducers: (builder) => {
@@ -49,4 +58,4 @@ export const messagesSlice = createSlice({
   },
 });
 
-export const { setMessages, addViewedMessage, addMessage } = messagesSlice.actions;
+export const { setMessages, addViewedMessage, addMessage, updateUnseenMessage } = messagesSlice.actions;

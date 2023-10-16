@@ -41,7 +41,6 @@ export const loadMoreMessages = createAsyncThunk(
       const { hasMoreMessages, messages } = response.data;
       
       const data = normalize(messages, [messageSchema]);
-      
       return {
         ids: data.result,
         chat_id: id,
