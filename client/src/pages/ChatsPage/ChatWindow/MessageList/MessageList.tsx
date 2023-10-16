@@ -24,12 +24,19 @@ const MessageList: React.FC<Props> = ({ selectedRoom }) => {
     if (listRef.current && messages.length && !isFirstLoad) {
       const lastMessage = messages[messages.length - 1];
       const lastChild = listRef.current.children[messages.length - 1];
+      const scrollTop = listRef.current.scrollTop;
+      const scrollHeight = listRef.current.scrollHeight;
+      const clientHeight = listRef.current.clientHeight;
+      const distanceFromEnd = scrollHeight - scrollTop - clientHeight;
+      
+      if (lastChild && lastMessage.author !== user._id && distanceFromEnd < 200) {
+        lastChild.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+        });
+      }
+      
       if (lastChild && lastMessage.author === user._id) {
-        const scrollTop = listRef.current.scrollTop;
-        const scrollHeight = listRef.current.scrollHeight;
-        const clientHeight = listRef.current.clientHeight;
-        const distanceFromEnd = scrollHeight - scrollTop - clientHeight;
-        
         lastChild.scrollIntoView({
           behavior: distanceFromEnd > NO_SMOOTH_SCROLL_VALUE ? 'auto' : 'smooth',
           block: 'end',
@@ -72,7 +79,7 @@ const MessageList: React.FC<Props> = ({ selectedRoom }) => {
     <ul ref={listRef} className={styles.MessageList} onScroll={handleScroll}>
       {messages.map((item) => {
         return (
-          <Message key={item._id} message={item} user={user}/>
+          <Message key={item._id} message={item}/>
         );
       })}
     </ul>

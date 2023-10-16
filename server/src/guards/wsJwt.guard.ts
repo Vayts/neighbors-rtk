@@ -9,7 +9,6 @@ export class wsJwtGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     if (context.getType() !== 'ws') return true;
-
     const client: Socket = context.switchToWs().getClient();
 
     try {
@@ -23,8 +22,7 @@ export class wsJwtGuard implements CanActivate {
   }
 
   static validateToken(client: Socket) {
-    const { authorization } = client.handshake.headers;
-    const token = authorization.split(' ')[1];
+    const token = client.handshake.auth.token;
 
     const user = verify(token, process.env.JWT_ACCESS_SECRET || 'access');
 

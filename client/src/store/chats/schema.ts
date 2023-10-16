@@ -1,6 +1,6 @@
 import { schema } from 'normalizr';
 
-const memberSchema = new schema.Entity('senders', {}, { idAttribute: '_id' });
+const memberSchema = new schema.Entity('members', {}, { idAttribute: '_id' });
 
 export const messageSchema = new schema.Entity('messages', {
   author: memberSchema,
