@@ -5,6 +5,7 @@ import { chatRoomSchema, messageSchema } from '@src/store/chats/schema';
 import { setChats, updateMessages } from '@src/store/chats/slice';
 import { addMessage, setMessages, updateUnseenMessage } from '@src/store/messages/slice';
 import { addMember, addMembers } from '@src/store/members/slice';
+import { refresh } from '@src/store/auth/thunks';
 
 export const chatSocketMiddleware = (url: string) => {
   let socket: Socket;
@@ -16,10 +17,20 @@ export const chatSocketMiddleware = (url: string) => {
       case 'chats/init':
         socket = io(url,
           {
-            extraHeaders: {
-              Authorization: `Bearer ${store.getState().auth.user.token}`,
+            auth: {
+              token: store.getState().auth.user.token,
             },
+            reconnection: true,
+            reconnectionAttempts: 10,
           });
+        
+        socket.on('tokenExpired', async () => {
+          await store.dispatch(refresh() as any);
+          socket.auth = {
+            token: store.getState().auth.user.token as string,
+          };
+          socket.connect();
+        });
         
         socket.on('joinedRooms', (res) => {
           const data = normalize(res, [chatRoomSchema]);
@@ -41,10 +52,15 @@ export const chatSocketMiddleware = (url: string) => {
           const userId = store.getState().auth.user._id;
           store.dispatch(updateUnseenMessage({ idsToUpdate: res, userId }));
         });
+
         break;
         
       case 'chats/disconnect':
         socket.disconnect();
+        break;
+        
+      case 'chats/getRooms':
+        socket.emit('joinNeighborhoodRooms');
         break;
         
       case 'chats/sendMessage':

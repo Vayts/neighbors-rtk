@@ -4,6 +4,8 @@ export const chatSocketInit = createAction('chats/init');
 
 export const chatSocketDisconnect = createAction('chats/disconnect');
 
+export const getRooms = createAction('chats/getRooms');
+
 export const sendMessage = createAction('chats/sendMessage', (message: string, roomId: string) => {
   return { payload: { message, roomId } };
 });
