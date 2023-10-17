@@ -6,7 +6,7 @@ import { REGISTER_VALIDATION } from '@constants/validation';
 
 const { t } = i18n;
 
-function validateFirstName(str: string): ErrorType {
+export function validateFirstName(str: string): ErrorType {
   const errors: Record<string, string> = {};
   const trimmed = str.trim();
   
@@ -33,7 +33,7 @@ function validateFirstName(str: string): ErrorType {
   return errors;
 }
 
-function validateLastName(str: string): ErrorType {
+export function validateLastName(str: string): ErrorType {
   const errors: Record<string, string> = {};
   const trimmed = str.trim();
   

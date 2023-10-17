@@ -20,7 +20,7 @@ const RequireAuth: React.FC = () => {
     if (!user) {
       navigate('/login');
     }
-  }, [user]);
+  }, [user._id]);
 	
   return (
     <>

@@ -11,6 +11,7 @@ import { NeighborhoodModule } from '../neighborhood/neighborhood.module';
 import { DebtModule } from '../debt/debt.module';
 import { PlanModule } from '../plan/plan.module';
 import { ChatModule } from '../chat/chat.module';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ChatModule } from '../chat/chat.module';
     DebtModule,
     PlanModule,
     ChatModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

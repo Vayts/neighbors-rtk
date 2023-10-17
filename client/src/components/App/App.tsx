@@ -21,6 +21,7 @@ const CreateNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/
 const NeighborhoodsPage = withSuspense(React.lazy(() => import('@src/pages/NeighborhoodsPage/NeighborhoodsPage')));
 const ChatsPage = withSuspense(React.lazy(() => import('@src/pages/ChatsPage/ChatsPage')));
 const EditPlanPage = withSuspense(React.lazy(() => import('@src/pages/EditPlanPage/EditPlanPage')));
+const ProfilePage = withSuspense(React.lazy(() => import('@src/pages/ProfilePage/ProfilePage')));
 
 export const App: React.FC = () => {
   const isLoading = useAppSelector(selectAppLoading);
@@ -36,6 +37,8 @@ export const App: React.FC = () => {
       {isLoading ? <Loader/> : (
         <Routes>
           <Route path='/' element={<RequireAuth/>}>
+            <Route path='/profile' element={<ProfilePage/>}/>
+            
             <Route path='/' element={<NeighborhoodsPage/>}/>
             <Route path='/neighborhoods' element={<NeighborhoodsPage/>}/>
             <Route path='/neighborhoods/create' element={<CreateNeighborhoodPage/>}/>

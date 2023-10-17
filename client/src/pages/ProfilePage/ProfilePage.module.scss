@@ -1,0 +1,101 @@
+@import '@src/styles/variables';
+@import '@src/styles/mixins';
+
+.ProfilePageWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 32px 20px 0;
+}
+
+.ProfileUserInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+
+  @include for-tablet {
+    flex-direction: row;
+    align-items: unset;
+    margin-bottom: 10px;
+  }
+}
+
+
+.ProfileAvatarWrapper {
+  position: relative;
+  max-width: 128px;
+  max-height: 128px;
+  width: 128px;
+  height: 128px;
+
+  @include for-tablet {
+    margin-right: 32px;
+  }
+}
+
+.ProfileChangePhotoButton {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: $primary-color-light;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $primary-color-light-hover;
+
+    span {
+      color: $primary-color-hover;
+    }
+  }
+
+  span {
+    font-size: 16px;
+    color: $primary-color;
+  }
+}
+
+
+.ProfileAvatarImg {
+  max-width: 128px;
+  max-height: 128px;
+  width: 128px;
+  height: 128px;
+}
+
+.ProfileUserName {
+  font-size: 18px;
+  margin: 10px 0 5px;
+}
+
+.ProfileUserLogin {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: $light-text-color;
+}
+
+.ProfileContentBlock {
+  width: 100%;
+  max-width: 900px;
+  flex-grow: 1;
+  padding: 32px;
+  background-color: $component-bg;
+  border-radius: 10px;
+}
+
+.ProfileButtonWrapper {
+
+  button {
+    margin-left: auto;
+    max-height: 38px;
+    max-width: 200px;
+  }
+}

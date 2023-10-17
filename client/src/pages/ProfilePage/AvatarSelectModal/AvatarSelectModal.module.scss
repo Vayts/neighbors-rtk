@@ -1,0 +1,84 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.AvatarModalWrapper {
+  background-color: $component-bg;
+  padding: 20px 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  width: 300px;
+
+  @include for-tablet {
+    width: 600px;
+  }
+}
+
+.AvatarModalTitle {
+  @include title;
+  font-size: 22px;
+  color: $title-light-text-color;
+  text-align: center;
+  margin: 5px 0;
+}
+
+.AvatarList {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0;
+  display: grid;
+  grid-template-areas: 'col col';
+  gap: 15px;
+
+  @include for-tablet {
+    grid-template-areas: 'col col col col col';
+  }
+}
+
+.AvatarItem {
+  grid-template: 'col';
+  display: flex;
+  justify-content: center;
+
+}
+
+.AvatarImg {
+  min-width: 80px;
+  min-height: 80px;
+  max-width: 80px;
+  max-height: 80px;
+  border-radius: 50%;
+  border: 3px solid $component-bg;
+  background-color: $component-bg;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $primary-color-light-hover;
+    background-color: $primary-color-light;
+  }
+
+  &--current {
+    border-color: $primary-color;
+    background-color: $primary-color;
+
+    &:hover {
+      border-color: $primary-color;
+      background-color: $primary-color;
+    }
+  }
+
+
+}
+
+.AvatarButtonWrapper {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+
+  button {
+    max-width: 200px;
+    max-height: 38px;
+  }
+}

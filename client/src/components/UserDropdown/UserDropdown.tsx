@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import cn from 'classnames';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useOutsideClick } from '@src/hooks/useOutsideClick';
 import { selectUser } from '@src/store/auth/selectors';
@@ -14,10 +14,13 @@ const UserDropdown: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logout()).then(() => {
+      navigate('/login');
+    });
   };
   
   const handleToggleOpen = () => {

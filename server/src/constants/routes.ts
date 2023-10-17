@@ -9,12 +9,17 @@ export const ROUTES = {
     SET_FAVORITE: '/set-favorite',
     REMOVE_FAVORITE: '/remove-favorite',
   },
+  USER: {
+    DEFAULT: '/api/user',
+    EDIT: '/edit-profile',
+  },
   AUTH: {
     DEFAULT: '/api/auth',
     LOGIN: '/login',
     REGISTER: '/register',
     LOGOUT: '/logout',
     REFRESH: '/refresh',
+    EDIT: '/edit-profile',
   },
   DEBT: {
     DEFAULT: '/api/debt',

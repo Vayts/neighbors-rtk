@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IAuthState } from '@src/store/auth/types';
-import { login, logout, refresh, register } from '@src/store/auth/thunks';
+import { editProfile, login, logout, refresh, register } from '@src/store/auth/thunks';
 import { IUser } from '@src/types/user.types';
 
 const initialState: IAuthState = {
@@ -30,6 +30,12 @@ export const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
+      })
+      .addCase(editProfile.fulfilled, (state, { payload }) => {
+        state.user = {
+          ...state.user,
+          ...payload,
+        };
       })
       .addCase(refresh.fulfilled, (state, action: PayloadAction<IUser>) => {
         state.user = action.payload;
