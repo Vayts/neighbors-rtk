@@ -1,24 +1,15 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Req,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { LoginUserDto } from '../../dto/login-user.dto';
 import { AuthService } from './auth.service';
 import { ROUTES } from '../../constants/routes';
 import { CreateUserDto } from '../../dto/create-user.dto';
-import { FormDataRequest } from 'nestjs-form-data';
 
 @Controller(ROUTES.AUTH.DEFAULT)
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post(ROUTES.AUTH.LOGIN)
-  @FormDataRequest()
   login(
     @Res({ passthrough: true }) response: Response,
     @Body() dto: LoginUserDto,
@@ -27,7 +18,6 @@ export class AuthController {
   }
 
   @Post(ROUTES.AUTH.REGISTER)
-  @FormDataRequest()
   register(
     @Res({ passthrough: true }) response: Response,
     @Body() dto: CreateUserDto,

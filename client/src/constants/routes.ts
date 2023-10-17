@@ -3,7 +3,10 @@ export const AUTH_ROUTES = {
   login: '/auth/login',
   refresh: '/auth/refresh',
   logout: '/auth/logout',
-  biba: '/auth/biba',
+};
+
+export const USER_ROUTES = {
+  editProfile: '/user/edit-profile',
 };
 
 export const NEIGHBORHOOD_ROUTES = {

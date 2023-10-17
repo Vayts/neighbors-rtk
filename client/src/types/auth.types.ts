@@ -13,3 +13,10 @@ export interface ILogin {
   password: string,
   errors: ErrorType,
 }
+
+export interface IEditProfile {
+  firstName: string,
+  lastName: string,
+  avatar: string,
+  errors: ErrorType,
+}

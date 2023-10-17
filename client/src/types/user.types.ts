@@ -2,6 +2,8 @@ import { NeighborhoodRoleEnum } from '@src/types/neighborhood.types';
 
 export interface IUser {
   _id: string,
+  firstName: string,
+  lastName: string,
   fullName: string,
   avatar: string,
   login: string,
