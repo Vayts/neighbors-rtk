@@ -40,6 +40,12 @@ function authErrorManager(error: string) {
   case AUTH_ERRORS.USER_ALREADY_EXIST:
     getNotification(t('authError.userAlreadyExist'), NotificationTypeEnum.error);
     break;
+  case AUTH_ERRORS.PASSWORD_DONT_MATCH:
+    getNotification(t('passwordsDontMatch'), NotificationTypeEnum.error);
+    break;
+  case AUTH_ERRORS.WRONG_PASSWORD:
+    getNotification(t('auth.wrongPassword'), NotificationTypeEnum.error);
+    break;
   default:
     getNotification(t('somethingWentWrong'), 'error');
   }

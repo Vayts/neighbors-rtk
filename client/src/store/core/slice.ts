@@ -3,14 +3,18 @@ import { createSlice } from '@reduxjs/toolkit';
 import { appFirstLoad } from '@src/store/core/thunks';
 
 const initialState: ICoreState = {
-  locale: 'uk',
+  locale: 'en',
   isLoading: true,
 };
 
 export const coreSlice = createSlice({
   name: 'core',
   initialState,
-  reducers: {},
+  reducers: {
+    setLanguage: (state, { payload }) => {
+      state.locale = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(appFirstLoad.fulfilled, (state) => {
@@ -18,3 +22,5 @@ export const coreSlice = createSlice({
       });
   },
 });
+
+export const { setLanguage } = coreSlice.actions;

@@ -12,6 +12,7 @@ export const ROUTES = {
   USER: {
     DEFAULT: '/api/user',
     EDIT: '/edit-profile',
+    CHANGE_PASSWORD: '/change-password',
   },
   AUTH: {
     DEFAULT: '/api/auth',

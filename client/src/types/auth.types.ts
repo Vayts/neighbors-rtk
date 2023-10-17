@@ -20,3 +20,10 @@ export interface IEditProfile {
   avatar: string,
   errors: ErrorType,
 }
+
+export interface IChangePassword {
+  currentPassword: string,
+  password: string,
+  confirmPassword: string,
+  errors: ErrorType,
+}

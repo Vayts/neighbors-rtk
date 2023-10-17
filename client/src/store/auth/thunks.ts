@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosPrivate, axiosPublic } from '@src/api/api';
-import { IEditProfile, ILogin, IRegister } from '@src/types/auth.types';
+import { IChangePassword, IEditProfile, ILogin, IRegister } from '@src/types/auth.types';
 import { AUTH_ROUTES, USER_ROUTES } from '@constants/routes';
 import { errorManager } from '@helpers/errors.helper';
 import { ErrorEnum } from '@src/types/default.types';
@@ -68,7 +68,22 @@ export const editProfile = createAsyncThunk(
   `${MODULE_NAME}/editProfile`,
   async (values: IEditProfile, { rejectWithValue }) => {
     try {
-      const response = await axiosPrivate.put(USER_ROUTES.editProfile, { ...values });
+      const response = await axiosPrivate.put(USER_ROUTES.editProfile, values);
+      
+      getNotification(t('dataUpdatedSuccess'), NotificationTypeEnum.success);
+      return response.data;
+    } catch (e: any) {
+      errorManager(e?.response?.data?.message, ErrorEnum.auth);
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+
+export const changePassword = createAsyncThunk(
+  `${MODULE_NAME}/changePassword`,
+  async (values: IChangePassword, { rejectWithValue }) => {
+    try {
+      const response = await axiosPrivate.put(USER_ROUTES.changePassword, values);
       
       getNotification(t('dataUpdatedSuccess'), NotificationTypeEnum.success);
       return response.data;

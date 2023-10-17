@@ -55,13 +55,13 @@ const UserDropdown: React.FC = () => {
         <nav className={cn(styles.UserDropDownContent, isOpen && styles.UserDropDownContentActive)}>
           <ul className={styles.UserDropDownList}>
             <li>
-              <NavLink className={({ isActive }) => (isActive ? cn(styles.UserDropDownNavLink, styles.UserDropDownNavLinkActive) : styles.UserDropDownNavLink)} to='/profile'>
+              <NavLink className={({ isActive }) => cn(styles.UserDropDownNavLink, isActive && styles.UserDropDownNavLinkActive)} to='/profile'>
                 <span className='icon-profile'/>
                 <span>{t('personalInfo')}</span>
               </NavLink>
             </li>
             <li>
-              <NavLink className={styles.UserDropDownNavLink} to='/profile'>
+              <NavLink className={({ isActive }) => cn(styles.UserDropDownNavLink, isActive && styles.UserDropDownNavLinkActive)} to='/settings'>
                 <span className='icon-settings'/>
                 <span>{t('settings')}</span>
               </NavLink>

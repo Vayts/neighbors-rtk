@@ -11,7 +11,7 @@ const Button: React.FC<IButtonProps> = ({ onClick, text, disabled, icon, isDange
       onClick={onClick}
       type={type || 'button'}
     >
-      <span className={cn(styles.ButtonIcon, icon)}/>
+      {icon && <span className={cn(styles.ButtonIcon, icon)}/>}
       <span className={styles.ButtonText}>{text}</span>
     </button>
   );

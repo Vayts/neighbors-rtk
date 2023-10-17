@@ -7,6 +7,7 @@ export const AUTH_ROUTES = {
 
 export const USER_ROUTES = {
   editProfile: '/user/edit-profile',
+  changePassword: '/user/change-password',
 };
 
 export const NEIGHBORHOOD_ROUTES = {

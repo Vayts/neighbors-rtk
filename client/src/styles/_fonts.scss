@@ -26,6 +26,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-lock:before {
+  content: "\e91d";
+}
+.icon-language:before {
+  content: "\e91e";
+}
+
 .icon-camera:before {
   content: "\e91c";
 }

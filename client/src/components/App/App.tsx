@@ -22,6 +22,8 @@ const NeighborhoodsPage = withSuspense(React.lazy(() => import('@src/pages/Neigh
 const ChatsPage = withSuspense(React.lazy(() => import('@src/pages/ChatsPage/ChatsPage')));
 const EditPlanPage = withSuspense(React.lazy(() => import('@src/pages/EditPlanPage/EditPlanPage')));
 const ProfilePage = withSuspense(React.lazy(() => import('@src/pages/ProfilePage/ProfilePage')));
+const SettingsPage = withSuspense(React.lazy(() => import('@src/pages/SettingsPage/SettingsPage')));
+const ChangePasswordPage = withSuspense(React.lazy(() => import('@src/pages/ChangePasswordPage/ChangePasswordPage')));
 
 export const App: React.FC = () => {
   const isLoading = useAppSelector(selectAppLoading);
@@ -38,6 +40,8 @@ export const App: React.FC = () => {
         <Routes>
           <Route path='/' element={<RequireAuth/>}>
             <Route path='/profile' element={<ProfilePage/>}/>
+            <Route path='/settings' element={<SettingsPage/>}/>
+            <Route path='/settings/change-password' element={<ChangePasswordPage/>}/>
             
             <Route path='/' element={<NeighborhoodsPage/>}/>
             <Route path='/neighborhoods' element={<NeighborhoodsPage/>}/>

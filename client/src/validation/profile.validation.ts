@@ -1,5 +1,5 @@
 import { IEditProfile } from '@src/types/auth.types';
-import { validateFirstName, validateLastName } from '@src/validation/register.validation';
+import { validateFirstName, validateLastName } from '@src/validation/auth.validation';
 import i18n from 'i18next';
 import { AVATARS } from '@constants/core';
 import { ErrorType } from '@src/types/default.types';

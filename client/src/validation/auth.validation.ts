@@ -1,9 +1,9 @@
-import { IRegister } from '@src/types/auth.types';
+import { IChangePassword, IRegister } from '@src/types/auth.types';
 import { ErrorType } from '@src/types/default.types';
 import { DEFAULT_REGEX, LOGIN_REGEX, NUMBER_REGEX, PASSWORD_REGEX, UPPER_CASE_REGEX } from '@constants/regex';
 import i18n from 'i18next';
 import { REGISTER_VALIDATION } from '@constants/validation';
-
+//
 const { t } = i18n;
 
 export function validateFirstName(str: string): ErrorType {
@@ -134,6 +134,35 @@ export function getRegisterValidation(values: IRegister): ErrorType {
     ...firstNameValidation,
     ...lastNameValidation,
     ...loginValidation,
+    ...passwordValidation,
+  };
+}
+
+function validateConfirmPassword(password: string, confirmPassword: string) {
+  const errors: ErrorType = {};
+  
+  const trimmedPassword = password.trim();
+  const trimmedConfirmPassword = confirmPassword.trim();
+  
+  if (trimmedConfirmPassword === '') {
+    errors.confirmPassword = t('requiredField');
+    return errors;
+  }
+  
+  if (trimmedPassword !== trimmedConfirmPassword) {
+    errors.confirmPassword = t('passwordsDontMatch');
+    return errors;
+  }
+  
+  return errors;
+}
+
+export function getChangePasswordValidation(values: IChangePassword): ErrorType {
+  const passwordValidation = validatePassword(values.password);
+  const confirmPasswordValidation = validateConfirmPassword(values.password, values.confirmPassword);
+  
+  return {
+    ...confirmPasswordValidation,
     ...passwordValidation,
   };
 }

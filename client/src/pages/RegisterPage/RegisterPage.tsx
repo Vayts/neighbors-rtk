@@ -4,7 +4,7 @@ import Input from '@src/components/UI/Input/Input';
 import cn from 'classnames';
 import Button from '@src/components/UI/Button/Button';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { getRegisterValidation } from '@src/validation/register.validation';
+import { getRegisterValidation } from '@src/validation/auth.validation';
 import { IRegister } from '@src/types/auth.types';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { selectAuthLoading, selectUser } from '@src/store/auth/selectors';
