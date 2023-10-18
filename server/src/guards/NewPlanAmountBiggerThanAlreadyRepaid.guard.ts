@@ -4,7 +4,7 @@ import { PlanService } from '../components/plan/plan.service';
 import { InvalidDataException } from '../exception/invalidData.exception';
 
 @Injectable()
-export class newPlanAmountBiggerThanRepaidGuard implements CanActivate {
+export class NewPlanAmountBiggerThanRepaidGuard implements CanActivate {
   constructor(private planService: PlanService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();

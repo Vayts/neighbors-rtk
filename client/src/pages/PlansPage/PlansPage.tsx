@@ -3,7 +3,7 @@ import NeighborhoodSwitcher from '@src/components/NeighborhoodSwitcher/Neighborh
 import { useTranslation } from 'react-i18next';
 import NoPlansBanner from '@src/pages/PlansPage/NoPlansBanner/NoPlansBanner';
 import Button from '@src/components/UI/Button/Button';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import PlansList from '@src/pages/PlansPage/PlansList/PlansList';
 import Loader from '@src/components/Loader/Loader';
@@ -12,8 +12,7 @@ import { getUserPlans } from '@src/store/plans/thunks';
 import styles from './PlansPage.module.scss';
 
 const PlansPage: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get('neighborhood_id');
+  const { id } = useParams();
   const isLoading = useAppSelector((state) => state.plans.isLoading);
   const plans = useAppSelector(selectAllPlans);
   const navigate = useNavigate();

@@ -4,7 +4,7 @@ import { Socket } from 'socket.io';
 import { verify } from 'jsonwebtoken';
 
 @Injectable()
-export class wsJwtGuard implements CanActivate {
+export class WsJwtGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
@@ -12,7 +12,7 @@ export class wsJwtGuard implements CanActivate {
     const client: Socket = context.switchToWs().getClient();
 
     try {
-      wsJwtGuard.validateToken(client);
+      WsJwtGuard.validateToken(client);
 
       return true;
     } catch (e) {

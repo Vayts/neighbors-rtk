@@ -10,10 +10,10 @@ import { ICreateDebtDto, IDebt, IEditDebtDto } from '@src/types/debt.types';
 const MODULE_NAME = 'debts';
 
 export const getUserDebts = createAsyncThunk(
-  `${MODULE_NAME}/getAll`,
+  `${MODULE_NAME}/getDebts`,
   async (id: string, { rejectWithValue }) => {
     try {
-      const response = await axiosPrivate.get(`${DEBTS_ROUTES.get}?neighborhood_id=${id}`);
+      const response = await axiosPrivate.get(id ? `${DEBTS_ROUTES.getById}?neighborhood_id=${id}` : DEBTS_ROUTES.get);
       const data = normalize(response.data, [debtSchema]);
       return data.entities;
     } catch (e: any) {
@@ -29,6 +29,7 @@ export const createDebt = createAsyncThunk(
     try {
       const response = await axiosPrivate.post(`${DEBTS_ROUTES.create}?neighborhood_id=${values.neighborhood_id}&debtor_id=${values.debtor_id}`, values);
       const data = normalize(response.data, [debtSchema]);
+
       return data.entities;
     } catch (e: any) {
       errorManager(e?.response?.data?.message, ErrorEnum.debt);

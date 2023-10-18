@@ -16,7 +16,7 @@ const PlansPage = withSuspense(React.lazy(() => import('@src/pages/PlansPage/Pla
 const EditDebtPage = withSuspense(React.lazy(() => import('@src/pages/EditDebtPage/EditDebtPage')));
 const CreateDebtPage = withSuspense(React.lazy(() => import('@src/pages/CreateDebtPage/CreateDebtPage')));
 const DebtsPage = withSuspense(React.lazy(() => import('@src/pages/DebtsPage/DebtsPage')));
-// const CurrentNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/CurrentNeighborhoodPage/CurrentNeighborhoodPage')));
+const CurrentNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/CurrentNeighborhoodPage/CurrentNeighborhoodPage')));
 const CreateNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/CreateNeighborhoodPage/CreateNeighborhoodPage')));
 const NeighborhoodsPage = withSuspense(React.lazy(() => import('@src/pages/NeighborhoodsPage/NeighborhoodsPage')));
 const ChatsPage = withSuspense(React.lazy(() => import('@src/pages/ChatsPage/ChatsPage')));
@@ -47,15 +47,15 @@ export const App: React.FC = () => {
             <Route path='/neighborhoods' element={<NeighborhoodsPage/>}/>
             <Route path='/neighborhoods/create' element={<CreateNeighborhoodPage/>}/>
             
-            {/*<Route path='/neighborhood' element={<NeighborhoodLayout/>} >*/}
-            {/*  <Route path='' element={<CurrentNeighborhoodPage/>} />*/}
-            {/*</Route>*/}
+            <Route path='/neighborhoods/:id' element={<CurrentNeighborhoodPage/>}/>
             
             <Route path='/debts' element={<DebtsPage/>} />
+            <Route path='/debts/:id' element={<DebtsPage/>} />
             <Route path='/debts/create' element={<CreateDebtPage/>} />
             <Route path='/debts/edit/:debtId' element={<EditDebtPage/>} />
             
             <Route path='/plans' element={<PlansPage/>} />
+            <Route path='/plans/:id' element={<PlansPage/>} />
             <Route path='/plans/create' element={<CreatePlanPage/>} />
             <Route path='/plans/edit/:planId' element={<EditPlanPage/>} />
             

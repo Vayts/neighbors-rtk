@@ -10,7 +10,7 @@ import { ERRORS, NEIGHBORHOOD_ERRORS } from '../constants/errors';
 import mongoose from 'mongoose';
 
 @Injectable()
-export class debtorExistAndInNeighborhoodGuard implements CanActivate {
+export class DebtorExistAndInNeighborhoodGuard implements CanActivate {
   constructor(private neighborhoodService: NeighborhoodService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();

@@ -19,6 +19,26 @@ export interface INeighborhood {
   members: EntityId[],
 }
 
+export interface ICurrentNeighborhood extends INeighborhood{
+  debts: number,
+  plans: number,
+  inviteCode: null | string,
+  events: INeighborhoodEvent[],
+}
+
+export interface INeighborhoodEvent {
+  author: EntityId,
+  eventType: INeighborhoodEventEnum,
+  createdAt: Date,
+}
+
+export enum INeighborhoodEventEnum {
+  JoinNeighborhood = 'joinNeighborhood',
+  LeaveNeighborhood = 'leaveNeighborhood',
+  NewDebt = 'newDebt',
+  NewPlan = 'newPlan',
+}
+
 export enum NeighborhoodRoleEnum {
   admin = 'admin',
   member = 'member',

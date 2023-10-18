@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { IDebtsState } from '@src/store/debts/types';
-import { getUserDebts } from '@src/store/debts/thunks';
+import { createDebt, getUserDebts } from '@src/store/debts/thunks';
 import { IMember } from '@src/types/user.types';
 
 const initialState: IDebtsState = {
@@ -18,6 +18,19 @@ export const debtorsSlice = createSlice({
     builder
       .addCase(getUserDebts.fulfilled, (state, { payload }) => {
         debtorsAdapter.setAll(state, payload?.users ?? {});
+      })
+      .addCase(createDebt.fulfilled, (state, { payload }) => {
+        const debtors = payload.users ?? {};
+
+        Object.keys(debtors).forEach((key) => {
+          if (state.ids.includes(key)) {
+            delete debtors[key];
+          }
+        });
+
+        if (Object.keys(debtors)) {
+          debtorsAdapter.upsertMany(state, debtors);
+        }
       });
   },
 });

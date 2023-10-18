@@ -3,7 +3,7 @@ import { Request } from 'express';
 import { ROUTES } from '../../constants/routes';
 import { UserService } from './user.service';
 import { UpdateUserDto } from '../../dto/update-user.dto';
-import { JwtAuthGuard } from '../../guards/jwtAuth.guard';
+import { JwtAuthGuard } from '../../guards/JwtAuth.guard';
 import { ChangePasswordDto } from '../../dto/change-password.dto';
 
 @Controller(ROUTES.USER.DEFAULT)
