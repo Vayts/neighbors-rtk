@@ -20,7 +20,7 @@ const NeighborhoodCard: React.FC<Props> = ({ neighborhoodId }) => {
   const { t } = useTranslation();
   
   const handleNavigate = () => {
-    navigate(`/neighborhood?neighborhood_id=${_id}`);
+    navigate(`/neighborhoods/${_id}`);
   };
   
   const handleFavoriteClick = (e: React.MouseEvent<HTMLSpanElement>) => {

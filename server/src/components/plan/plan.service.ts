@@ -44,26 +44,78 @@ export class PlanService {
   }
 
   async getUserPlans(req) {
-    const neighborhoodId = req.query.neighborhood_id;
-
-    const matchStage: any = [
+    return this.planModel.aggregate([
       {
         $match: {
           participants: new mongoose.Types.ObjectId(req.user._id),
         },
       },
-    ];
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'participants',
+          foreignField: '_id',
+          as: 'participants',
+        },
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'author_id',
+          foreignField: '_id',
+          as: 'author',
+        },
+      },
+      {
+        $unwind: '$author',
+      },
+      {
+        $lookup: {
+          from: 'neighborhoods',
+          localField: 'neighborhood_id',
+          foreignField: '_id',
+          as: 'neighborhood',
+        },
+      },
+      {
+        $unwind: '$neighborhood',
+      },
+      {
+        $addFields: {
+          currentPayment: { $sum: '$participantPayments.payment' },
+        },
+      },
+      {
+        $project: {
+          userDetails: 0,
+          author: {
+            firstName: 0,
+            lastName: 0,
+            password: 0,
+            __v: 0,
+          },
+          neighborhood_id: 0,
+          author_id: 0,
+          'participants.participant_id': 0,
+          'participants.password': 0,
+          'participants.__v': 0,
+          'participants.login': 0,
+        },
+      },
+      {
+        $sort: { eventDate: -1 },
+      },
+    ]);
+  }
 
-    if (neighborhoodId) {
-      matchStage.push({
+  async getUserPlansById(req, neighborhoodId) {
+    return this.planModel.aggregate([
+      {
         $match: {
+          participants: new mongoose.Types.ObjectId(req.user._id),
           neighborhood_id: new mongoose.Types.ObjectId(neighborhoodId),
         },
-      });
-    }
-
-    return this.planModel.aggregate([
-      ...matchStage,
+      },
       {
         $lookup: {
           from: 'users',

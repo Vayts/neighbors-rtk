@@ -44,7 +44,7 @@ const NeighborhoodsPage: React.FC = () => {
       <div className={styles.NeighborhoodsControls}>
         <div className={styles.NeighborhoodsTitleWrapper}>
           <h3>{t('neighborhoods')}</h3>
-          <NeighborhoodSwitcher link="/neighborhood"/>
+          <NeighborhoodSwitcher link="/neighborhoods"/>
         </div>
         <div className={styles.NeighborhoodsButtons}>
           <span

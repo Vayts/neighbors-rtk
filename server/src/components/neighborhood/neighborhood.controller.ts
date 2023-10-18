@@ -11,11 +11,11 @@ import {
 import { NeighborhoodService } from './neighborhood.service';
 import { ROUTES } from '../../constants/routes';
 import { FormDataRequest } from 'nestjs-form-data';
-import { JwtAuthGuard } from '../../guards/jwtAuth.guard';
+import { JwtAuthGuard } from '../../guards/JwtAuth.guard';
 import { CreateNeighborhoodDto } from '../../dto/create-neighborhood.dto';
-import { InviteCodeExistAndNotExpiredGuard } from '../../guards/inviteCodeExistAndNotExpired.guard';
-import { AlreadyInNeighborhoodGuard } from '../../guards/alreadyInNeighborhood.guard';
-import { userInNeighborhoodGuard } from '../../guards/userInNeighborhood.guard';
+import { InviteCodeExistAndNotExpiredGuard } from '../../guards/InviteCodeExistAndNotExpired.guard';
+import { AlreadyInNeighborhoodGuard } from '../../guards/AlreadyInNeighborhood.guard';
+import { UserInNeighborhoodGuard } from '../../guards/UserInNeighborhood.guard';
 
 @Controller(ROUTES.NEIGHBORHOOD.DEFAULT)
 export class NeighborhoodController {
@@ -57,7 +57,7 @@ export class NeighborhoodController {
   }
 
   @Get(ROUTES.NEIGHBORHOOD.GET_CURRENT)
-  @UseGuards(JwtAuthGuard, userInNeighborhoodGuard)
+  @UseGuards(JwtAuthGuard, UserInNeighborhoodGuard)
   getCurrentNeighborhood(@Query() query, @Req() req) {
     return this.neighborhoodService.getCurrentNeighborhood(
       query.neighborhood_id,
@@ -66,7 +66,7 @@ export class NeighborhoodController {
   }
 
   @Put(ROUTES.NEIGHBORHOOD.SET_FAVORITE)
-  @UseGuards(JwtAuthGuard, userInNeighborhoodGuard)
+  @UseGuards(JwtAuthGuard, UserInNeighborhoodGuard)
   setNeighborhoodFavorite(@Query() query, @Req() req) {
     return this.neighborhoodService.setFavorite(
       req.user._id,
@@ -75,7 +75,7 @@ export class NeighborhoodController {
   }
 
   @Put(ROUTES.NEIGHBORHOOD.REMOVE_FAVORITE)
-  @UseGuards(JwtAuthGuard, userInNeighborhoodGuard)
+  @UseGuards(JwtAuthGuard, UserInNeighborhoodGuard)
   removeNeighborhoodFavorite(@Query() query, @Req() req) {
     return this.neighborhoodService.removeFavorite(
       req.user._id,

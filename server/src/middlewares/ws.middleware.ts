@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { wsJwtGuard } from '../guards/wsJwt.guard';
+import { WsJwtGuard } from '../guards/WsJwt.guard';
 import { UnauthorizedException } from '@nestjs/common';
 
 type SocketIOMiddleware = {
@@ -9,7 +9,7 @@ type SocketIOMiddleware = {
 export const SocketAuthMiddleware = (): SocketIOMiddleware => {
   return (client, next) => {
     try {
-      wsJwtGuard.validateToken(client);
+      WsJwtGuard.validateToken(client);
       next();
     } catch (error) {
       next(new UnauthorizedException('xxx'));

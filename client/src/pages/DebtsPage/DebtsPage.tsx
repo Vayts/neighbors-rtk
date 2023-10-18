@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import Button from '@src/components/UI/Button/Button';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import Loader from '@src/components/Loader/Loader';
 import DebtsAside from '@src/pages/DebtsPage/DebtsAside/DebtsAside';
@@ -26,8 +26,7 @@ enum DebtsViewMod {
 
 const DebtsPage: React.FC = () => {
   const [viewMod, setViewMod] = useState(DebtsViewMod.main);
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get('neighborhood_id');
+  const { id } = useParams();
   const [filter, setFilter] = useState<DebtsFilterEnum>(DebtsFilterEnum.active);
   const user = useAppSelector(selectUser);
   const debts = useAppSelector(selectAllDebts);

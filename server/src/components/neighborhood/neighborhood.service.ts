@@ -395,44 +395,17 @@ export class NeighborhoodService {
   }
 
   async getCurrentNeighborhood(id, req) {
-    const neighborhood = await this.neighborhoodModel.findById(id);
-    const members = await this.neighborhoodUserModel.aggregate([
-      { $match: { neighborhood_id: new mongoose.Types.ObjectId(id) } },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'user_id',
-          foreignField: '_id',
-          as: 'user',
-        },
-      },
-      {
-        $unwind: '$user',
-      },
-      {
-        $addFields: {
-          'user.role': '$role',
-        },
-      },
-      {
-        $replaceRoot: { newRoot: '$user' },
-      },
-      {
-        $project: {
-          password: 0,
-          __v: 0,
-        },
-      },
-    ]);
-
-    const debts = await this.debtService.getUserDebts(req);
+    const neighborhood = await this.getFullNeighborhoodByIdAndMemberId(
+      id,
+      req.user._id,
+    );
+    const debts = await this.debtService.getAllUserDebts(req);
     const plans = await this.planService.getUserPlans(req);
 
     return {
-      neighborhood,
-      members,
-      debtCounter: debts.length,
-      planCounter: plans.length,
+      ...neighborhood[0],
+      debts: debts.length,
+      plans: plans.length,
     };
   }
 }

@@ -5,18 +5,18 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ERRORS } from '../constants/errors';
-import { DebtService } from '../components/debt/debt.service';
+import { PlanService } from '../components/plan/plan.service';
 
 @Injectable()
-export class userIsDebtAuthor implements CanActivate {
-  constructor(private debtService: DebtService) {}
+export class UserIsPlanAuthor implements CanActivate {
+  constructor(private planService: PlanService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
-    const { debt_id } = req.query;
+    const { plan_id } = req.query;
     const { _id } = req.user;
     try {
-      const debt = await this.debtService.getDebtById(debt_id);
-      return Boolean(debt[0].author._id.toString() === _id);
+      const debt = await this.planService.getPlanById(plan_id);
+      return Boolean(debt.author._id.toString() === _id);
     } catch (e) {
       throw new UnauthorizedException({ message: ERRORS.NO_ACCESS });
     }

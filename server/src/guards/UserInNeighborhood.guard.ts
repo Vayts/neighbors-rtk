@@ -8,7 +8,7 @@ import { ERRORS } from '../constants/errors';
 import { NeighborhoodService } from '../components/neighborhood/neighborhood.service';
 
 @Injectable()
-export class userInNeighborhoodGuard implements CanActivate {
+export class UserInNeighborhoodGuard implements CanActivate {
   constructor(private neighborhoodService: NeighborhoodService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();

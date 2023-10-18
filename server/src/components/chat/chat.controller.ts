@@ -10,7 +10,7 @@ import {
 import { Request } from 'express';
 import { ROUTES } from '../../constants/routes';
 import { ChatService } from './chat.service';
-import { JwtAuthGuard } from '../../guards/jwtAuth.guard';
+import { JwtAuthGuard } from '../../guards/JwtAuth.guard';
 
 @Controller(ROUTES.CHAT.DEFAULT)
 export class ChatController {

@@ -8,7 +8,7 @@ import { PLAN_ERRORS } from '../constants/errors';
 import { PlanService } from '../components/plan/plan.service';
 
 @Injectable()
-export class addPlanAmountBiggerThanRepaidGuard implements CanActivate {
+export class AddPlanAmountBiggerThanRepaidGuard implements CanActivate {
   constructor(private planService: PlanService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();

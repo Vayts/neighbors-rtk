@@ -60,9 +60,7 @@ export class DebtService {
     }
   }
 
-  getUserDebts(req) {
-    const neighborhoodId = req.query.neighborhood_id;
-
+  getUserDebtsById(req, neighborhoodId) {
     const matchStage: any = [
       {
         $match: {
@@ -84,6 +82,74 @@ export class DebtService {
 
     return this.debtModel.aggregate([
       ...matchStage,
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'debtor_id',
+          foreignField: '_id',
+          as: 'debtor',
+        },
+      },
+      {
+        $unwind: '$debtor',
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'author_id',
+          foreignField: '_id',
+          as: 'author',
+        },
+      },
+      {
+        $unwind: '$author',
+      },
+      {
+        $lookup: {
+          from: 'neighborhoods',
+          localField: 'neighborhood_id',
+          foreignField: '_id',
+          as: 'neighborhood',
+        },
+      },
+      {
+        $unwind: '$neighborhood',
+      },
+      {
+        $project: {
+          author: {
+            firstName: 0,
+            lastName: 0,
+            password: 0,
+            __v: 0,
+          },
+          debtor: {
+            firstName: 0,
+            lastName: 0,
+            password: 0,
+            __v: 0,
+          },
+          neighborhood_id: 0,
+          debtor_id: 0,
+          author_id: 0,
+        },
+      },
+      {
+        $sort: { createdAt: -1 },
+      },
+    ]);
+  }
+
+  getAllUserDebts(req) {
+    return this.debtModel.aggregate([
+      {
+        $match: {
+          $or: [
+            { author_id: new mongoose.Types.ObjectId(req.user._id) },
+            { debtor_id: new mongoose.Types.ObjectId(req.user._id) },
+          ],
+        },
+      },
       {
         $lookup: {
           from: 'users',

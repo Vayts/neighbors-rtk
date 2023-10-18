@@ -9,7 +9,7 @@ import { PlanService } from '../components/plan/plan.service';
 import mongoose from 'mongoose';
 
 @Injectable()
-export class userInPlanGuard implements CanActivate {
+export class UserInPlanGuard implements CanActivate {
   constructor(private planService: PlanService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();

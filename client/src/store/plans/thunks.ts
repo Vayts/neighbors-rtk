@@ -13,7 +13,7 @@ export const getUserPlans = createAsyncThunk(
   `${MODULE_NAME}/getAll`,
   async (id: string, { rejectWithValue }) => {
     try {
-      const response = await axiosPrivate.get(`${PLAN_ROUTES.get}?neighborhood_id=${id}`);
+      const response = await axiosPrivate.get(id ? `${PLAN_ROUTES.getById}?neighborhood_id=${id}` : PLAN_ROUTES.get);
       const data = normalize(response.data, [planSchema]);
 
       return data.entities ?? {};

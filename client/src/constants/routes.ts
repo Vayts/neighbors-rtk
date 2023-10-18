@@ -23,6 +23,7 @@ export const NEIGHBORHOOD_ROUTES = {
 export const DEBTS_ROUTES = {
   create: '/debt/create',
   get: '/debt/get',
+  getById: '/debt/get-by-id',
   edit: '/debt/edit',
   delete: '/debt/delete',
   addPayment: '/debt/add-payment',
@@ -32,6 +33,7 @@ export const DEBTS_ROUTES = {
 export const PLAN_ROUTES = {
   create: '/plan/create',
   get: '/plan/get',
+  getById: '/plan/get-by-id',
   edit: '/plan/edit',
   changeTaskStatus: '/plan/change-task-status',
   addPayment: '/plan/add-payment',

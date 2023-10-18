@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import cn from 'classnames';
 import { getFavoriteNeighborhoods } from '@helpers/neighborhood.helper';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { selectAllNeighborhoods } from '@src/store/userNeighborhoods/selectors';
 import { useAppSelector } from '@src/hooks/hooks';
 import styles from './NeighborhoodSwitcher.module.scss';
@@ -12,8 +12,7 @@ type Props = {
 }
 
 const NeighborhoodSwitcher: React.FC<Props> = ({ link }) => {
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get('neighborhood_id');
+  const { id } = useParams();
   const [selected, setSelected] = useState(id || '');
   const neighborhoods = useAppSelector(selectAllNeighborhoods);
   const favoriteNeighborhoods = useMemo(() => getFavoriteNeighborhoods(neighborhoods, id),
@@ -29,7 +28,7 @@ const NeighborhoodSwitcher: React.FC<Props> = ({ link }) => {
   
   const handleNeighborhoodNavigate = (id: string) => {
     setSelected(id);
-    navigate(`${link}?neighborhood_id=${id}`);
+    navigate(`${link}/${id}`);
   };
   
   const handleAllNavigate = () => {
