@@ -8,6 +8,9 @@ export const ROUTES = {
     GET_CURRENT: '/get-current',
     SET_FAVORITE: '/set-favorite',
     REMOVE_FAVORITE: '/remove-favorite',
+    REMOVE_USER: '/remove-user',
+    GENERATE_INVITE_CODE: '/generate-invite-code',
+    REMOVE_INVITE_CODE: '/remove-invite-code',
   },
   USER: {
     DEFAULT: '/api/user',

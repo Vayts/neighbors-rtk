@@ -18,6 +18,9 @@ export const NEIGHBORHOOD_ROUTES = {
   getCurrent: '/neighborhood/get-current',
   setFavorite: '/neighborhood/set-favorite',
   removeFavorite: '/neighborhood/remove-favorite',
+  removeUser: '/neighborhood/remove-user',
+  generateInviteCode: '/neighborhood/generate-invite-code',
+  removeInviteCode: '/neighborhood/remove-invite-code',
 };
 
 export const DEBTS_ROUTES = {

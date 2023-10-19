@@ -61,11 +61,31 @@
   color: $light-text-color;
 }
 
-.InfoNavigation {
+.InfoBottomContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 20px;
 }
 
+.InfoMemberControls {
+  display: flex;
+  align-items: center;
+}
+
+.InfoInviteButton {
+  font-size: 25px;
+  margin-left: 10px;
+
+  color: $light-text-color;
+
+  &:hover {
+    color: $text-color;
+  }
+}
+
 .InfoNavigationItem {
+  display: inline-block;
   text-decoration: none;
   color: $light-text-color;
   padding: 7px 35px;

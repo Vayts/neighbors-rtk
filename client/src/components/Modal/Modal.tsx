@@ -6,7 +6,7 @@ import { hideScrollbar, showScrollbar } from '@helpers/visual.helper';
 import { createPortal } from 'react-dom';
 import styles from './Modal.module.scss';
 
-const Modal: React.FC<IModalProps> = ({ children, outsideHandler, withCloseIcon }) => {
+const Modal: React.FC<IModalProps> = ({ children, outsideHandler, withCloseIcon, closeFunc }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick(modalRef, outsideHandler || (() => null));
   
@@ -14,7 +14,21 @@ const Modal: React.FC<IModalProps> = ({ children, outsideHandler, withCloseIcon 
     if (event.key === 'Escape') {
       if (outsideHandler) {
         outsideHandler();
+        return;
       }
+      if (closeFunc) {
+        closeFunc();
+      }
+    }
+  };
+  
+  const handleClose = () => {
+    if (outsideHandler) {
+      outsideHandler();
+      return;
+    }
+    if (closeFunc) {
+      closeFunc();
     }
   };
   
@@ -47,7 +61,7 @@ const Modal: React.FC<IModalProps> = ({ children, outsideHandler, withCloseIcon 
         {withCloseIcon && (
           <span
             className={cn('icon-cross', styles.ModalClose)}
-            onClick={outsideHandler}
+            onClick={handleClose}
           />
         )}
         {children}

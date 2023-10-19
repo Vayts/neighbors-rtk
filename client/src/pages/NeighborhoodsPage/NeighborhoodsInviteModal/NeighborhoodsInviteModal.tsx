@@ -45,10 +45,11 @@ const NeighborhoodsInviteModal: React.FC<Props> = ({ setInviteOpen }) => {
     dispatch(joinNeighborhoodByCode({ id: neighborhood?._id as string, code: inviteCode }))
       .unwrap()
       .then(() => {
-        setInviteOpen(false);
-      })
-      .finally(() => {
         setLoading(false);
+      })
+      .catch((e) => e)
+      .finally(() => {
+        setInviteOpen(false);
       });
   };
 

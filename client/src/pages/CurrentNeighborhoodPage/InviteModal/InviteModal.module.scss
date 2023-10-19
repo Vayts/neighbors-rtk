@@ -1,0 +1,59 @@
+@import "@src/styles/mixins";
+
+.InviteModalWrapper {
+  padding: 20px 30px;
+  box-sizing: border-box;
+  min-width: 300px;
+  max-width: 650px;
+}
+
+.InviteModalTitle {
+  @include title;
+  font-size: 22px;
+  color: $title-light-text-color;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.InviteModalImg {
+  max-width: 250px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+
+  @include for-tablet {
+    max-width: 300px;
+  }
+}
+
+.InviteModalText {
+  text-align: center;
+}
+
+.InviteCodeWrapper {
+  border: 1px dotted $border-color;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+
+  span {
+    word-break: break-all;
+  }
+}
+
+.InviteCodeCopyButton {
+  margin-right: 10px;
+  color: $light-text-color;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    color: $text-color;
+  }
+}
+
+.InviteModalButtons {
+  margin: 15px 0 0;
+  position: relative;
+  min-height: 40px;
+}

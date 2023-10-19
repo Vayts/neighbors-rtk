@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Post,
   Put,
@@ -16,6 +17,8 @@ import { CreateNeighborhoodDto } from '../../dto/create-neighborhood.dto';
 import { InviteCodeExistAndNotExpiredGuard } from '../../guards/InviteCodeExistAndNotExpired.guard';
 import { AlreadyInNeighborhoodGuard } from '../../guards/AlreadyInNeighborhood.guard';
 import { UserInNeighborhoodGuard } from '../../guards/UserInNeighborhood.guard';
+import { UserIsNeighborhoodAdminGuard } from '../../guards/UserIsNeighborhoodAdmin.guard';
+import { ValidNeighborhoodIdGuard } from '../../guards/ValidNeighborhoodId.guard';
 
 @Controller(ROUTES.NEIGHBORHOOD.DEFAULT)
 export class NeighborhoodController {
@@ -81,5 +84,34 @@ export class NeighborhoodController {
       req.user._id,
       query.neighborhood_id,
     );
+  }
+
+  @Put(ROUTES.NEIGHBORHOOD.REMOVE_USER)
+  @UseGuards(JwtAuthGuard, UserIsNeighborhoodAdminGuard)
+  removeUserFromNeighborhood(@Query() query) {
+    return this.neighborhoodService.removeUser(
+      query.user_id,
+      query.neighborhood_id,
+    );
+  }
+
+  @Post(ROUTES.NEIGHBORHOOD.GENERATE_INVITE_CODE)
+  @UseGuards(
+    JwtAuthGuard,
+    ValidNeighborhoodIdGuard,
+    UserIsNeighborhoodAdminGuard,
+  )
+  generateInviteCode(@Query() query) {
+    return this.neighborhoodService.generateInviteCode(query.neighborhood_id);
+  }
+
+  @Delete(ROUTES.NEIGHBORHOOD.REMOVE_INVITE_CODE)
+  @UseGuards(
+    JwtAuthGuard,
+    ValidNeighborhoodIdGuard,
+    UserIsNeighborhoodAdminGuard,
+  )
+  deleteInviteCode(@Query() query) {
+    return this.neighborhoodService.removeInviteCode(query.neighborhood_id);
   }
 }

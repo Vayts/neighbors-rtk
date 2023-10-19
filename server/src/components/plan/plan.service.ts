@@ -355,6 +355,20 @@ export class PlanService {
     return this.getPlanById(plan._id);
   }
 
+  removeUserFromAllPlansByUserId(neighborhoodId, userId) {
+    return this.planModel.updateOne(
+      { neighborhood_id: neighborhoodId },
+      {
+        $pull: {
+          participants: userId,
+          participantPayments: {
+            participant_id: new mongoose.Types.ObjectId(userId),
+          },
+        },
+      },
+    );
+  }
+
   async reopenPlan(id) {
     const plan = await this.planModel.findByIdAndUpdate(id, {
       isClosed: false,

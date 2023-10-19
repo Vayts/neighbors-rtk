@@ -16,6 +16,7 @@ import {
 } from '../../schemas/neighborhood_invite.schema';
 import { DebtService } from '../debt/debt.service';
 import { PlanService } from '../plan/plan.service';
+import { randomBytes } from 'crypto';
 
 @Injectable()
 export class NeighborhoodService {
@@ -128,6 +129,57 @@ export class NeighborhoodService {
       { user_id: userId, neighborhood_id: neighborhoodId },
       { isFavorite: false },
     );
+  }
+
+  async removeUser(userId, neighborhoodId) {
+    await this.planService.removeUserFromAllPlansByUserId(
+      neighborhoodId,
+      userId,
+    );
+
+    return this.neighborhoodUserModel.findOneAndDelete({
+      user_id: userId,
+      neighborhood_id: neighborhoodId,
+    });
+  }
+
+  async generateInviteCode(neighborhoodId) {
+    const isTokenExist = await this.neighborhoodInviteModel.findOne({
+      neighborhood_id: neighborhoodId,
+    });
+
+    const code = randomBytes(32).toString('hex');
+    const currentDateTime = new Date(); // Поточна дата та час
+    const expirationDate = new Date(currentDateTime);
+    expirationDate.setDate(currentDateTime.getDate() + 1);
+
+    if (isTokenExist) {
+      const result = await this.neighborhoodInviteModel.findOneAndUpdate(
+        { neighborhood_id: neighborhoodId },
+        {
+          code,
+          expirationDate,
+        },
+      );
+
+      return result;
+    } else {
+      const result = await this.neighborhoodInviteModel.insertMany([
+        {
+          neighborhood_id: neighborhoodId,
+          code,
+          expirationDate,
+        },
+      ]);
+
+      return result[0];
+    }
+  }
+
+  async removeInviteCode(neighborhoodId) {
+    return this.neighborhoodInviteModel.findOneAndDelete({
+      neighborhood_id: neighborhoodId,
+    });
   }
 
   getUserNeighborhoods(userId) {
@@ -407,8 +459,13 @@ export class NeighborhoodService {
       req,
       neighborhood[0]._id,
     );
+    const inviteCode = await this.neighborhoodInviteModel.findOne({
+      neighborhood_id: id,
+      expirationDate: { $gt: new Date() },
+    });
 
     return {
+      inviteCode: inviteCode?.code || null,
       ...neighborhood[0],
       debts: debts.length,
       plans: plans.length,

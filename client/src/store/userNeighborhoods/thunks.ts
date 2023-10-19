@@ -42,6 +42,7 @@ export const joinNeighborhoodByCode = createAsyncThunk(
     try {
       const response = await axiosPrivate.get(`${NEIGHBORHOOD_ROUTES.joinByCode}?code=${code}&id=${id}`);
       const data = normalize(response.data, [neighborhoodSchema]);
+
       return data.entities;
     } catch (e: any) {
       errorManager(e?.response?.data?.message, ErrorEnum.neighborhood);
