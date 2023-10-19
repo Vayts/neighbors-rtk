@@ -1,5 +1,5 @@
 import { RootState } from '@src/store';
-import { neighborhoodsAdapter } from '@src/store/neighborhoodDebts/slice';
+import { neighborhoodsAdapter } from '@src/store/neighborhoods/slice';
 
 export const {
   selectAll: selectAllNeighborhood,

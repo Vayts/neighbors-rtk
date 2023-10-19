@@ -7,10 +7,11 @@ import { debtorsSlice } from '@src/store/debtors/slice';
 import { membersSlice } from '@src/store/members/slice';
 import { participantsSlice } from '@src/store/participants/slice';
 import { plansSlice } from '@src/store/plans/slice';
-import { neighborhoodsSlice } from '@src/store/neighborhoodDebts/slice';
+import { neighborhoodsSlice } from '@src/store/neighborhoods/slice';
 import { chatSocketMiddleware } from '@src/store/chats/chat.middleware';
 import { messagesSlice } from '@src/store/messages/slice';
 import { chatsSlice } from '@src/store/chats/slice';
+import { currentNeighborhoodSlice } from '@src/store/currentNeighborhood/slice';
 
 export const store = configureStore({
   reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
     [neighborhoodsSlice.name]: neighborhoodsSlice.reducer,
     [messagesSlice.name]: messagesSlice.reducer,
     [chatsSlice.name]: chatsSlice.reducer,
+    [currentNeighborhoodSlice.name]: currentNeighborhoodSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(chatSocketMiddleware('ws://localhost:4020')),
 });

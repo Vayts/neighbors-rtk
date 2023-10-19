@@ -25,8 +25,8 @@ enum DebtsViewMod {
 }
 
 const DebtsPage: React.FC = () => {
-  const [viewMod, setViewMod] = useState(DebtsViewMod.main);
   const { id } = useParams();
+  const [viewMod, setViewMod] = useState(DebtsViewMod.main);
   const [filter, setFilter] = useState<DebtsFilterEnum>(DebtsFilterEnum.active);
   const user = useAppSelector(selectUser);
   const debts = useAppSelector(selectAllDebts);

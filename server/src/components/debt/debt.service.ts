@@ -61,27 +61,86 @@ export class DebtService {
   }
 
   getUserDebtsById(req, neighborhoodId) {
-    const matchStage: any = [
+    return this.debtModel.aggregate([
       {
         $match: {
           $or: [
             { author_id: new mongoose.Types.ObjectId(req.user._id) },
             { debtor_id: new mongoose.Types.ObjectId(req.user._id) },
           ],
-        },
-      },
-    ];
-
-    if (neighborhoodId) {
-      matchStage.push({
-        $match: {
           neighborhood_id: new mongoose.Types.ObjectId(neighborhoodId),
         },
-      });
-    }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'debtor_id',
+          foreignField: '_id',
+          as: 'debtor',
+        },
+      },
+      {
+        $unwind: '$debtor',
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'author_id',
+          foreignField: '_id',
+          as: 'author',
+        },
+      },
+      {
+        $unwind: '$author',
+      },
+      {
+        $lookup: {
+          from: 'neighborhoods',
+          localField: 'neighborhood_id',
+          foreignField: '_id',
+          as: 'neighborhood',
+        },
+      },
+      {
+        $unwind: '$neighborhood',
+      },
+      {
+        $project: {
+          author: {
+            firstName: 0,
+            lastName: 0,
+            password: 0,
+            __v: 0,
+          },
+          debtor: {
+            firstName: 0,
+            lastName: 0,
+            password: 0,
+            __v: 0,
+          },
+          neighborhood_id: 0,
+          debtor_id: 0,
+          author_id: 0,
+        },
+      },
+      {
+        $sort: { createdAt: -1 },
+      },
+    ]);
+  }
 
+  getActiveUserDebtsById(req, neighborhoodId) {
     return this.debtModel.aggregate([
-      ...matchStage,
+      {
+        $match: {
+          $or: [
+            { author_id: new mongoose.Types.ObjectId(req.user._id) },
+            { debtor_id: new mongoose.Types.ObjectId(req.user._id) },
+          ],
+          neighborhood_id: new mongoose.Types.ObjectId(neighborhoodId),
+          $expr: { $lt: ['$repaidAmount', '$debtAmount'] },
+        },
+      },
       {
         $lookup: {
           from: 'users',

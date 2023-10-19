@@ -399,8 +399,14 @@ export class NeighborhoodService {
       id,
       req.user._id,
     );
-    const debts = await this.debtService.getAllUserDebts(req);
-    const plans = await this.planService.getUserPlans(req);
+    const debts = await this.debtService.getActiveUserDebtsById(
+      req,
+      neighborhood[0]._id,
+    );
+    const plans = await this.planService.getActiveUserPlansById(
+      req,
+      neighborhood[0]._id,
+    );
 
     return {
       ...neighborhood[0],
