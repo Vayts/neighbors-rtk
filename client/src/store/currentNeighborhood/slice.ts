@@ -6,6 +6,8 @@ import {
   getCurrentNeighborhood,
   removeInviteCode,
 } from '@src/store/currentNeighborhood/thunks';
+import { editNeighborhood } from '@src/store/userNeighborhoods/thunks';
+import { logout } from '@src/store/auth/thunks';
 
 const initialState: ICurrentNeighborhoodState = {
   isLoading: true,
@@ -32,13 +34,21 @@ export const currentNeighborhoodSlice = createSlice({
         state.neighborhood.members = state.neighborhood.members.filter((item) => item !== payload.userId);
       })
       .addCase(generateInviteCode.fulfilled, (state, { payload }) => {
-        if (payload.neighborhood_id === state.neighborhood._id) {
+        if (payload.neighborhood_id === state.neighborhood?._id) {
           state.neighborhood.inviteCode = payload.code;
         }
       })
       .addCase(removeInviteCode.fulfilled, (state, { payload }) => {
-        if (payload.neighborhood_id === state.neighborhood._id) {
+        if (payload.neighborhood_id === state.neighborhood?._id) {
           state.neighborhood.inviteCode = null;
+        }
+      })
+      .addCase(logout.fulfilled, (state) => {
+        Object.assign(state, initialState);
+      })
+      .addCase(editNeighborhood.fulfilled, (state, { payload }) => {
+        if (payload._id === state.neighborhood?._id) {
+          Object.assign(state.neighborhood, payload);
         }
       });
   },

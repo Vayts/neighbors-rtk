@@ -5,7 +5,7 @@ import { errorManager } from '@helpers/errors.helper';
 import { ErrorEnum } from '@src/types/default.types';
 import { normalize } from 'normalizr';
 import { neighborhoodSchema } from '@src/store/userNeighborhoods/schema';
-import { ICreateNeighborhood } from '@src/types/neighborhood.types';
+import { ICreateNeighborhood, IEditNeighborhood } from '@src/types/neighborhood.types';
 
 const MODULE_NAME = 'neighborhoods';
 
@@ -84,6 +84,19 @@ export const createNeighborhood = createAsyncThunk(
       const response = await axiosPrivate.post(`${NEIGHBORHOOD_ROUTES.create}`, values);
       const data = normalize(response.data, [neighborhoodSchema]);
       return data.entities;
+    } catch (e: any) {
+      errorManager(e?.response?.data?.message, ErrorEnum.neighborhood);
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+export const editNeighborhood = createAsyncThunk(
+  `${MODULE_NAME}/edit`,
+  async ({ values, neighborhoodId }: {values: IEditNeighborhood, neighborhoodId: string}, { rejectWithValue }) => {
+    try {
+      const response = await axiosPrivate.put(`${NEIGHBORHOOD_ROUTES.edit}?neighborhood_id=${neighborhoodId}`, values);
+      
+      return response.data;
     } catch (e: any) {
       errorManager(e?.response?.data?.message, ErrorEnum.neighborhood);
       return rejectWithValue(e?.response?.data?.message);

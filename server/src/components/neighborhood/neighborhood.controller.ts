@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { NeighborhoodService } from './neighborhood.service';
 import { ROUTES } from '../../constants/routes';
-import { FormDataRequest } from 'nestjs-form-data';
 import { JwtAuthGuard } from '../../guards/JwtAuth.guard';
 import { CreateNeighborhoodDto } from '../../dto/create-neighborhood.dto';
 import { InviteCodeExistAndNotExpiredGuard } from '../../guards/InviteCodeExistAndNotExpired.guard';
@@ -19,6 +18,8 @@ import { AlreadyInNeighborhoodGuard } from '../../guards/AlreadyInNeighborhood.g
 import { UserInNeighborhoodGuard } from '../../guards/UserInNeighborhood.guard';
 import { UserIsNeighborhoodAdminGuard } from '../../guards/UserIsNeighborhoodAdmin.guard';
 import { ValidNeighborhoodIdGuard } from '../../guards/ValidNeighborhoodId.guard';
+import { NeighborhoodExistGuard } from '../../guards/NeighborhoodExist.guard';
+import { UserIsNotNeighborhoodAdminGuard } from '../../guards/UserIsNotNeighborhoodAdmin.guard';
 
 @Controller(ROUTES.NEIGHBORHOOD.DEFAULT)
 export class NeighborhoodController {
@@ -26,12 +27,20 @@ export class NeighborhoodController {
 
   @Post(ROUTES.NEIGHBORHOOD.CREATE)
   @UseGuards(JwtAuthGuard)
-  @FormDataRequest()
   createNeighborhood(
     @Req() request: Request,
     @Body() dto: CreateNeighborhoodDto,
   ) {
     return this.neighborhoodService.createNeighborhood(request, dto);
+  }
+
+  @Put(ROUTES.NEIGHBORHOOD.EDIT)
+  @UseGuards(JwtAuthGuard, UserIsNeighborhoodAdminGuard)
+  editNeighborhood(@Query() query, @Body() dto: CreateNeighborhoodDto) {
+    return this.neighborhoodService.editNeighborhood(
+      query.neighborhood_id,
+      dto,
+    );
   }
 
   @Get(ROUTES.NEIGHBORHOOD.GET_BY_CODE)
@@ -60,7 +69,7 @@ export class NeighborhoodController {
   }
 
   @Get(ROUTES.NEIGHBORHOOD.GET_CURRENT)
-  @UseGuards(JwtAuthGuard, UserInNeighborhoodGuard)
+  @UseGuards(JwtAuthGuard, NeighborhoodExistGuard, UserInNeighborhoodGuard)
   getCurrentNeighborhood(@Query() query, @Req() req) {
     return this.neighborhoodService.getCurrentNeighborhood(
       query.neighborhood_id,
@@ -95,6 +104,15 @@ export class NeighborhoodController {
     );
   }
 
+  @Put(ROUTES.NEIGHBORHOOD.LEAVE_NEIGHBORHOOD)
+  @UseGuards(JwtAuthGuard, UserIsNotNeighborhoodAdminGuard)
+  leaveFromNeighborhood(@Req() req, @Query() query) {
+    return this.neighborhoodService.removeUser(
+      req.user._id,
+      query.neighborhood_id,
+    );
+  }
+
   @Post(ROUTES.NEIGHBORHOOD.GENERATE_INVITE_CODE)
   @UseGuards(
     JwtAuthGuard,
@@ -113,5 +131,15 @@ export class NeighborhoodController {
   )
   deleteInviteCode(@Query() query) {
     return this.neighborhoodService.removeInviteCode(query.neighborhood_id);
+  }
+
+  @Delete(ROUTES.NEIGHBORHOOD.DELETE)
+  @UseGuards(
+    JwtAuthGuard,
+    ValidNeighborhoodIdGuard,
+    UserIsNeighborhoodAdminGuard,
+  )
+  deleteNeighborhood(@Query() query) {
+    return this.neighborhoodService.deleteNeighborhood(query.neighborhood_id);
   }
 }

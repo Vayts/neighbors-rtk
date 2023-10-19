@@ -16,7 +16,9 @@ const CurrentNeighborhoodPage: React.FC = () => {
   const { t } = useTranslation();
   
   useEffect(() => {
-    dispatch(getCurrentNeighborhood(id));
+    if (neighborhood?._id !== id) {
+      dispatch(getCurrentNeighborhood(id));
+    }
   }, [id]);
   
   return (

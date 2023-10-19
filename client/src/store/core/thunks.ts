@@ -4,6 +4,7 @@ import { ErrorEnum } from '@src/types/default.types';
 import { refresh } from '@src/store/auth/thunks';
 import { ILocale } from '@src/types/locale.types';
 import { setLanguage } from '@src/store/core/slice';
+import { getUserNeighborhoods } from '@src/store/userNeighborhoods/thunks';
 
 const MODULE_NAME = 'core';
 
@@ -12,6 +13,7 @@ export const appFirstLoad = createAsyncThunk(
   async (_, { dispatch }) => {
     try {
       await dispatch(refresh());
+      await dispatch(getUserNeighborhoods());
       
       const locale = window.localStorage.getItem('neighbors_lang');
       

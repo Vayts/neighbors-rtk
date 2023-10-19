@@ -8,6 +8,13 @@ export interface ICreateNeighborhood {
   currency: CurrencyType | '',
 }
 
+export interface IEditNeighborhood {
+  name: string,
+  description: string,
+  errors: ErrorType,
+  currency: CurrencyType,
+}
+
 export interface INeighborhood {
   _id: string,
   name: string,

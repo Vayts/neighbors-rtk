@@ -88,3 +88,29 @@ export const removeInviteCode = createAsyncThunk(
     return rejectWithValue(ERRORS.INVALID_DATA);
   },
 );
+
+export const deleteNeighborhood = createAsyncThunk(
+  `${MODULE_NAME}/deleteNeighborhood`,
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await axiosPrivate.delete<Record<string, string>>(`${NEIGHBORHOOD_ROUTES.delete}?neighborhood_id=${id}`);
+
+      return response.data._id;
+    } catch (e: any) {
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+
+export const leaveFromNeighborhood = createAsyncThunk(
+  `${MODULE_NAME}/leaveNeighborhood`,
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const response = await axiosPrivate.put<Record<string, string>>(`${NEIGHBORHOOD_ROUTES.leave}?neighborhood_id=${id}`);
+
+      return response.data.neighborhood_id;
+    } catch (e: any) {
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);

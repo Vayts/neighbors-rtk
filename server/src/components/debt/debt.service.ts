@@ -329,6 +329,10 @@ export class DebtService {
     return this.debtModel.findByIdAndDelete(new mongoose.Types.ObjectId(id));
   }
 
+  deleteAllDebtsByNeighborhoodId(neighborhoodId) {
+    return this.debtModel.deleteMany({ neighborhood_id: neighborhoodId });
+  }
+
   async closeDebt(id) {
     const debt = await this.getDebtById(id);
 

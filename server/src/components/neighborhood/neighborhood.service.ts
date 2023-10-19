@@ -63,6 +63,14 @@ export class NeighborhoodService {
     }
   }
 
+  async editNeighborhood(neighborhoodId, dto) {
+    return this.neighborhoodModel.findOneAndUpdate(
+      { _id: neighborhoodId },
+      { ...dto },
+      { new: true },
+    );
+  }
+
   async getNeighborhoodByInviteCode(code) {
     const neighborhood = await this.neighborhoodInviteModel.aggregate([
       {
@@ -143,26 +151,36 @@ export class NeighborhoodService {
     });
   }
 
+  async deleteNeighborhood(neighborhoodId) {
+    await this.neighborhoodUserModel.deleteMany({
+      neighborhood_id: neighborhoodId,
+    });
+    await this.neighborhoodInviteModel.deleteMany({
+      neighborhood_id: neighborhoodId,
+    });
+    await this.planService.deleteAllPlansByNeighborhoodId(neighborhoodId);
+    await this.debtService.deleteAllDebtsByNeighborhoodId(neighborhoodId);
+    return this.neighborhoodModel.findOneAndDelete({ _id: neighborhoodId });
+  }
+
   async generateInviteCode(neighborhoodId) {
     const isTokenExist = await this.neighborhoodInviteModel.findOne({
       neighborhood_id: neighborhoodId,
     });
 
     const code = randomBytes(32).toString('hex');
-    const currentDateTime = new Date(); // Поточна дата та час
+    const currentDateTime = new Date();
     const expirationDate = new Date(currentDateTime);
     expirationDate.setDate(currentDateTime.getDate() + 1);
 
     if (isTokenExist) {
-      const result = await this.neighborhoodInviteModel.findOneAndUpdate(
+      return this.neighborhoodInviteModel.findOneAndUpdate(
         { neighborhood_id: neighborhoodId },
         {
           code,
           expirationDate,
         },
       );
-
-      return result;
     } else {
       const result = await this.neighborhoodInviteModel.insertMany([
         {

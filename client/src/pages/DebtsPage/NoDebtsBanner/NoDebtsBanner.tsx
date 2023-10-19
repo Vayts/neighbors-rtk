@@ -1,13 +1,12 @@
 import React from 'react';
 import Button from '@src/components/UI/Button/Button';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { STATIC_HREF } from '@constants/core';
 import styles from './NoDebtsBanner.module.scss';
 
 const NoDebtsBanner: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get('neighborhood_id');
+  const { id } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
   
@@ -15,7 +14,7 @@ const NoDebtsBanner: React.FC = () => {
     if (!id) {
       navigate('/debts/create');
     } else {
-      navigate(`/debts/create?neighborhood_id=${id}`);
+      navigate(`/debts/create/${id}`);
     }
   };
   

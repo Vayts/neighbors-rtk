@@ -12,7 +12,7 @@ import { CustomDateEventChange } from '@src/types/default.types';
 import Button from '@src/components/UI/Button/Button';
 import DateInput from '@src/components/UI/DateInput/DateInput';
 import Input from '@src/components/UI/Input/Input';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ICreatePlan, ICreatePlanTask } from '@src/types/plan.types';
 import Checkbox from '@src/components/UI/Checkbox/Checkbox';
 import MembersCheckboxList from '@src/pages/CreatePlanPage/MembersCheckboxList/MembersCheckboxList';
@@ -40,8 +40,7 @@ const initialValues: ICreatePlan = {
 
 const CreatePlanPage: React.FC = () => {
   const isInitialLoad = React.useRef<boolean>(true);
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get('neighborhood_id');
+  const { id } = useParams();
   const [values, setValues] = useState<ICreatePlan>({
     ...initialValues,
     neighborhood_id: id || '',
@@ -157,7 +156,7 @@ const CreatePlanPage: React.FC = () => {
       const dto = getCreatePlanDto(values, membersArr);
       dispatch(createPlan(dto))
         .then(() => {
-          navigate(`/plans${id ? `?neighborhood_id=${id}` : ''}`);
+          navigate(`/plans${id ? `/${id}` : ''}`);
         })
         .finally(() => {
           setLoading(false);

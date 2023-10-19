@@ -9,6 +9,8 @@ import NeighborhoodMembersModal from '@src/pages/CurrentNeighborhoodPage/Neighbo
 import cn from 'classnames';
 import Modal from '@src/components/Modal/Modal';
 import InviteModal from '@src/pages/CurrentNeighborhoodPage/InviteModal/InviteModal';
+import { Menu } from '@src/components/UI/Menu/Menu';
+import NeighborhoodMenu from '@src/pages/CurrentNeighborhoodPage/NeighborhoodMenu/NeighborhoodMenu';
 import styles from './NeighborhoodInfo.module.scss';
 
 const NeighborhoodInfo: React.FC = () => {
@@ -33,6 +35,11 @@ const NeighborhoodInfo: React.FC = () => {
           <InviteModal/>
         </Modal>
       )}
+      <div className={styles.InfoMenuWrapper}>
+        <Menu>
+          <NeighborhoodMenu neighborhood={neighborhood}/>
+        </Menu>
+      </div>
       <div className={styles.InfoContent}>
         <div className={styles.InfoAvatarFiller}>
           <span className='icon-neighborhoods'/>

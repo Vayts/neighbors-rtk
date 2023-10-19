@@ -56,7 +56,7 @@ const DebtsPage: React.FC = () => {
     if (!id) {
       navigate('/debts/create');
     } else {
-      navigate(`/debts/create?neighborhood_id=${id}`);
+      navigate(`/debts/create/${id}`);
     }
   };
   

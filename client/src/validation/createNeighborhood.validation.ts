@@ -1,4 +1,4 @@
-import { ICreateNeighborhood } from '@src/types/neighborhood.types';
+import { ICreateNeighborhood, IEditNeighborhood } from '@src/types/neighborhood.types';
 import { CurrencyEnum, ErrorType } from '@src/types/default.types';
 import { DEFAULT_REGEX_EXP } from '@constants/regex';
 import i18n from 'i18next';
@@ -77,7 +77,7 @@ function validateNeighborhoodCurrency(str: string): ErrorType {
   return errors;
 }
 
-export function getCreateNeighborhoodValidation(values: ICreateNeighborhood): ErrorType {
+export function getCreateNeighborhoodValidation(values: ICreateNeighborhood | IEditNeighborhood): ErrorType {
   const nameValidation = validateNeighborhoodName(values.name);
   const descriptionValidation = validateNeighborhoodDescription(values.description);
   const currencyValidation = validateNeighborhoodCurrency(values.currency);

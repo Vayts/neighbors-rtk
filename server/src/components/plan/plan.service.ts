@@ -381,6 +381,10 @@ export class PlanService {
     return this.planModel.findByIdAndDelete(new mongoose.Types.ObjectId(id));
   }
 
+  deleteAllPlansByNeighborhoodId(neighborhoodId) {
+    return this.planModel.deleteMany({ neighborhood_id: neighborhoodId });
+  }
+
   async editPlan(dto, id) {
     const editedPlan = await this.planModel.findByIdAndUpdate(
       new mongoose.Types.ObjectId(id),
