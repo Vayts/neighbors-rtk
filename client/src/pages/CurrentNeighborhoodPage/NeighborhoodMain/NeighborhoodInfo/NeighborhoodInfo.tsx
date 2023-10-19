@@ -1,19 +1,12 @@
 import React from 'react';
 import { useAppSelector } from '@src/hooks/hooks';
-import {
-  selectCurrentNeighborhood,
-  selectCurrentNeighborhoodDebts,
-  selectCurrentNeighborhoodPlans,
-} from '@src/store/currentNeighborhood/selectors';
 import { INeighborhood } from '@src/types/neighborhood.types';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import styles from './NeighborhoodInfo.module.scss';
 
 const NeighborhoodInfo: React.FC = () => {
-  const neighborhood = useAppSelector(selectCurrentNeighborhood);
-  const debtCounter = useAppSelector(selectCurrentNeighborhoodDebts);
-  const planCounter = useAppSelector(selectCurrentNeighborhoodPlans);
+  const neighborhood = useAppSelector((state) => state.currentNeighborhood.neighborhood);
   const { name, description, _id } = neighborhood as INeighborhood;
   const { t } = useTranslation();
   
@@ -29,11 +22,11 @@ const NeighborhoodInfo: React.FC = () => {
         </div>
       </div>
       <nav className={styles.InfoNavigation}>
-        <NavLink to={`/debts?neighborhood_id=${_id}`} className={styles.InfoNavigationItem}>
-          {`${t('debts')}: ${debtCounter}`}
+        <NavLink to={`/debts/${_id}`} className={styles.InfoNavigationItem}>
+          {`${t('debts')}: ${neighborhood.debts}`}
         </NavLink>
-        <NavLink to={`/plans?neighborhood_id=${_id}`} className={styles.InfoNavigationItem}>
-          {`${t('plans')}: ${planCounter}`}
+        <NavLink to={`/plans/${_id}`} className={styles.InfoNavigationItem}>
+          {`${t('plans')}: ${neighborhood.plans}`}
         </NavLink>
       </nav>
     </div>

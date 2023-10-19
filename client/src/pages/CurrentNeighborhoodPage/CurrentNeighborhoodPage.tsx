@@ -2,21 +2,22 @@ import React, { useEffect } from 'react';
 import Loader from '@src/components/Loader/Loader';
 import NeighborhoodSwitcher from '@src/components/NeighborhoodSwitcher/NeighborhoodSwitcher';
 import { useTranslation } from 'react-i18next';
-// import NeighborhoodMain from '@src/pages/CurrentNeighborhoodPage/NeighborhoodMain/NeighborhoodMain';
-import { useAppDispatch } from '@src/hooks/hooks';
+import NeighborhoodMain from '@src/pages/CurrentNeighborhoodPage/NeighborhoodMain/NeighborhoodMain';
+import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { getCurrentNeighborhood } from '@src/store/currentNeighborhood/thunks';
 import { useParams } from 'react-router-dom';
 import styles from './CurrentNeighborhoodPage.module.scss';
 
 const CurrentNeighborhoodPage: React.FC = () => {
   const { id } = useParams();
-  const isLoading = false;
+  const isLoading = useAppSelector((state) => state.currentNeighborhood.isLoading);
+  const neighborhood = useAppSelector((state) => state.currentNeighborhood.neighborhood);
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   
   useEffect(() => {
     dispatch(getCurrentNeighborhood(id));
-  }, []);
+  }, [id]);
   
   return (
     <div className={styles.CurrentPageWrapper}>
@@ -26,9 +27,10 @@ const CurrentNeighborhoodPage: React.FC = () => {
           <NeighborhoodSwitcher link="/neighborhoods"/>
         </div>
       </div>
-      {isLoading ? <Loader/> : (
+      {isLoading && <Loader/>}
+      {neighborhood && !isLoading && (
         <div className={styles.CurrentContentWrapper}>
-          {/*<NeighborhoodMain/>*/}
+          <NeighborhoodMain/>
           {/*<NeighborhoodSidebar/>*/}
         </div>
       )}
