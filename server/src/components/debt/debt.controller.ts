@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { DebtService } from './debt.service';
 import { ROUTES } from '../../constants/routes';
-import { FormDataRequest } from 'nestjs-form-data';
 import { JwtAuthGuard } from '../../guards/JwtAuth.guard';
 import { DebtorExistAndInNeighborhoodGuard } from '../../guards/DebtorExistAndInNeighborhood.guard';
 import { CreateDebtDto } from '../../dto/create-debt.dto';
@@ -61,14 +60,12 @@ export class DebtController {
   }
 
   @Put(ROUTES.DEBT.CLOSE_DEBT)
-  @FormDataRequest()
   @UseGuards(JwtAuthGuard, UserIsDebtAuthor, ValidDebtIdGuard)
   closeDebt(@Query() query) {
     return this.debtService.closeDebt(query.debt_id);
   }
 
   @Delete(ROUTES.DEBT.DELETE)
-  @FormDataRequest()
   @UseGuards(JwtAuthGuard, UserIsDebtAuthor, ValidDebtIdGuard)
   deleteDebt(@Query() query) {
     return this.debtService.deleteDebt(query.debt_id);

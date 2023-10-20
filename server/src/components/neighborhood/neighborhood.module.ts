@@ -1,9 +1,6 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { NeighborhoodService } from './neighborhood.service';
-import { TokenModule } from '../token/token.module';
-import { JwtModule } from '@nestjs/jwt';
-import { NestjsFormDataModule } from 'nestjs-form-data';
 import { NeighborhoodController } from './neighborhood.controller';
 import {
   Neighborhood,
@@ -19,11 +16,13 @@ import {
 } from '../../schemas/neighborhood_invite.schema';
 import { DebtService } from '../debt/debt.service';
 import { Debt, DebtSchema } from '../../schemas/debt.schema';
-import { PlanService } from '../plan/plan.service';
 import { Plan, PlanSchema } from '../../schemas/plan.schema';
+import { PlanModule } from '../plan/plan.module';
+import { EventModule } from '../event/event.module';
 
+@Global()
 @Module({
-  providers: [NeighborhoodService, DebtService, PlanService],
+  providers: [NeighborhoodService, DebtService],
   controllers: [NeighborhoodController],
   imports: [
     MongooseModule.forFeature([
@@ -33,10 +32,9 @@ import { Plan, PlanSchema } from '../../schemas/plan.schema';
       { name: Neighborhood_User.name, schema: Neighborhood_UserSchema },
       { name: Neighborhood_Invite.name, schema: Neighborhood_InviteSchema },
     ]),
-    JwtModule.register({}),
-    NestjsFormDataModule,
-    TokenModule,
+    PlanModule,
+    EventModule,
   ],
-  exports: [JwtModule, NeighborhoodService],
+  exports: [NeighborhoodService],
 })
 export class NeighborhoodModule {}

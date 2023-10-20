@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { getCurrentNeighborhood } from '@src/store/currentNeighborhood/thunks';
 import { useParams } from 'react-router-dom';
 import NeighborhoodInfo from '@src/pages/CurrentNeighborhoodPage/NeighborhoodInfo/NeighborhoodInfo';
+import EventList from '@src/pages/CurrentNeighborhoodPage/EventList/EventList';
 import styles from './CurrentNeighborhoodPage.module.scss';
 
 const CurrentNeighborhoodPage: React.FC = () => {
@@ -33,6 +34,7 @@ const CurrentNeighborhoodPage: React.FC = () => {
       {neighborhood && !isLoading && (
         <div className={styles.CurrentContentWrapper}>
           <NeighborhoodInfo/>
+          <EventList/>
         </div>
       )}
     </div>

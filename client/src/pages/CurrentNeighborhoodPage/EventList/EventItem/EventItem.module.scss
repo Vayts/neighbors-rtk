@@ -1,0 +1,45 @@
+@import "@src/styles/variables";
+
+.EventItemWrapper {
+  display: flex;
+  align-items: center;
+  background-color: $component-bg;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.EventAuthorAvatar {
+  max-width: 50px;
+  max-height: 50px;
+  min-width: 50px;
+  min-height: 50px;
+  margin-right: 15px;
+}
+
+.EventText {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.EventDate {
+  color: $light-text-color;
+  position: absolute;
+  font-size: 12px;
+  top: 10px;
+  right: 10px;
+}
+
+.EventLink {
+  align-self: flex-end;
+  color: $light-text-color;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    color: $text-color;
+  }
+}

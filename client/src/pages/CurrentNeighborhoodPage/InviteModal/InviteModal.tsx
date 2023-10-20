@@ -57,7 +57,7 @@ const InviteModal: React.FC = () => {
         </div>
       )}
       
-      <div className={styles.InviteModalButtons}>
+      <div className={cn(styles.InviteModalButtons, !isLoading && styles.InviteModalButtonsHide)}>
         {showGenerate && (
           <Button
             disabled={isLoading}

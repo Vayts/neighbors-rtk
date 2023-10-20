@@ -6,7 +6,6 @@ import { AuthController } from './auth.controller';
 import { TokenModule } from '../token/token.module';
 import { UserService } from '../user/user.service';
 import { JwtModule } from '@nestjs/jwt';
-import { NestjsFormDataModule } from 'nestjs-form-data';
 
 @Module({
   providers: [AuthService, UserService],
@@ -14,7 +13,6 @@ import { NestjsFormDataModule } from 'nestjs-form-data';
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     JwtModule.register({}),
-    NestjsFormDataModule,
     TokenModule,
   ],
   exports: [JwtModule, AuthService],

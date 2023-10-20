@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { IPlan } from '@src/types/plan.types';
 import PlanCard from '@src/pages/PlansPage/PlanCard/PlanCard';
 import Modal from '@src/components/Modal/Modal';
 import PlanModal from '@src/pages/PlansPage/PlanModal/PlanModal';
 import { useAppSelector } from '@src/hooks/hooks';
-import { selectAllPlans } from '@src/store/plans/selectors';
+import { useSearchParams } from 'react-router-dom';
 import styles from './PlansList.module.scss';
 
 type Props = {
@@ -12,25 +12,16 @@ type Props = {
 }
 
 const PlansList: React.FC<Props> = ({ visiblePlans }) => {
-  const plans = useAppSelector(selectAllPlans);
-  const [selectedPlan, setSelectedPlan] = useState<IPlan | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const planId = searchParams.get('plan_id');
+  const selectedPlan = useAppSelector((state) => state.plans.entities[planId]);
   
   const handleCloseDebtModal = () => {
-    setSelectedPlan(null);
+    setSearchParams();
   };
   
-  useEffect(() => {
-    if (selectedPlan) {
-      plans.forEach((item) => {
-        if (item._id === selectedPlan._id) {
-          setSelectedPlan(item);
-        }
-      });
-    }
-  }, [plans]);
-  
   const handlePlanClick = useCallback((plan: IPlan) => {
-    setSelectedPlan(plan);
+    setSearchParams({ plan_id: plan._id });
   }, []);
   
   return (

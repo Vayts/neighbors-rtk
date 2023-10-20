@@ -12,6 +12,7 @@ import { DebtModule } from '../debt/debt.module';
 import { PlanModule } from '../plan/plan.module';
 import { ChatModule } from '../chat/chat.module';
 import { UserModule } from '../user/user.module';
+import { CoreModule } from '../core/core.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { UserModule } from '../user/user.module';
     //   rootPath: join(__dirname, '../../../..', 'client/dist'),
     //   exclude: ['/api/(.*)'],
     // }),
+    CoreModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),
     AuthModule,

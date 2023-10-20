@@ -73,11 +73,27 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+  flex-wrap: wrap;
+
+  nav {
+    flex-basis: 100%;
+  }
+
+  @include for-tablet {
+    flex-wrap: unset;
+  }
 }
 
 .InfoMemberControls {
   display: flex;
   align-items: center;
+  flex-basis: 100%;
+  justify-content: center;
+
+  @include for-tablet {
+    flex-basis: unset;
+    justify-content: unset;
+  }
 }
 
 .InfoInviteButton {
@@ -101,14 +117,22 @@
   border-radius: 5px;
   font-weight: 300;
   font-size: 16px;
+  width: 100%;
+  flex-basis: 100%;
+  margin-bottom: 15px;
 
-  &:not(:first-child) {
-    margin-left: 10px;
-  }
+  @include for-tablet {
+    width: unset;
+    margin-bottom: unset;
 
-  &:hover {
-    background-color: $primary-color-light;
-    border-color: $primary-color;
-    color: $primary-color;
+    &:not(:first-child) {
+      margin-left: 10px;
+    }
+
+    &:hover {
+      background-color: $primary-color-light;
+      border-color: $primary-color;
+      color: $primary-color;
+    }
   }
 }

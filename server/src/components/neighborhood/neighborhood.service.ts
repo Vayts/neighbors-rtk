@@ -17,10 +17,13 @@ import {
 import { DebtService } from '../debt/debt.service';
 import { PlanService } from '../plan/plan.service';
 import { randomBytes } from 'crypto';
+import { EventService } from '../event/event.service';
+import { EventTypeEnum } from '../../types/event.types';
 
 @Injectable()
 export class NeighborhoodService {
   constructor(
+    private eventService: EventService,
     private jwtService: JwtService,
     private debtService: DebtService,
     private planService: PlanService,
@@ -112,6 +115,12 @@ export class NeighborhoodService {
       },
     ]);
 
+    await this.eventService.createEvent(
+      req.user._id,
+      EventTypeEnum.NewMember,
+      neighborhood.neighborhood_id,
+    );
+
     return this.getFullNeighborhoodByIdAndMemberId(
       neighborhood.neighborhood_id,
       req.user._id,
@@ -143,6 +152,12 @@ export class NeighborhoodService {
     await this.planService.removeUserFromAllPlansByUserId(
       neighborhoodId,
       userId,
+    );
+
+    await this.eventService.createEvent(
+      userId,
+      EventTypeEnum.UserHasLeft,
+      neighborhoodId,
     );
 
     return this.neighborhoodUserModel.findOneAndDelete({
@@ -482,9 +497,17 @@ export class NeighborhoodService {
       expirationDate: { $gt: new Date() },
     });
 
+    const events = await this.eventService.getEventsInNeighborhoodAndRecipient(
+      neighborhood[0]._id,
+      req.user._id,
+    );
+
+    console.log(events);
+
     return {
       inviteCode: inviteCode?.code || null,
       ...neighborhood[0],
+      events,
       debts: debts.length,
       plans: plans.length,
     };
