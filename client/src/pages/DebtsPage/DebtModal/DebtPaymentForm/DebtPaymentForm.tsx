@@ -56,7 +56,6 @@ const DebtPaymentForm: React.FC<Props> = ({ debt }) => {
     dispatch(setLoadingDebts(debt._id));
     dispatch(addDebtPayment({ id: debt._id, amount: values.amount }))
       .finally(() => {
-        
         dispatch(setLoadingDebts(debt._id));
       });
   };
