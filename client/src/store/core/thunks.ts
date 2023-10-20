@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { errorManager } from '@helpers/errors.helper';
 import { ErrorEnum } from '@src/types/default.types';
 import { refresh } from '@src/store/auth/thunks';
-import { ILocale } from '@src/types/locale.types';
+import { LocaleEnum } from '@src/types/locale.types';
 import { setLanguage } from '@src/store/core/slice';
 import { getUserNeighborhoods } from '@src/store/userNeighborhoods/thunks';
 import { RootState } from '@src/store';
@@ -23,7 +23,7 @@ export const appFirstLoad = createAsyncThunk(
       
       const locale = window.localStorage.getItem('neighbors_lang');
       
-      if (locale === ILocale.en || locale === ILocale.uk) {
+      if (locale === LocaleEnum.en || locale === LocaleEnum.uk) {
         dispatch(setLanguage(locale));
       }
       return true;

@@ -5,8 +5,31 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 15px 10px;
+
+  @include for-tablet {
+    justify-content: flex-start;
+  }
+
+  img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+
+    @include for-tablet {
+      width: 50px;
+      height: 50px;
+      justify-content: flex-start;
+    }
+  }
+}
+
+.AuthLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
 
   @include for-tablet {
     justify-content: flex-start;
@@ -33,5 +56,23 @@
 
   @include for-tablet {
     display: block;
+  }
+}
+
+.AuthLanguageSwitcher {
+  display: flex;
+}
+
+.AuthLanguageItem {
+  cursor: pointer;
+
+  &:not(:first-child) {
+    margin-left: 10px;
+  }
+
+  &--selected {
+    cursor: default;
+    font-weight: 600;
+    text-decoration: underline;
   }
 }

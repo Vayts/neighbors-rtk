@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import Button from '@src/components/UI/Button/Button';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
-import { ILocale } from '@src/types/locale.types';
+import { LocaleEnum } from '@src/types/locale.types';
 import i18n from 'i18next';
 import { setLanguage } from '@src/store/core/slice';
 import styles from './SettingsPage.module.scss';
@@ -16,7 +16,7 @@ const SettingsPage: React.FC = () => {
   const { t } = useTranslation();
   
   const changeLanguageHandler = () => {
-    const newLocale = currentLocale === ILocale.uk ? ILocale.en : ILocale.uk;
+    const newLocale = currentLocale === LocaleEnum.uk ? LocaleEnum.en : LocaleEnum.uk;
     i18n.changeLanguage(newLocale)
       .then(() => {
         dispatch(setLanguage(newLocale));
