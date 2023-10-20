@@ -9,7 +9,7 @@
 
 - **Collaborative Planning:** Plan neighborhood events or initiatives together, inspired by the desire to make your community a better place. Whether it's a community clean-up, a block party, or a fundraiser, everyone can pitch in and coordinate their efforts seamlessly.
 
-- **>Messaging:** Stay in touch with your neighbors through built-in messaging, mirroring the way neighbors naturally communicate. Share information, ask for help, and discuss community matters easily.
+- **Messaging:** Stay in touch with your neighbors through built-in messaging, mirroring the way neighbors naturally communicate. Share information, ask for help, and discuss community matters easily.
 
 - **Profile Customization:** Create a personalized profile, reflecting your own neighborly experiences and interests, to foster a sense of community and help people connect on a more personal level.
 
@@ -25,7 +25,7 @@ yarn install
 yarn start
 ```
 
-### `react-front`
+### `web`
 This is a frontend application built with React, Redux RTK.
 
 #### Installation and Running
