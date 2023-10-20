@@ -1,6 +1,6 @@
 export type LocaleType = 'en' | 'uk'
 
-export enum ILocale {
+export enum LocaleEnum {
   uk= 'uk',
   en = 'en',
 }
