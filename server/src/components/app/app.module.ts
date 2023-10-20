@@ -13,6 +13,7 @@ import { PlanModule } from '../plan/plan.module';
 import { ChatModule } from '../chat/chat.module';
 import { UserModule } from '../user/user.module';
 import { CoreModule } from '../core/core.module';
+import { EventModule } from '../event/event.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { CoreModule } from '../core/core.module';
     AuthModule,
     NeighborhoodModule,
     DebtModule,
+    EventModule,
     PlanModule,
     ChatModule,
     UserModule,

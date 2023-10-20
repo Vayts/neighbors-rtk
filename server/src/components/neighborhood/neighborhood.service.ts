@@ -502,8 +502,6 @@ export class NeighborhoodService {
       req.user._id,
     );
 
-    console.log(events);
-
     return {
       inviteCode: inviteCode?.code || null,
       ...neighborhood[0],
