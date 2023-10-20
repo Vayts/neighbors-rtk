@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { IMember } from '@src/types/user.types';
-import { getUserNeighborhoods } from '@src/store/userNeighborhoods/thunks';
+import { getUserNeighborhoods, joinNeighborhoodByCode } from '@src/store/userNeighborhoods/thunks';
 import { loadMoreMessages } from '@src/store/messages/thunks';
 import { getCurrentNeighborhood } from '@src/store/currentNeighborhood/thunks';
 
@@ -36,6 +36,19 @@ export const membersSlice = createSlice({
       })
       .addCase(loadMoreMessages.fulfilled, (state, { payload }) => {
         const members = payload.entities.members ?? {};
+        
+        Object.keys(members).forEach((key) => {
+          if (state.ids.includes(key)) {
+            delete members[key];
+          }
+        });
+        
+        if (Object.keys(members)) {
+          membersAdapter.upsertMany(state, members);
+        }
+      })
+      .addCase(joinNeighborhoodByCode.fulfilled, (state, { payload }) => {
+        const members = payload.members ?? {};
         
         Object.keys(members).forEach((key) => {
           if (state.ids.includes(key)) {

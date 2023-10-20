@@ -26,6 +26,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-link:before {
+  content: "\e921";
+}
+
+.icon-copy:before {
+  content: "\e920";
+}
+
+.icon-invite:before {
+  content: "\e91f";
+}
+
 .icon-lock:before {
   content: "\e91d";
 }

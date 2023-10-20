@@ -1,11 +1,19 @@
 import { CurrencyType, ErrorType } from '@src/types/default.types';
 import { EntityId } from '@reduxjs/toolkit';
+import { INeighborhoodEvent } from '@src/types/event.types';
 
 export interface ICreateNeighborhood {
   name: string,
   description: string,
   errors: ErrorType,
   currency: CurrencyType | '',
+}
+
+export interface IEditNeighborhood {
+  name: string,
+  description: string,
+  errors: ErrorType,
+  currency: CurrencyType,
 }
 
 export interface INeighborhood {
@@ -24,19 +32,6 @@ export interface ICurrentNeighborhood extends INeighborhood{
   plans: number,
   inviteCode: null | string,
   events: INeighborhoodEvent[],
-}
-
-export interface INeighborhoodEvent {
-  author: EntityId,
-  eventType: INeighborhoodEventEnum,
-  createdAt: Date,
-}
-
-export enum INeighborhoodEventEnum {
-  JoinNeighborhood = 'joinNeighborhood',
-  LeaveNeighborhood = 'leaveNeighborhood',
-  NewDebt = 'newDebt',
-  NewPlan = 'newPlan',
 }
 
 export enum NeighborhoodRoleEnum {

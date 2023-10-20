@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Debt, DebtDocument } from '../../schemas/debt.schema';
+import { EventService } from '../event/event.service';
+import { EventTypeEnum } from '../../types/event.types';
 
 @Injectable()
 export class DebtService {
   constructor(
-    private jwtService: JwtService,
+    private eventService: EventService,
     @InjectModel(Debt.name)
     private debtModel: Model<DebtDocument>,
   ) {}
@@ -22,6 +23,17 @@ export class DebtService {
         author_id: req.user._id,
       },
     ]);
+
+    await this.eventService.createEvent(
+      req.user._id,
+      EventTypeEnum.NewDebt,
+      dto.neighborhood_id,
+      newDebt[0]._id,
+      [
+        new mongoose.Types.ObjectId(req.user._id),
+        new mongoose.Types.ObjectId(dto.debtor_id),
+      ],
+    );
 
     return this.getDebtById(newDebt[0]._id);
   }
@@ -327,6 +339,10 @@ export class DebtService {
 
   deleteDebt(id) {
     return this.debtModel.findByIdAndDelete(new mongoose.Types.ObjectId(id));
+  }
+
+  deleteAllDebtsByNeighborhoodId(neighborhoodId) {
+    return this.debtModel.deleteMany({ neighborhood_id: neighborhoodId });
   }
 
   async closeDebt(id) {

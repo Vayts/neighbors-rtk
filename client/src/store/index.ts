@@ -12,6 +12,7 @@ import { chatSocketMiddleware } from '@src/store/chats/chat.middleware';
 import { messagesSlice } from '@src/store/messages/slice';
 import { chatsSlice } from '@src/store/chats/slice';
 import { currentNeighborhoodSlice } from '@src/store/currentNeighborhood/slice';
+import { eventsSlice } from '@src/store/events/slice';
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
     [messagesSlice.name]: messagesSlice.reducer,
     [chatsSlice.name]: chatsSlice.reducer,
     [currentNeighborhoodSlice.name]: currentNeighborhoodSlice.reducer,
+    [eventsSlice.name]: eventsSlice.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(chatSocketMiddleware('ws://localhost:4020')),
 });

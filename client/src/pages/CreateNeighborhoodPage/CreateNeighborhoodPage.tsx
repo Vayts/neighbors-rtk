@@ -50,9 +50,11 @@ const CreateNeighborhoodPage: React.FC = () => {
     if (!Object.values(values.errors).length) {
       setLoading(true);
       dispatch(createNeighborhood(values))
+        .unwrap()
         .then(() => {
           navigate('/neighborhoods');
         })
+        .catch((e) => e)
         .finally(() => {
           setLoading(true);
         });

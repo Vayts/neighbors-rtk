@@ -9,7 +9,7 @@
   flex-direction: column;
   border-radius: 5px;
   max-width: 300px;
-
+  width: 100%;
 
   @include for-tablet {
     max-width: 500px;

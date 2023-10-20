@@ -1,0 +1,50 @@
+@import "@src/styles/mixins";
+@import "@src/styles/variables";
+
+.EditNeighborhoodPageWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.EditNeighborhoodFormWrapper {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.EditNeighborhoodBack {
+  position: absolute;
+  grid-area: link;
+}
+
+.EditNeighborhoodTitleWrapper {
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-areas: "link title .";
+  grid-template-columns: minmax(100px,1fr) auto minmax(100px,1fr);
+  margin-bottom: 30px;
+}
+
+.EditNeighborhoodTitle {
+  @include title;
+  align-self: center;
+  font-size: 22px;
+  grid-area: title;
+  margin: 0;
+  text-align: center;
+  flex-grow: 1;
+  color: $title-light-text-color;
+}
+
+.EditNeighborhoodForm {
+  padding: 30px 20px;
+  background-color: $component-bg;
+  border-radius: $border-radius;
+}
+
+.EditSelectWrapper {
+  margin-bottom: 16px;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 15px;
+}

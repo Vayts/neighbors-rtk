@@ -1,19 +1,25 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Plan, PlanDocument } from '../../schemas/plan.schema';
 import { ERRORS } from '../../constants/errors';
+import { EventService } from '../event/event.service';
+import { EventTypeEnum } from '../../types/event.types';
 
 @Injectable()
 export class PlanService {
   constructor(
-    private jwtService: JwtService,
+    private eventService: EventService,
     @InjectModel(Plan.name)
     private planModel: Model<PlanDocument>,
   ) {}
 
   async createPlan(req, dto) {
+    const participants: mongoose.Types.ObjectId[] = [
+      ...dto.participants,
+      new mongoose.Types.ObjectId(req.user._id),
+    ];
+
     const newPlan = await this.planModel.insertMany([
       {
         ...dto,
@@ -21,10 +27,7 @@ export class PlanService {
         eventDate: dto.eventDate ? new Date(dto.eventDate) : null,
         author_id: req.user._id,
         isClosed: false,
-        participants: [
-          ...dto.participants,
-          new mongoose.Types.ObjectId(req.user._id),
-        ],
+        participants,
         participantPayments: [
           ...dto.participants.map((item) => {
             return {
@@ -39,6 +42,14 @@ export class PlanService {
         ],
       },
     ]);
+
+    await this.eventService.createEvent(
+      req.user._id,
+      EventTypeEnum.NewPlan,
+      dto.neighborhood_id,
+      newPlan[0]._id,
+      participants,
+    );
 
     return this.getPlanById(newPlan[0]._id);
   }
@@ -355,6 +366,20 @@ export class PlanService {
     return this.getPlanById(plan._id);
   }
 
+  removeUserFromAllPlansByUserId(neighborhoodId, userId) {
+    return this.planModel.updateOne(
+      { neighborhood_id: neighborhoodId },
+      {
+        $pull: {
+          participants: userId,
+          participantPayments: {
+            participant_id: new mongoose.Types.ObjectId(userId),
+          },
+        },
+      },
+    );
+  }
+
   async reopenPlan(id) {
     const plan = await this.planModel.findByIdAndUpdate(id, {
       isClosed: false,
@@ -365,6 +390,10 @@ export class PlanService {
 
   deletePlan(id) {
     return this.planModel.findByIdAndDelete(new mongoose.Types.ObjectId(id));
+  }
+
+  deleteAllPlansByNeighborhoodId(neighborhoodId) {
+    return this.planModel.deleteMany({ neighborhood_id: neighborhoodId });
   }
 
   async editPlan(dto, id) {

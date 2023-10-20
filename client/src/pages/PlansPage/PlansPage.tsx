@@ -31,7 +31,7 @@ const PlansPage: React.FC = () => {
     if (!id) {
       navigate('/plans/create');
     } else {
-      navigate(`/plans/create?neighborhood_id=${id}`);
+      navigate(`/plans/create/${id}`);
     }
   };
   

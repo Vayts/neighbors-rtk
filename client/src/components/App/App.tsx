@@ -18,6 +18,7 @@ const CreateDebtPage = withSuspense(React.lazy(() => import('@src/pages/CreateDe
 const DebtsPage = withSuspense(React.lazy(() => import('@src/pages/DebtsPage/DebtsPage')));
 const CurrentNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/CurrentNeighborhoodPage/CurrentNeighborhoodPage')));
 const CreateNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/CreateNeighborhoodPage/CreateNeighborhoodPage')));
+const EditNeighborhoodPage = withSuspense(React.lazy(() => import('@src/pages/EditNeighborhoodPage/EditNeighborhoodPage')));
 const NeighborhoodsPage = withSuspense(React.lazy(() => import('@src/pages/NeighborhoodsPage/NeighborhoodsPage')));
 const ChatsPage = withSuspense(React.lazy(() => import('@src/pages/ChatsPage/ChatsPage')));
 const EditPlanPage = withSuspense(React.lazy(() => import('@src/pages/EditPlanPage/EditPlanPage')));
@@ -46,17 +47,20 @@ export const App: React.FC = () => {
             <Route path='/' element={<NeighborhoodsPage/>}/>
             <Route path='/neighborhoods' element={<NeighborhoodsPage/>}/>
             <Route path='/neighborhoods/create' element={<CreateNeighborhoodPage/>}/>
+            <Route path='/neighborhoods/edit/:id' element={<EditNeighborhoodPage/>}/>
             
             <Route path='/neighborhoods/:id' element={<CurrentNeighborhoodPage/>}/>
             
             <Route path='/debts' element={<DebtsPage/>} />
             <Route path='/debts/:id' element={<DebtsPage/>} />
             <Route path='/debts/create' element={<CreateDebtPage/>} />
+            <Route path='/debts/create/:id' element={<CreateDebtPage/>} />
             <Route path='/debts/edit/:debtId' element={<EditDebtPage/>} />
             
             <Route path='/plans' element={<PlansPage/>} />
             <Route path='/plans/:id' element={<PlansPage/>} />
             <Route path='/plans/create' element={<CreatePlanPage/>} />
+            <Route path='/plans/create/:id' element={<CreatePlanPage/>} />
             <Route path='/plans/edit/:planId' element={<EditPlanPage/>} />
             
             <Route path='/chats' element={<ChatsPage/>}/>

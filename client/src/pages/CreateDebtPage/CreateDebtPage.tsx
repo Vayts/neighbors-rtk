@@ -12,7 +12,7 @@ import Button from '@src/components/UI/Button/Button';
 import { getCreateDebtValidation } from '@src/validation/createDebt.validation';
 import DateInput from '@src/components/UI/DateInput/DateInput';
 import Input from '@src/components/UI/Input/Input';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { createDebt } from '@src/store/debts/thunks';
 import { selectUser } from '@src/store/auth/selectors';
 import { selectAllNeighborhoods } from '@src/store/userNeighborhoods/selectors';
@@ -28,8 +28,7 @@ const initialValues: ICreateDebt = {
 };
 
 const CreateDebtPage: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get('neighborhood_id');
+  const { id } = useParams();
   const [values, setValues] = useState<ICreateDebt>({
     ...initialValues,
     neighborhood_id: id || '',
@@ -86,7 +85,7 @@ const CreateDebtPage: React.FC = () => {
       setLoading(true);
       dispatch(createDebt(dto))
         .then(() => {
-          navigate(`/debts${id ? `?neighborhood_id=${id}` : ''}`);
+          navigate(`/debts${id ? `/${id}` : ''}`);
         })
         .finally(() => {
           setLoading(false);

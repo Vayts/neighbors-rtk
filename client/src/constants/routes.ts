@@ -12,12 +12,18 @@ export const USER_ROUTES = {
 
 export const NEIGHBORHOOD_ROUTES = {
   create: '/neighborhood/create',
+  edit: '/neighborhood/edit',
   getByCode: '/neighborhood/get-by-code',
   joinByCode: '/neighborhood/join-by-code',
   getUserNeighborhoods: '/neighborhood/get-user-neighborhoods',
   getCurrent: '/neighborhood/get-current',
   setFavorite: '/neighborhood/set-favorite',
   removeFavorite: '/neighborhood/remove-favorite',
+  removeUser: '/neighborhood/remove-user',
+  leave: '/neighborhood/leave',
+  generateInviteCode: '/neighborhood/generate-invite-code',
+  removeInviteCode: '/neighborhood/remove-invite-code',
+  delete: '/neighborhood/delete',
 };
 
 export const DEBTS_ROUTES = {

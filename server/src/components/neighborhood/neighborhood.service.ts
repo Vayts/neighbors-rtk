@@ -16,10 +16,14 @@ import {
 } from '../../schemas/neighborhood_invite.schema';
 import { DebtService } from '../debt/debt.service';
 import { PlanService } from '../plan/plan.service';
+import { randomBytes } from 'crypto';
+import { EventService } from '../event/event.service';
+import { EventTypeEnum } from '../../types/event.types';
 
 @Injectable()
 export class NeighborhoodService {
   constructor(
+    private eventService: EventService,
     private jwtService: JwtService,
     private debtService: DebtService,
     private planService: PlanService,
@@ -60,6 +64,14 @@ export class NeighborhoodService {
         HttpStatus.BAD_REQUEST,
       );
     }
+  }
+
+  async editNeighborhood(neighborhoodId, dto) {
+    return this.neighborhoodModel.findOneAndUpdate(
+      { _id: neighborhoodId },
+      { ...dto },
+      { new: true },
+    );
   }
 
   async getNeighborhoodByInviteCode(code) {
@@ -103,6 +115,12 @@ export class NeighborhoodService {
       },
     ]);
 
+    await this.eventService.createEvent(
+      req.user._id,
+      EventTypeEnum.NewMember,
+      neighborhood.neighborhood_id,
+    );
+
     return this.getFullNeighborhoodByIdAndMemberId(
       neighborhood.neighborhood_id,
       req.user._id,
@@ -128,6 +146,73 @@ export class NeighborhoodService {
       { user_id: userId, neighborhood_id: neighborhoodId },
       { isFavorite: false },
     );
+  }
+
+  async removeUser(userId, neighborhoodId) {
+    await this.planService.removeUserFromAllPlansByUserId(
+      neighborhoodId,
+      userId,
+    );
+
+    await this.eventService.createEvent(
+      userId,
+      EventTypeEnum.UserHasLeft,
+      neighborhoodId,
+    );
+
+    return this.neighborhoodUserModel.findOneAndDelete({
+      user_id: userId,
+      neighborhood_id: neighborhoodId,
+    });
+  }
+
+  async deleteNeighborhood(neighborhoodId) {
+    await this.neighborhoodUserModel.deleteMany({
+      neighborhood_id: neighborhoodId,
+    });
+    await this.neighborhoodInviteModel.deleteMany({
+      neighborhood_id: neighborhoodId,
+    });
+    await this.planService.deleteAllPlansByNeighborhoodId(neighborhoodId);
+    await this.debtService.deleteAllDebtsByNeighborhoodId(neighborhoodId);
+    return this.neighborhoodModel.findOneAndDelete({ _id: neighborhoodId });
+  }
+
+  async generateInviteCode(neighborhoodId) {
+    const isTokenExist = await this.neighborhoodInviteModel.findOne({
+      neighborhood_id: neighborhoodId,
+    });
+
+    const code = randomBytes(32).toString('hex');
+    const currentDateTime = new Date();
+    const expirationDate = new Date(currentDateTime);
+    expirationDate.setDate(currentDateTime.getDate() + 1);
+
+    if (isTokenExist) {
+      return this.neighborhoodInviteModel.findOneAndUpdate(
+        { neighborhood_id: neighborhoodId },
+        {
+          code,
+          expirationDate,
+        },
+      );
+    } else {
+      const result = await this.neighborhoodInviteModel.insertMany([
+        {
+          neighborhood_id: neighborhoodId,
+          code,
+          expirationDate,
+        },
+      ]);
+
+      return result[0];
+    }
+  }
+
+  async removeInviteCode(neighborhoodId) {
+    return this.neighborhoodInviteModel.findOneAndDelete({
+      neighborhood_id: neighborhoodId,
+    });
   }
 
   getUserNeighborhoods(userId) {
@@ -407,9 +492,22 @@ export class NeighborhoodService {
       req,
       neighborhood[0]._id,
     );
+    const inviteCode = await this.neighborhoodInviteModel.findOne({
+      neighborhood_id: id,
+      expirationDate: { $gt: new Date() },
+    });
+
+    const events = await this.eventService.getEventsInNeighborhoodAndRecipient(
+      neighborhood[0]._id,
+      req.user._id,
+    );
+
+    console.log(events);
 
     return {
+      inviteCode: inviteCode?.code || null,
       ...neighborhood[0],
+      events,
       debts: debts.length,
       plans: plans.length,
     };

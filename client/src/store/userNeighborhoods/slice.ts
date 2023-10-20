@@ -1,13 +1,15 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { INeighborhood } from '@src/types/neighborhood.types';
 import {
-  createNeighborhood,
+  createNeighborhood, editNeighborhood,
   getNeighborhoodByCode,
   getUserNeighborhoods,
   joinNeighborhoodByCode, removeNeighborhoodFavorite,
   setNeighborhoodFavorite,
 } from '@src/store/userNeighborhoods/thunks';
 import { INeighborhoodsState } from '@src/store/userNeighborhoods/types';
+import { logout } from '@src/store/auth/thunks';
+import { deleteNeighborhood, leaveFromNeighborhood } from '@src/store/currentNeighborhood/thunks';
 
 const initialState: INeighborhoodsState = {
   isLoading: true,
@@ -50,6 +52,22 @@ export const userNeighborhoodsSlice = createSlice({
           changes: {
             isFavorite: false,
           } });
+      })
+      .addCase(logout.fulfilled, (state) => {
+        userNeighborhoodsAdapter.removeAll(state);
+        state.isLoading = true;
+      })
+      .addCase(editNeighborhood.fulfilled, (state, { payload }) => {
+        userNeighborhoodsAdapter.updateOne(state, { id: payload._id,
+          changes: {
+            ...payload,
+          } });
+      })
+      .addCase(leaveFromNeighborhood.fulfilled, (state, { payload }) => {
+        userNeighborhoodsAdapter.removeOne(state, payload);
+      })
+      .addCase(deleteNeighborhood.fulfilled, (state, { payload }) => {
+        userNeighborhoodsAdapter.removeOne(state, payload);
       });
   },
 });

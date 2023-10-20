@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import Loader from '@src/components/Loader/Loader';
 import NeighborhoodSwitcher from '@src/components/NeighborhoodSwitcher/NeighborhoodSwitcher';
 import { useTranslation } from 'react-i18next';
-import NeighborhoodMain from '@src/pages/CurrentNeighborhoodPage/NeighborhoodMain/NeighborhoodMain';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { getCurrentNeighborhood } from '@src/store/currentNeighborhood/thunks';
 import { useParams } from 'react-router-dom';
+import NeighborhoodInfo from '@src/pages/CurrentNeighborhoodPage/NeighborhoodInfo/NeighborhoodInfo';
+import EventList from '@src/pages/CurrentNeighborhoodPage/EventList/EventList';
 import styles from './CurrentNeighborhoodPage.module.scss';
 
 const CurrentNeighborhoodPage: React.FC = () => {
@@ -16,7 +17,9 @@ const CurrentNeighborhoodPage: React.FC = () => {
   const { t } = useTranslation();
   
   useEffect(() => {
-    dispatch(getCurrentNeighborhood(id));
+    if (neighborhood?._id !== id) {
+      dispatch(getCurrentNeighborhood(id));
+    }
   }, [id]);
   
   return (
@@ -30,8 +33,8 @@ const CurrentNeighborhoodPage: React.FC = () => {
       {isLoading && <Loader/>}
       {neighborhood && !isLoading && (
         <div className={styles.CurrentContentWrapper}>
-          <NeighborhoodMain/>
-          {/*<NeighborhoodSidebar/>*/}
+          <NeighborhoodInfo/>
+          <EventList/>
         </div>
       )}
     </div>
