@@ -1,0 +1,31 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.DebtsTopWrapper {
+  background-color: $component-bg;
+  border-radius: 10px;
+  padding: 16px;
+  animation: appear 0.2s;
+}
+
+.DebtsTopTitle {
+  @include title;
+  margin: 0 0 15px;
+  font-size: 18px;
+}
+
+.DebtsTopTable {
+  width: 100%;
+  border: 1px solid $border-color;
+}
+

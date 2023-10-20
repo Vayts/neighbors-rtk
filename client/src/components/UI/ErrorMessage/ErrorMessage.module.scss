@@ -1,0 +1,29 @@
+@import "@src/styles/variables";
+
+.ErrorWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.ErrorIcon {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  margin-right: 5px;
+  background-color: $primary-color;
+  border-radius: 50%;
+
+  &:before {
+    content: '!';
+    position: absolute;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.ErrorText {
+  font-size: 13px;
+  color: $text-color;
+}

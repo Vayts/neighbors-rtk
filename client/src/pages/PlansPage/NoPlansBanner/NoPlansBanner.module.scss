@@ -1,0 +1,58 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.NoPlansBannerWrapper {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.NoPlansBannerContent {
+  background-color: $component-bg;
+  border-radius: 20px;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+
+  @include for-tablet {
+    max-width: 670px;
+    padding: 20px 35px;
+  }
+}
+
+.NoPlansBannerTitle {
+  @include title;
+  font-size: 24px;
+  color: $title-light-text-color;
+  text-align: center;
+}
+
+.NoPlansBannerImg {
+  max-height: 200px;
+
+  @include for-tablet {
+    max-height: 300px;
+  }
+}
+
+.NoPlansBannerText {
+  text-align: center;
+}
+
+.NoPlansBannerButtons {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 20px 0;
+  width: 100%;
+
+  @include for-tablet {
+    gap: 35px;
+    flex-direction: row;
+  }
+}

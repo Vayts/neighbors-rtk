@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { User } from './user.schema';
 
 @Schema({ _id: false, versionKey: false })
-export class PlanParticipantSchema {
+export class PlanParticipantPaymentSchema {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   participant_id: User;
   @Prop()

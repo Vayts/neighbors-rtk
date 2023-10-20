@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { User } from './user.schema';
 import { Neighborhood } from './neighborhood.schema';
-import { PlanParticipantSchema } from './planParticipant.schema';
+import { PlanParticipantPaymentSchema } from './planParticipant.schema';
 import { PlanTaskSchema, PlanTaskSchemaDocument } from './planTask.schema';
 
 export type PlanDocument = HydratedDocument<Plan>;
@@ -29,8 +29,13 @@ export class Plan {
   @Prop({ default: false })
   isPaymentRequired: boolean;
 
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  })
+  participants: mongoose.Schema.Types.ObjectId[];
+
   @Prop()
-  participants: [PlanParticipantSchema];
+  participantPayments: [PlanParticipantPaymentSchema];
 
   @Prop({ default: false })
   isTaskListRequired: boolean;

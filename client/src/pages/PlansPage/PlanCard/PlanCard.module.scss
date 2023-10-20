@@ -1,0 +1,170 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.PlanWrapper {
+  position: relative;
+  animation: appear 0.2s;
+}
+
+.PlanMenuWrapper {
+  position: absolute;
+  right: 25px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.PlanContent {
+  background-color: $component-bg;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 15px 25px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+
+  @include for-tablet {
+    &:hover {
+      background-color: $content-color-hover;
+      border-color: $border-color;
+    }
+  }
+}
+
+.PlanMainContent {
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: column;
+
+  @include for-tablet {
+    flex-direction: row;
+  }
+}
+
+.PlanAuthorAvatar {
+  width: 56px;
+  height: 56px;
+  min-height: 56px;
+  max-width: 56px;
+  margin-right: 10px;
+}
+
+.PlanTextWrapper {
+  flex-grow: 1;
+}
+
+.PlanName {
+  margin: 0 0 5px;
+  color: $title-text-color;
+  font-size: 18px;
+}
+
+.PlanDescription {
+  margin: 0 0 5px;
+  color: $text-color;
+}
+
+.PlanBottomContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include for-tablet {
+    flex-direction: row;
+  }
+}
+
+.PlanProgressBarWrapper {
+  width: 100%;
+
+  @include for-tablet {
+    width: 55%;
+  }
+}
+
+.PlanEventIsOver {
+  text-align: center;
+  color: $success-color;
+  margin: 0;
+  height: 21px;
+  font-size: 14px;
+
+  @include for-tablet {
+    text-align: left;
+  }
+}
+
+.PlanAdditionalInfo {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.PlanNoPaymentText {
+  color: $light-text-color;
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+  height: 21px;
+
+  @include for-tablet {
+    text-align: left;
+  }
+}
+
+.PlanCompletedTask {
+  display: flex;
+  align-items: center;
+  color: $light-text-color;
+  margin-right: 10px;
+
+  p {
+    margin: 0 5px 0 0;
+    font-size: 14px;
+  }
+
+  span {
+    font-size: 14px;
+  }
+}
+
+.ParticipantsWrapper {
+  align-self: flex-end;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 15px;
+
+  @include for-tablet {
+    width: unset;
+    display: unset;
+    justify-content: unset;
+  }
+}
+
+.PlanEventDate {
+  display: flex;
+  align-items: center;
+  color: $light-text-color;
+
+  p {
+    margin: 0 5px 0 0;
+    font-size: 14px;
+  }
+
+  span {
+    font-size: 14px;
+  }
+}
+
+

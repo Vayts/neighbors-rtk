@@ -4,6 +4,7 @@ export class SimpleUserDto {
   constructor(user: UserDocument) {
     this.fullName = user.fullName;
     this.firstName = user.firstName;
+    this.lastName = user.lastName;
     this.login = user.login;
     this._id = user._id;
     this.avatar = user.avatar;
@@ -13,4 +14,5 @@ export class SimpleUserDto {
   avatar: string;
   fullName: string;
   firstName: string;
+  lastName: string;
 }

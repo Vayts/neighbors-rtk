@@ -1,0 +1,76 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.NeighborhoodsWrapper {
+
+}
+
+.NeighborhoodsControls {
+  background-color: $component-bg;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  border-bottom: 1px solid $border-color;
+  padding: 10px 15px 10px 35px;
+  flex-direction: column;
+
+  @include for-tablet {
+    flex-direction: row;
+    align-items: center;
+    height: $page-controls-height;
+
+  }
+}
+
+.NeighborhoodsTitleWrapper {
+  display: flex;
+  align-items: center;
+
+  h3 {
+    font-size: 24px;
+    margin: 0 0 10px;
+    display: none;
+    line-height: 24px;
+
+    @include for-tablet {
+      margin: 0 25px 0 0;
+      display: block;
+    }
+  }
+
+  div {
+    display: none;
+
+    @include for-desktop {
+      display: flex;
+    }
+  }
+}
+
+.NeighborhoodsButtons {
+  display: flex;
+  align-items: center;
+
+  @include for-tablet {
+    padding-left: 25px;
+    border-left: 1px solid $border-color;
+  }
+}
+
+.NeighborhoodJoinButton {
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 25px;
+  color: $light-text-color;
+  user-select: none;
+
+  @include for-tablet {
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      text-decoration: underline;
+      color: $text-color;
+    }
+  }
+}

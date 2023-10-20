@@ -3,8 +3,8 @@ import { ChatGateway } from './chat.gateway';
 import { ChatService } from './chat.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Message, MessageSchema } from '../../schemas/message.schema';
-import { JwtModule } from '@nestjs/jwt';
-import { NeighborhoodModule } from '../neighborhood/neighborhood.module';
+
+import { ChatController } from './chat.controller';
 import {
   Neighborhood,
   NeighborhoodSchema,
@@ -13,7 +13,6 @@ import {
   Neighborhood_User,
   Neighborhood_UserSchema,
 } from '../../schemas/neighborhood_user.schema';
-import { ChatController } from './chat.controller';
 
 @Module({
   providers: [ChatGateway, ChatService],
@@ -24,8 +23,6 @@ import { ChatController } from './chat.controller';
       { name: Neighborhood.name, schema: NeighborhoodSchema },
       { name: Neighborhood_User.name, schema: Neighborhood_UserSchema },
     ]),
-    JwtModule.register({}),
-    NeighborhoodModule,
   ],
   exports: [],
 })

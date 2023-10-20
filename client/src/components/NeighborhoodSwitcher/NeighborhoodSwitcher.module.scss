@@ -1,0 +1,39 @@
+@import "@src/styles/variables";
+
+.SwitcherWrapper {
+  padding: 4px;
+  background-color: $light-bg-color;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.SwitcherButton {
+  border-radius: 15px;
+  margin: 0;
+  padding: 4px 12px;
+  align-self: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: $light-text-color;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+
+  &:hover {
+    background-color: $border-color-hover;
+    color: $text-color;
+  }
+
+  &--selected {
+    cursor: default;
+    background-color: $text-color;
+    color: $reverse-text-color;
+
+    &:hover {
+      background-color: $text-color;
+      color: $reverse-text-color;
+    }
+  }
+}

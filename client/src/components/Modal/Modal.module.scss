@@ -1,0 +1,94 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+@keyframes modalAppear {
+  0% {
+    margin-top: 0;
+    opacity: 0;
+  }
+
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    margin-top: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes modalAppearTablet {
+  0% {
+    margin-top: 0;
+    opacity: 0;
+  }
+
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    margin-top: 60px;
+    opacity: 1;
+  }
+}
+
+@keyframes modalBgAppear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.ModalBg {
+  background-color: $modal-bg;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  z-index: 100;
+  justify-content: center;
+  animation: modalBgAppear 0.2s linear;
+  overflow-y: scroll;
+  width: 100vw;
+
+  &::-webkit-scrollbar-track {
+    background: $modal-bg;
+    position: absolute;
+  }
+}
+
+.ModalClose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 16px;
+  color: $light-text-color;
+  transition: all 0.2s;
+  cursor: pointer;
+  z-index: 101;
+
+  &:hover {
+    color: $text-color;
+  }
+}
+
+.ModalContent {
+  align-self: flex-start;
+  background-color: #fff;
+  animation: modalAppear 0.2s linear;
+  margin: 30px 10px 0 10px;
+  border-radius: $border-radius;
+  position: relative;
+
+  @include for-tablet {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 60px 0 0 0;
+    animation: modalAppearTablet 0.2s linear;
+  }
+}

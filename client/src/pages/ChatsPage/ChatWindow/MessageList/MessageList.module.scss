@@ -1,0 +1,47 @@
+.MessageList {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0 0 0;
+  position: relative;
+  list-style: none;
+  transition: all 0.2s;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+  }
+
+  &:hover {
+
+    &::-webkit-scrollbar-track {
+      background: #f8f8f8;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #a9a9a9;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #646464;
+    }
+  }
+}

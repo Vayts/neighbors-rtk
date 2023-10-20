@@ -1,8 +1,10 @@
 import { IsString, Length } from 'class-validator';
 
 export class CreateUserDto {
+  @Length(2, 25)
   @IsString({ message: 'Must be a string' })
   readonly firstName: string;
+  @Length(2, 20)
   @IsString({ message: 'Must be a string' })
   readonly lastName: string;
   @IsString({ message: 'Must be a string' })

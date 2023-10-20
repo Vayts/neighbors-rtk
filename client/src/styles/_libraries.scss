@@ -1,0 +1,31 @@
+@import "variables";
+
+:root {
+  --sidebar-width: 80px;
+  --header-height: 60px;
+  --toastify-color-info: #2C9E95;
+  --toastify-color-success: #72b274;
+  --toastify-color-error: #f68080;
+}
+
+.Toastify__toast-container {
+  width: 320px;
+
+  @include for-tablet {
+    width: 450px;
+  }
+}
+
+.Toastify__toast {
+  padding: 22px 15px;
+}
+
+.Toastify__toast-icon {
+  width: 25px;
+  margin-right: 10px;
+}
+
+.react-datepicker__header {
+  background-color: $content-color;
+  border-color: $border-color;
+}

@@ -11,6 +11,9 @@ import { NeighborhoodModule } from '../neighborhood/neighborhood.module';
 import { DebtModule } from '../debt/debt.module';
 import { PlanModule } from '../plan/plan.module';
 import { ChatModule } from '../chat/chat.module';
+import { UserModule } from '../user/user.module';
+import { CoreModule } from '../core/core.module';
+import { EventModule } from '../event/event.module';
 
 @Module({
   imports: [
@@ -23,13 +26,16 @@ import { ChatModule } from '../chat/chat.module';
     //   rootPath: join(__dirname, '../../../..', 'client/dist'),
     //   exclude: ['/api/(.*)'],
     // }),
+    CoreModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),
     AuthModule,
     NeighborhoodModule,
     DebtModule,
+    EventModule,
     PlanModule,
     ChatModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

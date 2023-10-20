@@ -1,0 +1,91 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.NeighborhoodCard {
+  background-color: $component-bg;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  transition: all 0.3s;
+  padding: 25px;
+  cursor: pointer;
+  position: relative;
+
+  @include for-tablet {
+    &:hover {
+      background-color: $content-color-hover;
+      border-color: $border-color;
+    }
+  }
+}
+
+.NeighborhoodInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.NeighborhoodAvatarFiller {
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 50%;
+  background-color: $light-bg-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+
+  span {
+    font-size: 20px;
+    color: $title-text-color;
+  }
+}
+
+.NeighborhoodTitle {
+  @include title;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 5px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.NeighborhoodRoleTag {
+  padding: 2px 20px;
+  text-transform: uppercase;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-radius: $border-radius;
+
+  &--admin {
+    background-color: $success-color-transparent;
+    color: $success-color;
+  }
+
+  &--member {
+    background-color: $info-color-transparent;
+    color: $info-color;
+  }
+}
+
+.NeighborhoodFavoriteIcon {
+  font-size: 20px;
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  color: $light-text-color;
+  opacity: 0.8;
+  transition: all 0.2s;
+
+  &:hover {
+    opacity: 1;
+    color: #fbc33e;
+  }
+
+  &--filled {
+    opacity: 1;
+    color: #fbc33e;
+  }
+}

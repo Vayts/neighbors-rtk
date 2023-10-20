@@ -1,0 +1,49 @@
+@import "@src/styles/mixins";
+
+.CreatePlanPageWrapper {
+  display: flex;
+  justify-content: center;
+  width: calc(100vw - 80px);
+}
+
+.CreatePlanFormWrapper {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 490px;
+}
+
+.CreatePlanBack {
+  position: absolute;
+  grid-area: link;
+}
+
+.CreatePlanTitleWrapper {
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-areas: "link title .";
+  grid-template-columns: minmax(100px,1fr) auto minmax(100px,1fr);
+  margin-bottom: 30px;
+}
+
+.CreatePlanTitle {
+  @include title;
+  align-self: center;
+  font-size: 22px;
+  grid-area: title;
+  margin: 0;
+  flex-grow: 1;
+  color: $title-light-text-color;
+}
+
+.CreatePlanForm {
+  padding: 30px 20px;
+  background-color: $component-bg;
+  border-radius: $border-radius;
+}
+
+.CreateSelectWrapper {
+  margin-bottom: 16px;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 20px;
+}

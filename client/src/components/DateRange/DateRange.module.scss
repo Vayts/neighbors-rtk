@@ -1,0 +1,19 @@
+@import "@src/styles/variables";
+
+.DateRange {
+  display: flex;
+  align-items: center;
+  color: $light-text-color;
+
+  &--overdue {
+    color: $danger-color;
+  }
+}
+
+.DateRangeIcon {
+  margin: 0 5px;
+}
+
+.DateRangeInfinity {
+  font-size: 15px;
+}

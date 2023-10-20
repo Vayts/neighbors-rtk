@@ -11,21 +11,22 @@ import {
 } from '@nestjs/common';
 import { PlanService } from './plan.service';
 import { ROUTES } from '../../constants/routes';
-import { JwtAuthGuard } from '../../guards/jwtAuth.guard';
+import { JwtAuthGuard } from '../../guards/JwtAuth.guard';
 import { CreatePlanDto } from '../../dto/create-plan.dto';
-import { userInNeighborhoodGuard } from '../../guards/userInNeighborhood.guard';
-import { userInPlanGuard } from '../../guards/userInPlan.guard';
-import { addPlanAmountBiggerThanRepaidGuard } from '../../guards/addPlanAmountBiggerThanRepaid.guard';
-import { userIsPlanAuthor } from '../../guards/userIsPlanAuthor.guard';
+import { UserInNeighborhoodGuard } from '../../guards/UserInNeighborhood.guard';
+import { UserInPlanGuard } from '../../guards/UserInPlan.guard';
+import { AddPlanAmountBiggerThanRepaidGuard } from '../../guards/AddPlanAmountBiggerThanRepaid.guard';
+import { UserIsPlanAuthor } from '../../guards/UserIsPlanAuthor.guard';
 import { EditPlanDto } from '../../dto/edit-plan.dto';
-import { newPlanAmountBiggerThanRepaidGuard } from '../../guards/newPlanAmountBiggerThanAlreadyRepaid.guard';
+import { NewPlanAmountBiggerThanRepaidGuard } from '../../guards/NewPlanAmountBiggerThanAlreadyRepaid.guard';
+import { ValidNeighborhoodIdGuard } from '../../guards/ValidNeighborhoodId.guard';
 
 @Controller(ROUTES.PLAN.DEFAULT)
 export class PlanController {
   constructor(private planService: PlanService) {}
 
   @Post(ROUTES.PLAN.CREATE)
-  @UseGuards(JwtAuthGuard, userInNeighborhoodGuard)
+  @UseGuards(JwtAuthGuard, UserInNeighborhoodGuard)
   createPlan(@Req() req: Request, @Body() dto: CreatePlanDto) {
     return this.planService.createPlan(req, dto);
   }
@@ -36,14 +37,20 @@ export class PlanController {
     return this.planService.getUserPlans(req);
   }
 
+  @Get(ROUTES.PLAN.GET_USER_PLANS_BY_ID)
+  @UseGuards(JwtAuthGuard, ValidNeighborhoodIdGuard, UserInNeighborhoodGuard)
+  getUserPlansById(@Req() req: Request, @Query() query) {
+    return this.planService.getUserPlansById(req, query.neighborhood_id);
+  }
+
   @Put(ROUTES.PLAN.CHANGE_TASK_STATUS)
-  @UseGuards(JwtAuthGuard, userInPlanGuard)
+  @UseGuards(JwtAuthGuard, UserInPlanGuard)
   changeTaskStatus(@Query() query, @Req() req: Request) {
     return this.planService.changeTaskStatus(query.plan_id, query.task_id, req);
   }
 
   @Put(ROUTES.PLAN.ADD_PAYMENT)
-  @UseGuards(JwtAuthGuard, userInPlanGuard, addPlanAmountBiggerThanRepaidGuard)
+  @UseGuards(JwtAuthGuard, UserInPlanGuard, AddPlanAmountBiggerThanRepaidGuard)
   addPayment(
     @Query() query,
     @Req() req: Request,
@@ -57,25 +64,25 @@ export class PlanController {
   }
 
   @Put(ROUTES.PLAN.CLOSE_PLAN)
-  @UseGuards(JwtAuthGuard, userIsPlanAuthor)
+  @UseGuards(JwtAuthGuard, UserIsPlanAuthor)
   closePlan(@Query() query) {
     return this.planService.closePlan(query.plan_id);
   }
 
   @Put(ROUTES.PLAN.REOPEN_PLAN)
-  @UseGuards(JwtAuthGuard, userIsPlanAuthor)
+  @UseGuards(JwtAuthGuard, UserIsPlanAuthor)
   reopenPlan(@Query() query) {
     return this.planService.reopenPlan(query.plan_id);
   }
 
   @Delete(ROUTES.PLAN.DELETE)
-  @UseGuards(JwtAuthGuard, userIsPlanAuthor)
+  @UseGuards(JwtAuthGuard, UserIsPlanAuthor)
   deletePlan(@Query() query) {
     return this.planService.deletePlan(query.plan_id);
   }
 
   @Put(ROUTES.PLAN.EDIT)
-  @UseGuards(JwtAuthGuard, userIsPlanAuthor, newPlanAmountBiggerThanRepaidGuard)
+  @UseGuards(JwtAuthGuard, UserIsPlanAuthor, NewPlanAmountBiggerThanRepaidGuard)
   editDebt(@Req() request: Request, @Body() dto: EditPlanDto, @Query() query) {
     return this.planService.editPlan(dto, query.plan_id);
   }
