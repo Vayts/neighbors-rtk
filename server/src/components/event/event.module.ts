@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EventService } from './event.service';
 import {
@@ -6,6 +6,7 @@ import {
   Neighborhood_EventSchema,
 } from '../../schemas/neighborhood_event.schema';
 
+@Global()
 @Module({
   providers: [EventService],
   controllers: [],

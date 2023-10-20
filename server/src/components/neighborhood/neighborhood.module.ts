@@ -14,26 +14,21 @@ import {
   Neighborhood_Invite,
   Neighborhood_InviteSchema,
 } from '../../schemas/neighborhood_invite.schema';
-import { DebtService } from '../debt/debt.service';
-import { Debt, DebtSchema } from '../../schemas/debt.schema';
-import { Plan, PlanSchema } from '../../schemas/plan.schema';
 import { PlanModule } from '../plan/plan.module';
-import { EventModule } from '../event/event.module';
+import { DebtModule } from '../debt/debt.module';
 
 @Global()
 @Module({
-  providers: [NeighborhoodService, DebtService],
+  providers: [NeighborhoodService],
   controllers: [NeighborhoodController],
   imports: [
     MongooseModule.forFeature([
-      { name: Plan.name, schema: PlanSchema },
-      { name: Debt.name, schema: DebtSchema },
       { name: Neighborhood.name, schema: NeighborhoodSchema },
       { name: Neighborhood_User.name, schema: Neighborhood_UserSchema },
       { name: Neighborhood_Invite.name, schema: Neighborhood_InviteSchema },
     ]),
+    DebtModule,
     PlanModule,
-    EventModule,
   ],
   exports: [NeighborhoodService],
 })
