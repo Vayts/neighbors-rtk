@@ -13,6 +13,18 @@
 
 - **Profile Customization:** Create a personalized profile, reflecting your own neighborly experiences and interests, to foster a sense of community and help people connect on a more personal level.
 
+### Stack:
+
+- React
+- Redux Toolkit
+- TS
+- Nest.js
+- MongoDB
+
+### Todo
+
+- [ ] Tests
+
 ### `backend`
 
 This is a NestJS application that uses MongoDB for interaction.
