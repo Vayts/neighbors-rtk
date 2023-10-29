@@ -20,6 +20,7 @@
 - TS
 - Nest.js
 - MongoDB
+- i18n
 
 ### Todo:
 
@@ -34,7 +35,7 @@ This is a NestJS application that uses MongoDB for interaction.
 ```bash
 cd server
 yarn install
-yarn start
+yarn start:dev
 ```
 
 ### `web`
@@ -44,5 +45,5 @@ This is a frontend application built with React, Redux RTK.
 ```bash
 cd client
 yarn install
-yarn start:dev
+yarn start
 ```
