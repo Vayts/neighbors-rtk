@@ -44,5 +44,5 @@ This is a frontend application built with React, Redux RTK.
 ```bash
 cd client
 yarn install
-yarn start
+yarn start:dev
 ```
