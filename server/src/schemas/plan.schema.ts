@@ -23,7 +23,7 @@ export class Plan {
   @Prop()
   description: string;
 
-  @Prop()
+  @Prop({ type: Date })
   createdAt: Date;
 
   @Prop({ default: false })

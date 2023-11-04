@@ -5,6 +5,7 @@ import { Plan, PlanDocument } from '../../schemas/plan.schema';
 import { ERRORS } from '../../constants/errors';
 import { EventService } from '../event/event.service';
 import { EventTypeEnum } from '../../types/event.types';
+import { InvalidDataException } from '../../exception/invalidData.exception';
 
 @Injectable()
 export class PlanService {
@@ -20,38 +21,36 @@ export class PlanService {
       new mongoose.Types.ObjectId(req.user._id),
     ];
 
-    const newPlan = await this.planModel.insertMany([
-      {
-        ...dto,
-        createdAt: new Date(),
-        eventDate: dto.eventDate ? new Date(dto.eventDate) : null,
-        author_id: req.user._id,
-        isClosed: false,
-        participants,
-        participantPayments: [
-          ...dto.participants.map((item) => {
-            return {
-              participant_id: item,
-              payment: 0,
-            };
-          }),
-          {
-            participant_id: new mongoose.Types.ObjectId(req.user._id),
+    const newPlan = await this.planModel.create({
+      ...dto,
+      createdAt: new Date(),
+      eventDate: dto.eventDate ? new Date(dto.eventDate) : null,
+      author_id: req.user._id,
+      isClosed: false,
+      participants,
+      participantPayments: [
+        ...dto.participants.map((item) => {
+          return {
+            participant_id: item,
             payment: 0,
-          },
-        ],
-      },
-    ]);
+          };
+        }),
+        {
+          participant_id: new mongoose.Types.ObjectId(req.user._id),
+          payment: 0,
+        },
+      ],
+    });
 
     await this.eventService.createEvent(
       req.user._id,
       EventTypeEnum.NewPlan,
       dto.neighborhood_id,
-      newPlan[0]._id,
+      newPlan._id,
       participants,
     );
 
-    return this.getPlanById(newPlan[0]._id);
+    return this.getPlanById(newPlan._id);
   }
 
   async getUserPlans(req) {
@@ -407,5 +406,56 @@ export class PlanService {
     );
 
     return this.getPlanById(editedPlan._id);
+  }
+
+  async addParticipant(planId, participantId) {
+    const isParticipant = await this.planModel.findOne({
+      _id: planId,
+      participants: participantId,
+    });
+
+    if (isParticipant) {
+      throw new InvalidDataException({ message: ERRORS.INVALID_DATA });
+    }
+
+    await this.planModel.updateOne(
+      { _id: planId },
+      {
+        $push: {
+          participants: participantId,
+          participantPayments: {
+            participant_id: new mongoose.Types.ObjectId(participantId),
+            payment: 0,
+          },
+        },
+      },
+    );
+
+    return this.getPlanById(planId);
+  }
+
+  async removeParticipant(planId, participantId) {
+    const isParticipant = await this.planModel.findOne({
+      _id: planId,
+      participants: participantId,
+    });
+
+    if (!isParticipant) {
+      throw new InvalidDataException({ message: ERRORS.INVALID_DATA });
+    }
+
+    await this.planModel.updateOne(
+      { _id: planId },
+      {
+        $pull: {
+          participants: participantId,
+          participantPayments: {
+            participant_id: new mongoose.Types.ObjectId(participantId),
+          },
+        },
+      },
+    );
+
+    return this.getPlanById(planId);
   }
 }

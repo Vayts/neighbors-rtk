@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import NeighborhoodSwitcher from '@src/components/NeighborhoodSwitcher/NeighborhoodSwitcher';
 import { useTranslation } from 'react-i18next';
-import NoPlansBanner from '@src/pages/PlansPage/NoPlansBanner/NoPlansBanner';
 import Button from '@src/components/UI/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
@@ -9,6 +8,7 @@ import PlansList from '@src/pages/PlansPage/PlansList/PlansList';
 import Loader from '@src/components/Loader/Loader';
 import { selectAllPlans } from '@src/store/plans/selectors';
 import { getUserPlans } from '@src/store/plans/thunks';
+import NoItemBanner from '@src/components/NoItemBanner/NoItemBanner';
 import styles from './PlansPage.module.scss';
 
 const PlansPage: React.FC = () => {
@@ -51,7 +51,16 @@ const PlansPage: React.FC = () => {
         </div>
       </div>
       <div className={styles.PlansContentHolder}>
-        {!isLoading && Boolean(!plans.length) && <NoPlansBanner/>}
+        {!isLoading && Boolean(!plans.length) && (
+          <NoItemBanner
+            link='plans'
+            img='banner7.png'
+            title='noPlansBannerText'
+            withIdText='noPlansText'
+            noIdText='noPlansText'
+            buttonText='createPlan'
+          />
+        )}
         
         {isLoading ? <Loader/> : (
           <div className={styles.PlansContentWrapper}>

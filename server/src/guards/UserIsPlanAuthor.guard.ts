@@ -15,8 +15,8 @@ export class UserIsPlanAuthor implements CanActivate {
     const { plan_id } = req.query;
     const { _id } = req.user;
     try {
-      const debt = await this.planService.getPlanById(plan_id);
-      return Boolean(debt.author._id.toString() === _id);
+      const plan = await this.planService.getPlanById(plan_id);
+      return Boolean(plan.author._id.toString() === _id);
     } catch (e) {
       throw new UnauthorizedException({ message: ERRORS.NO_ACCESS });
     }

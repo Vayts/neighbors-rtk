@@ -11,9 +11,9 @@ import Button from '@src/components/UI/Button/Button';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { IUser } from '@src/types/user.types';
 import { selectUser } from '@src/store/auth/selectors';
-import { selectParticipantsByIds } from '@src/store/participants/selector';
 import { closePlan, reopenPlan } from '@src/store/plans/thunks';
 import { setLoadingPlans } from '@src/store/plans/slice';
+import { selectMembersByIds } from '@src/store/members/selectors';
 import styles from './PlanModal.module.scss';
 
 type Props = {
@@ -37,8 +37,8 @@ const PlanModal: React.FC<Props> = ({ plan }) => {
   } = plan;
   const user = useAppSelector(selectUser) as IUser;
   const isLoading = useAppSelector((state) => state.plans.loadingItems).includes(_id);
-  const author = useAppSelector((state) => state.participants.entities[plan.author]);
-  const participants = useAppSelector((state) => selectParticipantsByIds(state, plan.participants));
+  const author = useAppSelector((state) => state.members.entities[plan.author]);
+  const participants = useAppSelector((state) => selectMembersByIds(state, plan.participants));
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   

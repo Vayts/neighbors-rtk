@@ -36,6 +36,18 @@ export const DEBTS_ROUTES = {
   closeDebt: '/debt/close-debt',
 };
 
+export const DUTIES_ROUTES = {
+  create: '/duty/create',
+  get: '/duty/get',
+  getById: '/duty/get-by-id',
+  edit: '/duty/edit',
+  delete: '/duty/delete',
+  addMark: '/duty/add-mark',
+  deleteMark: '/duty/delete-mark',
+  addParticipant: '/duty/add-participant',
+  removeParticipant: '/duty/remove-participant',
+};
+
 export const PLAN_ROUTES = {
   create: '/plan/create',
   get: '/plan/get',
@@ -46,6 +58,8 @@ export const PLAN_ROUTES = {
   closePlan: '/plan/close-plan',
   reopenPlan: '/plan/reopen-plan',
   deletePlan: '/plan/delete',
+  addParticipant: '/plan/add-participant',
+  removeParticipant: '/plan/remove-participant',
 };
 
 export const CHAT_ROUTES = {

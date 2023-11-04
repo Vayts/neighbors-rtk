@@ -6,6 +6,34 @@ import UserDropdown from '@src/components/UserDropdown/UserDropdown';
 import { STATIC_HREF } from '@constants/core';
 import styles from './Sidebar.module.scss';
 
+const LINKS = [
+  {
+    link: '/neighborhoods',
+    icon: 'icon-neighborhoods',
+    text: 'neighborhoodsLink',
+  },
+  {
+    link: '/debts',
+    icon: 'icon-debts',
+    text: 'debts',
+  },
+  {
+    link: '/plans',
+    icon: 'icon-plans',
+    text: 'plans',
+  },
+  {
+    link: '/duties',
+    icon: 'icon-duty',
+    text: 'duties',
+  },
+  {
+    link: '/chats',
+    icon: 'icon-chat',
+    text: 'chats',
+  },
+];
+
 const Sidebar: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const { t } = useTranslation();
@@ -33,34 +61,18 @@ const Sidebar: React.FC = () => {
         <UserDropdown/>
       </div>
       <nav className={styles.SidebarNav}>
-        <NavLink
-          to='/neighborhoods'
-          className={({ isActive }) => cn(styles.SidebarNavItem, isActive && styles.SidebarNavItemActive)}
-        >
-          <span className='icon-neighborhoods' />
-          <p className={styles.SidebarNavText}>{t('neighborhoodsLink')}</p>
-        </NavLink>
-        <NavLink
-          to='/debts'
-          className={({ isActive }) => cn(styles.SidebarNavItem, isActive && styles.SidebarNavItemActive)}
-        >
-          <span className='icon-debts' />
-          <p className={styles.SidebarNavText}>{t('debts')}</p>
-        </NavLink>
-        <NavLink
-          to='/plans'
-          className={({ isActive }) => cn(styles.SidebarNavItem, isActive && styles.SidebarNavItemActive)}
-        >
-          <span className='icon-plans' />
-          <p className={styles.SidebarNavText}>{t('plans')}</p>
-        </NavLink>
-        <NavLink
-          to='/chats'
-          className={({ isActive }) => cn(styles.SidebarNavItem, isActive && styles.SidebarNavItemActive)}
-        >
-          <span className='icon-chat' />
-          <p className={styles.SidebarNavText}>{t('chats')}</p>
-        </NavLink>
+        {LINKS.map((item) => {
+          return (
+            <NavLink
+              key={`sidebar-${item.text}`}
+              to={item.link}
+              className={({ isActive }) => cn(styles.SidebarNavItem, isActive && styles.SidebarNavItemActive)}
+            >
+              <span className={item.icon} />
+              <p className={styles.SidebarNavText}>{t(item.text)}</p>
+            </NavLink>
+          );
+        })}
       </nav>
     </aside>
   );

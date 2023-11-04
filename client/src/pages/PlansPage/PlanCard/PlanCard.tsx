@@ -11,7 +11,7 @@ import { useAppSelector } from '@src/hooks/hooks';
 import { IUser } from '@src/types/user.types';
 import { selectUser } from '@src/store/auth/selectors';
 import { STATIC_HREF } from '@constants/core';
-import { selectParticipantsByIds } from '@src/store/participants/selector';
+import { selectMembersByIds } from '@src/store/members/selectors';
 import styles from './PlanCard.module.scss';
 
 type Props = {
@@ -34,10 +34,10 @@ const PlanCard: React.FC<Props> = ({ plan, onClick }) => {
     isClosed,
   } = plan;
   const user = useAppSelector(selectUser) as IUser;
-  const author = useAppSelector((state) => state.participants.entities[plan.author]);
+  const author = useAppSelector((state) => state.members.entities[plan.author]);
   const completedTask = tasksList ? tasksList.filter((item) => item.completed).length : 0;
   const { t } = useTranslation();
-  const participants = useAppSelector((state) => selectParticipantsByIds(state, plan.participants));
+  const participants = useAppSelector((state) => selectMembersByIds(state, plan.participants));
   const handleClick = () => {
     onClick(plan);
   };

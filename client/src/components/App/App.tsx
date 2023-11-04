@@ -11,6 +11,9 @@ import Loader from '@src/components/Loader/Loader';
 import { withSuspense } from '@hoc/WithSuspense/WithSuspense';
 import styles from './App.module.scss';
 
+const CreateDutyPage = withSuspense(React.lazy(() => import('@src/pages/CreateDutyPage/CreateDutyPage')));
+const EditDutyPage = withSuspense(React.lazy(() => import('@src/pages/EditDutyPage/EditDutyPage')));
+const DutiesPage = withSuspense(React.lazy(() => import('@src/pages/DutiesPage/DutiesPage')));
 const CreatePlanPage = withSuspense(React.lazy(() => import('@src/pages/CreatePlanPage/CreatePlanPage')));
 const PlansPage = withSuspense(React.lazy(() => import('@src/pages/PlansPage/PlansPage')));
 const EditDebtPage = withSuspense(React.lazy(() => import('@src/pages/EditDebtPage/EditDebtPage')));
@@ -62,6 +65,12 @@ export const App: React.FC = () => {
             <Route path='/plans/create' element={<CreatePlanPage/>} />
             <Route path='/plans/create/:id' element={<CreatePlanPage/>} />
             <Route path='/plans/edit/:planId' element={<EditPlanPage/>} />
+            
+            <Route path='/duties' element={<DutiesPage/>}/>
+            <Route path='/duties/:id' element={<DutiesPage/>} />
+            <Route path='/duties/create' element={<CreateDutyPage/>} />
+            <Route path='/duties/create/:id' element={<CreateDutyPage/>} />
+            <Route path='/duties/edit/:dutyId' element={<EditDutyPage/>} />
             
             <Route path='/chats' element={<ChatsPage/>}/>
           </Route>

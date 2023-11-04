@@ -20,6 +20,7 @@ import { UserIsPlanAuthor } from '../../guards/UserIsPlanAuthor.guard';
 import { EditPlanDto } from '../../dto/edit-plan.dto';
 import { NewPlanAmountBiggerThanRepaidGuard } from '../../guards/NewPlanAmountBiggerThanAlreadyRepaid.guard';
 import { ValidNeighborhoodIdGuard } from '../../guards/ValidNeighborhoodId.guard';
+import { ValidParticipantIdGuard } from '../../guards/ValidParticipantId.guard';
 
 @Controller(ROUTES.PLAN.DEFAULT)
 export class PlanController {
@@ -85,5 +86,20 @@ export class PlanController {
   @UseGuards(JwtAuthGuard, UserIsPlanAuthor, NewPlanAmountBiggerThanRepaidGuard)
   editDebt(@Req() request: Request, @Body() dto: EditPlanDto, @Query() query) {
     return this.planService.editPlan(dto, query.plan_id);
+  }
+
+  @Put(ROUTES.PLAN.ADD_PARTICIPANT)
+  @UseGuards(JwtAuthGuard, UserIsPlanAuthor, ValidParticipantIdGuard)
+  addParticipant(@Query() query) {
+    return this.planService.addParticipant(query.plan_id, query.participant_id);
+  }
+
+  @Put(ROUTES.PLAN.REMOVE_PARTICIPANT)
+  @UseGuards(JwtAuthGuard, UserIsPlanAuthor, ValidParticipantIdGuard)
+  removeParticipant(@Query() query) {
+    return this.planService.removeParticipant(
+      query.plan_id,
+      query.participant_id,
+    );
   }
 }
