@@ -67,7 +67,6 @@
   gap: 20px;
 
   @include for-desktop {
-    //grid-template-columns: 65% 34%;
     padding: unset;
   }
 }

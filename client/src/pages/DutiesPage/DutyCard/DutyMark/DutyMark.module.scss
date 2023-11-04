@@ -1,0 +1,39 @@
+@import "@src/styles/variables";
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.DutyMark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 34px;
+  height: 34px;
+  z-index: 10;
+}
+
+.DutyMarkImage {
+  width: 34px;
+  height: 34px;
+  border: 2px solid transparent;
+  background-color: $component-bg;
+  border-radius: 50%;
+  animation: appear 0.2s;
+
+  &--author {
+    cursor: pointer;
+
+    &:hover {
+      background-color: $primary-color-hover;
+      border-color: $primary-color-hover;
+    }
+  }
+}

@@ -1,7 +1,16 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { IPlansState } from '@src/store/plans/types';
 import { IPlan } from '@src/types/plan.types';
-import { addPlanPayment, changePlanTaskStatus, closePlan, createPlan, deletePlan, getUserPlans, reopenPlan } from '@src/store/plans/thunks';
+import {
+  addParticipantToPlan,
+  addPlanPayment,
+  changePlanTaskStatus,
+  closePlan,
+  createPlan,
+  deletePlan,
+  getUserPlans, removeParticipantFromPlan,
+  reopenPlan
+} from '@src/store/plans/thunks';
 
 const initialState: IPlansState = {
   isLoading: true,
@@ -61,6 +70,12 @@ export const plansSlice = createSlice({
       .addCase(getUserPlans.fulfilled, (state, { payload }) => {
         plansAdapter.setAll(state, payload.plans ?? {});
         state.isLoading = false;
+      })
+      .addCase(addParticipantToPlan.fulfilled, (state, { payload }) => {
+        plansAdapter.upsertOne(state, payload ?? {});
+      })
+      .addCase(removeParticipantFromPlan.fulfilled, (state, { payload }) => {
+        plansAdapter.upsertOne(state, payload ?? {});
       })
       .addCase(deletePlan.fulfilled, (state, { payload }) => {
         plansAdapter.removeOne(state, payload._id);

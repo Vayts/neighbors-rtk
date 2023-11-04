@@ -19,6 +19,7 @@ import { PlanService } from '../plan/plan.service';
 import { randomBytes } from 'crypto';
 import { EventService } from '../event/event.service';
 import { EventTypeEnum } from '../../types/event.types';
+import { DutyService } from '../duty/duty.service';
 
 @Injectable()
 export class NeighborhoodService {
@@ -27,6 +28,7 @@ export class NeighborhoodService {
     private jwtService: JwtService,
     private debtService: DebtService,
     private planService: PlanService,
+    private dutyService: DutyService,
     @InjectModel(Neighborhood.name)
     private neighborhoodModel: Model<NeighborhoodDocument>,
     @InjectModel(Neighborhood_User.name)
@@ -159,6 +161,14 @@ export class NeighborhoodService {
       EventTypeEnum.UserHasLeft,
       neighborhoodId,
     );
+
+    await this.eventService.createEvent(
+      userId,
+      EventTypeEnum.UserHasLeft,
+      neighborhoodId,
+    );
+
+    await this.dutyService.clearUserByNeighborhood(neighborhoodId, userId);
 
     return this.neighborhoodUserModel.findOneAndDelete({
       user_id: userId,

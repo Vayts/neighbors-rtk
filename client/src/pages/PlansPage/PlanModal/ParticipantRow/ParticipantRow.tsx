@@ -14,7 +14,7 @@ const ParticipantRow: React.FC<IParticipantRowProps> = ({
   currency,
 }) => {
   const { participant_id, payment } = participantPayment;
-  const participant = useAppSelector((state) => state.participants.entities[participant_id]);
+  const participant = useAppSelector((state) => state.members.entities[participant_id]);
   
   return (
     <tr className={styles.ParticipantRow} key={`participant-row-${participant._id}`}>

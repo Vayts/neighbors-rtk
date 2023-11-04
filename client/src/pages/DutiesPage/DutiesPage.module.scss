@@ -1,0 +1,72 @@
+@import '@src/styles/variables';
+@import '@src/styles/mixins';
+
+.DutiesPageWrapper {
+  @include for-tablet {
+    width: calc(100vw - 80px);
+  }
+}
+
+.DutiesContentHolder {
+  @include for-tablet {
+    padding: 88px 16px 16px 16px;
+  }
+}
+
+.DutiesControls {
+  background-color: $component-bg;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  border-bottom: 1px solid $border-color;
+  padding: 10px 15px 10px 15px;
+  flex-direction: column;
+
+  @include for-tablet {
+    position: fixed;
+    top: $header-height;
+    z-index: 9;
+    width: calc(100vw - 80px);
+    padding: 10px 25px 10px 35px;
+    flex-direction: row;
+    align-items: center;
+    height: $page-controls-height;
+  }
+}
+
+.DutiesTitleWrapper {
+  display: flex;
+  align-items: center;
+
+  h3 {
+    font-size: 24px;
+    margin: 0 0 10px;
+    display: none;
+    line-height: 24px;
+
+    @include for-tablet {
+      margin: 0 25px 0 0;
+      display: block;
+    }
+  }
+
+  div {
+    display: none;
+
+    @include for-desktop {
+      display: flex;
+    }
+  }
+}
+
+.DutiesContentWrapper {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: grid;
+  padding: 16px;
+  gap: 20px;
+
+  @include for-desktop {
+    padding: unset;
+  }
+}

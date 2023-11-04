@@ -6,6 +6,7 @@ import { errorManager } from '@helpers/errors.helper';
 import { ErrorEnum } from '@src/types/default.types';
 import { planSchema } from '@src/store/plans/schema';
 import { ICreatePlanDto, IEditPlanDto, IPlan } from '@src/types/plan.types';
+import { IDuty } from '@src/types/duty.types';
 
 const MODULE_NAME = 'plans';
 
@@ -32,7 +33,6 @@ export const createPlan = createAsyncThunk(
       const data = normalize(response.data, [planSchema]);
       return data.entities ?? {};
     } catch (e: any) {
-      errorManager(e?.response?.data?.message, ErrorEnum.plan);
       return rejectWithValue(e?.response?.data?.message);
     }
   },
@@ -117,6 +117,36 @@ export const deletePlan = createAsyncThunk(
       return response.data as IPlan;
     } catch (e: any) {
       errorManager(e?.response?.data?.message, ErrorEnum.plan);
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+
+export const addParticipantToPlan = createAsyncThunk(
+  `${MODULE_NAME}/addParticipant`,
+  async ({ participantId, planId }: {planId: string, participantId: string}, { rejectWithValue }) => {
+    try {
+      const response = await axiosPrivate.put<IDuty>(`${PLAN_ROUTES.addParticipant}?plan_id=${planId}&participant_id=${participantId}`);
+      
+      const data = normalize(response.data, planSchema);
+      
+      return data.entities.plans[data.result];
+    } catch (e: any) {
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+
+export const removeParticipantFromPlan = createAsyncThunk(
+  `${MODULE_NAME}/removeParticipant`,
+  async ({ participantId, planId }: {planId: string, participantId: string}, { rejectWithValue }) => {
+    try {
+      const response = await axiosPrivate.put<IDuty>(`${PLAN_ROUTES.removeParticipant}?plan_id=${planId}&participant_id=${participantId}`);
+      
+      const data = normalize(response.data, planSchema);
+      
+      return data.entities.plans[data.result];
+    } catch (e: any) {
       return rejectWithValue(e?.response?.data?.message);
     }
   },

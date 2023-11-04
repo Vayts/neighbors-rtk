@@ -36,3 +36,9 @@ export const PLAN_VALIDATION = {
   minTask: 3,
   maxTask: 100,
 };
+
+export const DUTY_VALIDATIONS = {
+  minName: 2,
+  maxName: 25,
+  minParticipantsLength: 1,
+};

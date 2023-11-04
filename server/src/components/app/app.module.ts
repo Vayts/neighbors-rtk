@@ -14,6 +14,7 @@ import { ChatModule } from '../chat/chat.module';
 import { UserModule } from '../user/user.module';
 import { CoreModule } from '../core/core.module';
 import { EventModule } from '../event/event.module';
+import { DutyModule } from '../duty/duty.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { EventModule } from '../event/event.module';
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),
     AuthModule,
+    DutyModule,
     NeighborhoodModule,
     DebtModule,
     EventModule,
