@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import ErrorMessage from '@src/components/UI/ErrorMessage/ErrorMessage';
 import cn from 'classnames';
-import MemberCheckboxItem from '@src/pages/CreatePlanPage/MembersCheckboxList/MemberCheckboxItem/MemberCheckboxItem';
 import { EntityId } from '@reduxjs/toolkit';
 import { useAppSelector } from '@src/hooks/hooks';
 import { selectMembersByIds } from '@src/store/members/selectors';
 import { IMember } from '@src/types/user.types';
+import MemberCheckboxItem from '@src/components/UI/MembersCheckboxList/MemberCheckboxItem/MemberCheckboxItem';
 import styles from './MembersCheckboxList.module.scss';
 
 type Props = {
@@ -41,4 +41,4 @@ const MembersCheckboxList: React.FC<Props> = ({ members, checkedArr, onMemberSel
   );
 };
 
-export default MembersCheckboxList;
+export default memo(MembersCheckboxList);

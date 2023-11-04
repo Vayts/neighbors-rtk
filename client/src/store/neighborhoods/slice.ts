@@ -3,6 +3,7 @@ import { createDebt, getUserDebts } from '@src/store/debts/thunks';
 import { INeighborhood } from '@src/types/neighborhood.types';
 import { editNeighborhood } from '@src/store/userNeighborhoods/thunks';
 import { deleteNeighborhood } from '@src/store/currentNeighborhood/thunks';
+import { getUserDuties } from '@src/store/duties/thunks';
 
 export const neighborhoodsAdapter = createEntityAdapter<INeighborhood>({ selectId: (entity) => entity?._id });
 
@@ -16,6 +17,19 @@ export const neighborhoodsSlice = createSlice({
         neighborhoodsAdapter.upsertMany(state, payload.neighborhoods ?? {});
       })
       .addCase(createDebt.fulfilled, (state, { payload }) => {
+        const neighborhoods = payload.neighborhoods ?? {};
+        
+        Object.keys(neighborhoods).forEach((key) => {
+          if (state.ids.includes(key)) {
+            delete neighborhoods[key];
+          }
+        });
+        
+        if (Object.keys(neighborhoods)) {
+          neighborhoodsAdapter.upsertMany(state, neighborhoods);
+        }
+      })
+      .addCase(getUserDuties.fulfilled, (state, { payload }) => {
         const neighborhoods = payload.neighborhoods ?? {};
         
         Object.keys(neighborhoods).forEach((key) => {

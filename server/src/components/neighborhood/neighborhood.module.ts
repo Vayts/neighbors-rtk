@@ -16,6 +16,7 @@ import {
 } from '../../schemas/neighborhood_invite.schema';
 import { PlanModule } from '../plan/plan.module';
 import { DebtModule } from '../debt/debt.module';
+import { DutyModule } from '../duty/duty.module';
 
 @Global()
 @Module({
@@ -29,6 +30,7 @@ import { DebtModule } from '../debt/debt.module';
     ]),
     DebtModule,
     PlanModule,
+    DutyModule,
   ],
   exports: [NeighborhoodService],
 })

@@ -1,14 +1,14 @@
 @import "@src/styles/variables";
 @import "@src/styles/mixins";
 
-.NoPlansBannerWrapper {
+.NoItemBannerWrapper {
   margin-top: 60px;
   display: flex;
   justify-content: center;
   box-sizing: border-box;
 }
 
-.NoPlansBannerContent {
+.NoItemBannerContent {
   background-color: $component-bg;
   border-radius: 20px;
   padding: 20px 15px;
@@ -24,14 +24,14 @@
   }
 }
 
-.NoPlansBannerTitle {
+.NoItemBannerTitle {
   @include title;
   font-size: 24px;
   color: $title-light-text-color;
   text-align: center;
 }
 
-.NoPlansBannerImg {
+.NoItemBannerImg {
   max-height: 200px;
 
   @include for-tablet {
@@ -39,11 +39,11 @@
   }
 }
 
-.NoPlansBannerText {
+.NoItemBannerText {
   text-align: center;
 }
 
-.NoPlansBannerButtons {
+.NoItemBannerButtons {
   flex-grow: 1;
   display: flex;
   flex-direction: column;

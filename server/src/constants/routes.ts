@@ -38,6 +38,18 @@ export const ROUTES = {
     ADD_PAYMENT: '/add-payment',
     CLOSE_DEBT: '/close-debt',
   },
+  DUTY: {
+    DEFAULT: '/api/duty',
+    GET_USER_DUTIES_BY_ID: '/get-by-id',
+    GET_USER_DUTIES: '/get',
+    CREATE: '/create',
+    EDIT: '/edit',
+    DELETE: '/delete',
+    ADD_MARK: '/add-mark',
+    DELETE_MARK: '/delete-mark',
+    ADD_PARTICIPANT: '/add-participant',
+    REMOVE_PARTICIPANT: '/remove-participant',
+  },
   PLAN: {
     DEFAULT: '/api/plan',
     CREATE: '/create',
@@ -49,6 +61,8 @@ export const ROUTES = {
     CLOSE_PLAN: '/close-plan',
     REOPEN_PLAN: '/reopen-plan',
     DELETE: '/delete',
+    ADD_PARTICIPANT: '/add-participant',
+    REMOVE_PARTICIPANT: '/remove-participant',
   },
   CHAT: {
     DEFAULT: '/api/chat',

@@ -1,0 +1,40 @@
+@import "@src/styles/variables";
+
+.AsideSkeleton {
+  background-color: $component-bg;
+  border-radius: 10px;
+  padding: 16px;
+  align-self: flex-start;
+}
+
+.AsideContent {
+  margin-top: 10px;
+  border: 1px solid $border-color;
+  padding: 5px;
+}
+
+.AsideRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5px;
+}
+
+.AsideCol {
+  height: auto;
+  flex-basis: 25%;
+
+  &:first-child {
+    flex-basis: 2%;
+    color: $light-text-color;
+  }
+
+  &:nth-child(2) {
+    flex-basis: 35%;
+  }
+
+  &:last-child {
+    flex-basis: 15%;
+    flex-grow: 1;
+  }
+}

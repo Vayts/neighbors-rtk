@@ -3,20 +3,21 @@ import Button from '@src/components/UI/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import Loader from '@src/components/Loader/Loader';
 import DebtsAside from '@src/pages/DebtsPage/DebtsAside/DebtsAside';
 import DebtsList from '@src/pages/DebtsPage/DebtsList/DebtsList';
 import { DebtsFilterEnum } from '@src/types/debt.types';
 import Select from '@src/components/UI/Select/Select';
 import { ISelectValue } from '@src/components/UI/Select/types';
 import { getVisibleDebts } from '@helpers/debts.helper';
-import NoDebtsBanner from '@src/pages/DebtsPage/NoDebtsBanner/NoDebtsBanner';
 import { IUser } from '@src/types/user.types';
 import NeighborhoodSwitcher from '@src/components/NeighborhoodSwitcher/NeighborhoodSwitcher';
 import cn from 'classnames';
 import { selectUser } from '@src/store/auth/selectors';
 import { selectAllDebts } from '@src/store/debts/selectors';
 import { getUserDebts } from '@src/store/debts/thunks';
+import NoItemBanner from '@src/components/NoItemBanner/NoItemBanner';
+import DebtSkeleton from '@src/pages/DebtsPage/DebtSkeleton/DebtSkeleton';
+import DebtsAsideSkeleton from '@src/pages/DebtsPage/DebtsAsideSkeleton/DebtsAsideSkeleton';
 import styles from './DebtsPage.module.scss';
 
 enum DebtsViewMod {
@@ -118,45 +119,61 @@ const DebtsPage: React.FC = () => {
       </div>
       
       <div className={styles.DebtsContentHolder}>
-        {!isLoading && Boolean(!debts.length) && <NoDebtsBanner/>}
-        
-        {isLoading ? <Loader/> : (
-          <div className={styles.DebtsContentWrapper}>
-            {Boolean(debts.length) && (
-              <>
-                <div className={styles.DebtsViewModControl}>
-                  <span
-                    onClick={handleChangeViewToMain}
-                    className={cn(styles.DebtsViewModItem, viewMod === DebtsViewMod.main && styles.DebtsViewModItemActive)}
-                  >
-                    {t('debts')}
-                  </span>
-                  <span
-                    onClick={handleChangeViewToAside}
-                    className={cn(styles.DebtsViewModItem, viewMod === DebtsViewMod.aside && styles.DebtsViewModItemActive)}
-                  >
-                    {t('other')}
-                  </span>
-                </div>
-                
-                <div className={cn(
-                  styles.DebtsMainWrapper,
-                  viewMod === DebtsViewMod.main && styles.DebtsMainWrapperActive,
-                )}
-                >
-                  <DebtsList visibleDebts={visibleDebts}/>
-                </div>
-                <div className={cn(
-                  styles.DebtsAsideWrapper,
-                  viewMod === DebtsViewMod.aside && styles.DebtsAsideWrapperActive,
-                )}
-                >
-                  <DebtsAside/>
-                </div>
-              </>
-            )}
-          </div>
+        {!isLoading && Boolean(!debts.length) && (
+          <NoItemBanner
+            link='debts'
+            img='banner11.png'
+            title='noDebtsBannerText'
+            withIdText='noDebtsOrDebtorsInNeighborhoodText'
+            noIdText='noDebtsOrDebtorsText'
+            buttonText='createDebt'
+          />
         )}
+        
+        <div className={styles.DebtsContentWrapper}>
+          
+          {isLoading && (
+            <>
+              <DebtSkeleton amount={4}/>
+              <DebtsAsideSkeleton/>
+            </>
+          )}
+          
+          {!isLoading && Boolean(debts.length) && (
+            <>
+              <div className={styles.DebtsViewModControl}>
+                <span
+                  onClick={handleChangeViewToMain}
+                  className={cn(styles.DebtsViewModItem, viewMod === DebtsViewMod.main && styles.DebtsViewModItemActive)}
+                >
+                  {t('debts')}
+                </span>
+                <span
+                  onClick={handleChangeViewToAside}
+                  className={cn(styles.DebtsViewModItem, viewMod === DebtsViewMod.aside && styles.DebtsViewModItemActive)}
+                >
+                  {t('other')}
+                </span>
+              </div>
+              
+              <div className={cn(
+                styles.DebtsMainWrapper,
+                viewMod === DebtsViewMod.main && styles.DebtsMainWrapperActive,
+              )}
+              >
+                <DebtsList visibleDebts={visibleDebts}/>
+              </div>
+              <div className={cn(
+                styles.DebtsAsideWrapper,
+                viewMod === DebtsViewMod.aside && styles.DebtsAsideWrapperActive,
+              )}
+              >
+                <DebtsAside/>
+              </div>
+            </>
+          )}
+        </div>
+        
       </div>
     
     </div>

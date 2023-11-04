@@ -8,20 +8,21 @@ import {
   getMembersWithoutUser,
   getSelectArrFromNeighborhoods,
 } from '@helpers/neighborhood.helper';
-import { CustomDateEventChange } from '@src/types/default.types';
+import { CustomDateEventChange, ErrorEnum } from '@src/types/default.types';
 import Button from '@src/components/UI/Button/Button';
 import DateInput from '@src/components/UI/DateInput/DateInput';
 import Input from '@src/components/UI/Input/Input';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ICreatePlan, ICreatePlanTask } from '@src/types/plan.types';
 import Checkbox from '@src/components/UI/Checkbox/Checkbox';
-import MembersCheckboxList from '@src/pages/CreatePlanPage/MembersCheckboxList/MembersCheckboxList';
 import { getCreatePlanValidation } from '@src/validation/createPlan.validation';
 import PlanTaskList from '@src/pages/CreatePlanPage/PlanTaskList/PlanTaskList';
 import { getCreatePlanDto } from '@helpers/plans.helper';
 import { selectAllNeighborhoods } from '@src/store/userNeighborhoods/selectors';
 import { selectUser } from '@src/store/auth/selectors';
 import { createPlan } from '@src/store/plans/thunks';
+import MembersCheckboxList from '@src/components/UI/MembersCheckboxList/MembersCheckboxList';
+import { errorManager } from '@helpers/errors.helper';
 import styles from './CreatePlanPage.module.scss';
 
 const initialValues: ICreatePlan = {
@@ -155,8 +156,12 @@ const CreatePlanPage: React.FC = () => {
     if (!Object.values(values.errors).length) {
       const dto = getCreatePlanDto(values, membersArr);
       dispatch(createPlan(dto))
+        .unwrap()
         .then(() => {
           navigate(`/plans${id ? `/${id}` : ''}`);
+        })
+        .catch((e) => {
+          errorManager(e?.response?.data?.message, ErrorEnum.plan);
         })
         .finally(() => {
           setLoading(false);

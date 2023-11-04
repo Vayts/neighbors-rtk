@@ -1,0 +1,72 @@
+@import "@src/styles/mixins";
+@import "@src/styles/variables";
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.DutyWrapper {
+  position: relative;
+  animation: appear 0.2s;
+}
+
+.DutyMenuWrapper {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  cursor: pointer;
+
+  @include for-tablet() {
+    right: 25px;
+  }
+}
+
+.DutyContent {
+  background-color: $component-bg;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 25px 15px;
+  margin-bottom: 20px;
+  transition: all 0.3s;
+  position: relative;
+  gap: 20px;
+
+  @include for-tablet() {
+    padding: 25px;
+  }
+}
+
+.DutyTitleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 10px;
+}
+
+.DutyTitle {
+  @include title();
+  font-size: 18px;
+  margin: 0;
+}
+
+.DutyNeighborhoodName {
+  @include title();
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: $light-text-color;
+}
+
+.DutyButtonWrapper {
+  margin-top: 20px;
+
+  button {
+    height: 38px;
+  }
+}
