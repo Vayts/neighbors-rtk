@@ -13,6 +13,7 @@ import { chatsSlice } from '@src/store/chats/slice';
 import { currentNeighborhoodSlice } from '@src/store/currentNeighborhood/slice';
 import { eventsSlice } from '@src/store/events/slice';
 import { dutiesSlice } from '@src/store/duties/slice';
+import { BASE_WS } from '@constants/core';
 
 export const store = configureStore({
   reducer: {
@@ -30,7 +31,7 @@ export const store = configureStore({
     [eventsSlice.name]: eventsSlice.reducer,
     [dutiesSlice.name]: dutiesSlice.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(chatSocketMiddleware('ws://localhost:4020')),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(chatSocketMiddleware(BASE_WS)),
 });
 
 export type RootState = ReturnType<typeof store.getState>

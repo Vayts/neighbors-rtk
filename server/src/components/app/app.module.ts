@@ -19,7 +19,7 @@ import { DutyModule } from '../duty/duty.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../../..', 'client/public/img'),
+      rootPath: join(__dirname, '../../..', '/public/img'),
       exclude: ['/api/(.*)'],
       serveRoot: '/img',
     }),

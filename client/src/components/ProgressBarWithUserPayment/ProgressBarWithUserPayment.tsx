@@ -22,7 +22,7 @@ const ProgressBarWithUserPayment: React.FC<IProgressBarWithUserPaymentProps> = (
   } = props;
   const id = useId();
   const user = useAppSelector(selectUser) as IUser;
-  const [participantsPercentage, userPercentage, userPayment] = getDataForProgressBar(total, current, participantPayments, user._id);
+  const [participantsPercentage, userPercentage, userPayment] = getDataForProgressBar(total, current, participantPayments, user?._id);
   const formattedCurrent = useMemo(() => formatNumberWithK(total - current), [total, current]);
   const { t } = useTranslation();
   

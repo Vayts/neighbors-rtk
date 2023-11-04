@@ -39,7 +39,7 @@ const CreateDutyPage: React.FC = () => {
   const neighborhood = useAppSelector((state) => state.userNeighborhoods.entities[values.neighborhood_id]);
   const user = useAppSelector(selectUser);
   const neighborhoodsSelectArr = useMemo(() => getSelectArrFromNeighborhoods(neighborhoods), [neighborhoods]);
-  const membersArr = useMemo(() => getMembersWithoutUser(neighborhood, user._id), [neighborhood]);
+  const membersArr = useMemo(() => getMembersWithoutUser(neighborhood, user?._id), [neighborhood]);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();

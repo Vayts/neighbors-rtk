@@ -11,8 +11,8 @@ import styles from './DebtsAside.module.scss';
 const DebtsAside: React.FC = () => {
   const debts = useAppSelector(selectAllDebts);
   const user = useAppSelector(selectUser) as IUser;
-  const topDebtors = useMemo(() => getDebtTop(debts, user._id, 'debtor'), [debts]);
-  const topAuthors = useMemo(() => getDebtTop(debts, user._id, 'author'), [debts]);
+  const topDebtors = useMemo(() => getDebtTop(debts, user?._id, 'debtor'), [debts]);
+  const topAuthors = useMemo(() => getDebtTop(debts, user?._id, 'author'), [debts]);
   const { t } = useTranslation();
   
   return (

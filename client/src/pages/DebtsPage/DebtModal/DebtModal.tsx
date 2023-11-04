@@ -23,7 +23,7 @@ const DebtModal: React.FC<Props> = ({ debt }) => {
   const neighborhood = useAppSelector((state) => state.userNeighborhoods.entities[debt.neighborhood]);
   const author = useAppSelector((state) => state.debtors.entities[debt.author]);
   const debtor = useAppSelector((state) => state.debtors.entities[debt.debtor]);
-  const showForm = debt.repaidAmount < debt.debtAmount && author._id === user._id;
+  const showForm = debt.repaidAmount < debt.debtAmount && author._id === user?._id;
   const percentage = Math.round((repaidAmount / debtAmount) * 100);
   const { t } = useTranslation();
   

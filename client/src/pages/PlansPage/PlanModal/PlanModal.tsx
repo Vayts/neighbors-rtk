@@ -117,7 +117,7 @@ const PlanModal: React.FC<Props> = ({ plan }) => {
         </>
       )}
       
-      {!isClosed && user._id === author._id && (
+      {!isClosed && user?._id === author._id && (
         <div className='mt-16'>
           <Button
             text={t('endEvent')}
@@ -128,7 +128,7 @@ const PlanModal: React.FC<Props> = ({ plan }) => {
         </div>
       )}
       
-      {isClosed && user._id === author._id && (
+      {isClosed && user?._id === author._id && (
         <div className='mt-16'>
           <Button
             text={t('reopenEvent')}

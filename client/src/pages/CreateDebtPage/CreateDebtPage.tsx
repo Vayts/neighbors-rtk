@@ -41,7 +41,7 @@ const CreateDebtPage: React.FC = () => {
   const neighborhood = useAppSelector((state) => state.userNeighborhoods.entities[values.neighborhood_id]);
   const neighborhoodsSelectArr = useMemo(() => getSelectArrFromNeighborhoods(neighborhoods), [neighborhoods]);
   const members = useAppSelector((state) => state.members.entities);
-  const membersSelectArr = useMemo(() => getSelectArrFromNeighborhoodMembers(neighborhood, members, user._id),
+  const membersSelectArr = useMemo(() => getSelectArrFromNeighborhoodMembers(neighborhood, members, user?._id),
     [neighborhood, members, user]);
   
   const navigate = useNavigate();

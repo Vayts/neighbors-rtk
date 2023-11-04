@@ -2,14 +2,15 @@ import { store } from '@src/store';
 import axios from 'axios';
 import { refresh } from '@src/store/auth/thunks';
 import { AUTH_ERRORS } from '@constants/errors';
+import { BASE_URI } from '@constants/core';
 
 export const axiosPublic = axios.create({
-  baseURL: 'http://localhost:4020/api',
+  baseURL: `${BASE_URI}/api`,
   withCredentials: true,
 });
 
 export const axiosPrivate = axios.create({
-  baseURL: 'http://localhost:4020/api',
+  baseURL: `${BASE_URI}/api`,
   withCredentials: true,
 });
 

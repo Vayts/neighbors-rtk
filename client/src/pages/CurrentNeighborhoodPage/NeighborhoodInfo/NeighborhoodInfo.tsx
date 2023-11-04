@@ -57,6 +57,9 @@ const NeighborhoodInfo: React.FC = () => {
           <NavLink to={`/plans/${_id}`} className={styles.InfoNavigationItem}>
             {`${t('plans')}: ${neighborhood.plans}`}
           </NavLink>
+          <NavLink to={`/duties/${_id}`} className={styles.InfoNavigationItem}>
+            {`${t('duties')}: ${neighborhood.duties}`}
+          </NavLink>
         </nav>
         <div className={styles.InfoMemberControls}>
           <MembersList members={members} modal={<NeighborhoodMembersModal members={members}/>}/>
