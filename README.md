@@ -26,6 +26,7 @@
 ### Todo:
 
 - [ ] Tests
+- [ ] Advanced chat logic
 
 ### `backend`
 
