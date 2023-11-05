@@ -19,7 +19,6 @@ export const login = createAsyncThunk(
       const response = await axiosPublic.post(AUTH_ROUTES.login, values);
       return response.data;
     } catch (e: any) {
-      errorManager(e?.response?.data?.message, ErrorEnum.auth);
       return rejectWithValue(e?.response?.data?.message);
     }
   },
@@ -32,7 +31,6 @@ export const refresh = createAsyncThunk(
       const response = await axiosPublic.get(AUTH_ROUTES.refresh);
       return response.data;
     } catch (e: any) {
-      errorManager(e?.response?.data?.message, ErrorEnum.auth);
       return rejectWithValue(e?.response?.data?.message);
     }
   },
@@ -88,7 +86,6 @@ export const changePassword = createAsyncThunk(
       getNotification(t('dataUpdatedSuccess'), NotificationTypeEnum.success);
       return response.data;
     } catch (e: any) {
-      errorManager(e?.response?.data?.message, ErrorEnum.auth);
       return rejectWithValue(e?.response?.data?.message);
     }
   },

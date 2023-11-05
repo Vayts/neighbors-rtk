@@ -38,6 +38,10 @@ const Sidebar: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const { t } = useTranslation();
   
+  const handleCloseSidebar = () => {
+    setSidebarOpen(false);
+  };
+  
   return (
     <aside className={cn(
       styles.SidebarWrapper,
@@ -66,6 +70,7 @@ const Sidebar: React.FC = () => {
             <NavLink
               key={`sidebar-${item.text}`}
               to={item.link}
+              onClick={handleCloseSidebar}
               className={({ isActive }) => cn(styles.SidebarNavItem, isActive && styles.SidebarNavItemActive)}
             >
               <span className={item.icon} />

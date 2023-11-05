@@ -7,6 +7,15 @@
   min-width: 340px;
   border-right: 1px solid $border-color;
   background-color: $component-bg;
+
+  &--open {
+    display: none;
+  }
+
+  @include for-laptop {
+    display: block;
+  }
+
 }
 
 .ChatListTitle {

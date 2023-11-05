@@ -1,6 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { errorManager } from '@helpers/errors.helper';
-import { ErrorEnum } from '@src/types/default.types';
 import { refresh } from '@src/store/auth/thunks';
 import { LocaleEnum } from '@src/types/locale.types';
 import { setLanguage } from '@src/store/core/slice';
@@ -11,7 +9,7 @@ const MODULE_NAME = 'core';
 
 export const appFirstLoad = createAsyncThunk(
   `${MODULE_NAME}/firstLoad`,
-  async (_, { dispatch, getState }) => {
+  async (_, { dispatch, getState, rejectWithValue }) => {
     try {
       await dispatch(refresh());
       
@@ -28,7 +26,7 @@ export const appFirstLoad = createAsyncThunk(
       }
       return true;
     } catch (e: any) {
-      errorManager(e?.response?.data?.message, ErrorEnum.app);
+      return rejectWithValue(e?.response?.data?.message);
     }
   },
 );

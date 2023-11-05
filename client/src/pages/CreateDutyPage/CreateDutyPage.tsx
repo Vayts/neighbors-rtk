@@ -17,6 +17,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { createDuty } from '@src/store/duties/thunks';
 import { errorManager } from '@helpers/errors.helper';
 import { getCreateDutyDto } from '@helpers/duties.helper';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './CreateDutyPage.module.scss';
 
 const initialValues: ICreateDuty = {
@@ -28,6 +29,7 @@ const initialValues: ICreateDuty = {
 };
 
 const CreateDutyPage: React.FC = () => {
+  useScrollTopOnMount();
   const { id } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [values, setValues] = useState<ICreateDuty>({
@@ -39,7 +41,7 @@ const CreateDutyPage: React.FC = () => {
   const neighborhood = useAppSelector((state) => state.userNeighborhoods.entities[values.neighborhood_id]);
   const user = useAppSelector(selectUser);
   const neighborhoodsSelectArr = useMemo(() => getSelectArrFromNeighborhoods(neighborhoods), [neighborhoods]);
-  const membersArr = useMemo(() => getMembersWithoutUser(neighborhood, user._id), [neighborhood]);
+  const membersArr = useMemo(() => getMembersWithoutUser(neighborhood, user?._id), [neighborhood]);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { t } = useTranslation();

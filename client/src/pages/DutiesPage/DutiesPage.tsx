@@ -8,9 +8,12 @@ import { getUserDuties } from '@src/store/duties/thunks';
 import { selectAllDuties } from '@src/store/duties/selectors';
 import NoItemBanner from '@src/components/NoItemBanner/NoItemBanner';
 import DutiesList from '@src/pages/DutiesPage/DutiesList/DutiesList';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
+import DutySkeleton from '@src/pages/DutiesPage/DutySkeleton/DutySkeleton';
 import styles from './DutiesPage.module.scss';
 
 const DutiesPage: React.FC = () => {
+  useScrollTopOnMount();
   const { id } = useParams();
   const duties = useAppSelector(selectAllDuties);
   const isLoading = useAppSelector((state) => state.duties.isLoading);
@@ -61,12 +64,10 @@ const DutiesPage: React.FC = () => {
           />
         )}
         <span/>
-        
-        {!isLoading && (
-          <div className={styles.DutiesContentWrapper}>
-            <DutiesList/>
-          </div>
-        )}
+
+        <div className={styles.DutiesContentWrapper}>
+          {isLoading ? <DutySkeleton amount={3}/> : <DutiesList/>}
+        </div>
         
       </div>
     </div>

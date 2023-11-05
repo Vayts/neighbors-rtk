@@ -25,7 +25,7 @@ export class EditPlanDto {
   @Max(9999999)
   readonly paymentAmount: number | null;
   @Transform(({ value }) => {
-    return value !== 'null' ? new Date(value) : JSON.parse(value);
+    return value ? new Date(value) : value;
   })
   @IsOptional()
   readonly dueDate: number | null;

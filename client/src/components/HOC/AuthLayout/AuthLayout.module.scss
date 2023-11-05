@@ -7,6 +7,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 15px 10px;
+  position: relative;
 
   @include for-tablet {
     justify-content: flex-start;
@@ -61,6 +62,10 @@
 
 .AuthLanguageSwitcher {
   display: flex;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translate(-50%,-50%);
 }
 
 .AuthLanguageItem {

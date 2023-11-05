@@ -17,7 +17,7 @@ const Message: React.FC<Props> = ({ message }) => {
   const { text, sentAt, seenBy } = message;
   const user = useAppSelector((state) => state.auth.user);
   const author: IMember = useAppSelector((state) => state.members.entities[message.author]);
-  const userAlreadySeen = seenBy.includes(user._id);
+  const userAlreadySeen = seenBy.includes(user?._id);
   const [ref, inView] = useInView({
     threshold: 0.9,
     initialInView: userAlreadySeen,
@@ -25,12 +25,12 @@ const Message: React.FC<Props> = ({ message }) => {
     triggerOnce: true,
     skip: userAlreadySeen,
   });
-  const isAuthor = user._id === author._id;
+  const isAuthor = user?._id === author._id;
   const dispatch = useAppDispatch();
   
   useEffect(() => {
     if (inView && !userAlreadySeen) {
-      dispatch(addViewedMessage({ messageId: message._id, userId: user._id }));
+      dispatch(addViewedMessage({ messageId: message._id, userId: user?._id }));
     }
   }, [inView]);
 

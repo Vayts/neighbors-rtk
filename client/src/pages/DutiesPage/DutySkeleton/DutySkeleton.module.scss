@@ -1,0 +1,75 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.DutiesSkeletonList {
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 20px;
+
+  @include for-tablet() {
+    grid-template-columns: calc(50% - 10px) calc(50% - 10px);
+  }
+
+  @include for-desktop() {
+    gap: 30px;
+    grid-template-columns: calc(33% - 10px) calc(33% - 10px) calc(33% - 10px);
+  }
+}
+
+.DutySkeletonWrapper {
+  position: relative;
+  animation: appear 0.2s;
+}
+
+.DutySkeletonItem {
+  background-color: $component-bg;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 25px 15px;
+  margin-bottom: 20px;
+  transition: all 0.3s;
+  position: relative;
+  gap: 20px;
+
+  @include for-tablet() {
+    padding: 25px;
+  }
+}
+
+.DutySkeletonMenu {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  cursor: pointer;
+  z-index: 10;
+  color: $light-text-color;
+
+  @include for-tablet() {
+    right: 25px;
+  }
+}
+
+.DutySkeletonTitle {
+  width: 55%;
+  margin: 0 auto 10px;
+
+  @include for-tablet() {
+    width: 100%;
+  }
+}
+
+
+.DutySkeletonButton {
+  height: 38px;
+  margin-top: 20px;
+}

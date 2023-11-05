@@ -29,14 +29,14 @@ const MessageList: React.FC<Props> = ({ selectedRoom }) => {
       const clientHeight = listRef.current.clientHeight;
       const distanceFromEnd = scrollHeight - scrollTop - clientHeight;
       
-      if (lastChild && lastMessage.author !== user._id && distanceFromEnd < 200) {
+      if (lastChild && lastMessage.author !== user?._id && distanceFromEnd < 200) {
         lastChild.scrollIntoView({
           behavior: 'smooth',
           block: 'end',
         });
       }
       
-      if (lastChild && lastMessage.author === user._id) {
+      if (lastChild && lastMessage.author === user?._id) {
         lastChild.scrollIntoView({
           behavior: distanceFromEnd > NO_SMOOTH_SCROLL_VALUE ? 'auto' : 'smooth',
           block: 'end',
@@ -48,7 +48,7 @@ const MessageList: React.FC<Props> = ({ selectedRoom }) => {
   useEffect(() => {
     if (listRef.current && messages.length) {
       const lastMessageIndex = messages.length - 1;
-      const firstUnseenMessageIndex = messages.findIndex((item) => !item.seenBy.includes(user._id));
+      const firstUnseenMessageIndex = messages.findIndex((item) => !item.seenBy.includes(user?._id));
       const lastChild = listRef.current.children[firstUnseenMessageIndex >= 0 ? firstUnseenMessageIndex : lastMessageIndex];
       if (lastChild) {
         lastChild.scrollIntoView({

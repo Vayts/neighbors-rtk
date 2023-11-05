@@ -18,6 +18,7 @@ import { getUserDebts } from '@src/store/debts/thunks';
 import NoItemBanner from '@src/components/NoItemBanner/NoItemBanner';
 import DebtSkeleton from '@src/pages/DebtsPage/DebtSkeleton/DebtSkeleton';
 import DebtsAsideSkeleton from '@src/pages/DebtsPage/DebtsAsideSkeleton/DebtsAsideSkeleton';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './DebtsPage.module.scss';
 
 enum DebtsViewMod {
@@ -26,6 +27,7 @@ enum DebtsViewMod {
 }
 
 const DebtsPage: React.FC = () => {
+  useScrollTopOnMount();
   const { id } = useParams();
   const [viewMod, setViewMod] = useState(DebtsViewMod.main);
   const [filter, setFilter] = useState<DebtsFilterEnum>(DebtsFilterEnum.active);

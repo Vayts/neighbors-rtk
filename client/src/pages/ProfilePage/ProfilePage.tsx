@@ -10,9 +10,11 @@ import { IUser } from '@src/types/user.types';
 import Modal from '@src/components/Modal/Modal';
 import AvatarSelectModal from '@src/pages/ProfilePage/AvatarSelectModal/AvatarSelectModal';
 import { editProfile } from '@src/store/auth/thunks';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './ProfilePage.module.scss';
 
 const ProfilePage: React.FC = () => {
+  useScrollTopOnMount();
   const user: IUser | null = useAppSelector((state) => state.auth.user);
   const [values, setValues] = useState<IEditProfile>({
     lastName: user?.lastName || '',

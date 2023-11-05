@@ -30,6 +30,7 @@ export interface INeighborhood {
 export interface ICurrentNeighborhood extends INeighborhood{
   debts: number,
   plans: number,
+  duties: number,
   inviteCode: null | string,
   events: INeighborhoodEvent[],
 }

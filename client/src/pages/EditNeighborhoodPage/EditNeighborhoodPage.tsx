@@ -14,9 +14,11 @@ import { CURRENT_CURRENCIES } from '@constants/core';
 import { CurrencyEnum } from '@src/types/default.types';
 import { getCurrentNeighborhood } from '@src/store/currentNeighborhood/thunks';
 import Loader from '@src/components/Loader/Loader';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './EditNeighborhoodPage.module.scss';
 
 const EditNeighborhoodPage: React.FC = () => {
+  useScrollTopOnMount();
   const { id } = useParams();
   const neighborhood = useAppSelector((state) => state.userNeighborhoods.entities[id]);
   const initialValues = {

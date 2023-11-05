@@ -37,7 +37,7 @@ const ParticipantManager: React.FC<IParticipantManager> = ({
                 {item.fullName}
               </p>
               {
-                user._id !== item._id && (
+                user?._id !== item._id && (
                   <span
                     className={
                       cn(

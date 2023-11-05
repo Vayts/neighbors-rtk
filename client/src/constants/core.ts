@@ -1,6 +1,10 @@
 import { CurrencyEnum } from '@src/types/default.types';
 
-export const STATIC_HREF = 'http://localhost:4020/img';
+export const BASE_URI = 'http://localhost:4020';
+
+export const BASE_WS = 'ws://localhost:4020';
+
+export const STATIC_HREF = `${BASE_URI}/img`;
 
 export const CURRENT_CURRENCIES = [
   {

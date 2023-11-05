@@ -3,13 +3,19 @@
 .CreatePlanPageWrapper {
   display: flex;
   justify-content: center;
-  width: calc(100vw - 80px);
+
+  @include for-tablet() {
+    width: 100vw;
+  }
 }
 
 .CreatePlanFormWrapper {
   margin-top: 30px;
-  width: 100%;
-  max-width: 490px;
+
+  @include for-tablet {
+    width: 100%;
+    max-width: 490px;
+  }
 }
 
 .CreatePlanBack {
@@ -24,6 +30,7 @@
   grid-template-areas: "link title .";
   grid-template-columns: minmax(100px,1fr) auto minmax(100px,1fr);
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .CreatePlanTitle {

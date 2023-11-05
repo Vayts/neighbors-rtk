@@ -24,7 +24,7 @@ export class CreateDebtDto {
   @Max(9999999)
   readonly debtAmount: number;
   @Transform(({ value }) => {
-    return value !== 'null' ? new Date(value) : JSON.parse(value);
+    return value !== null ? new Date(value) : JSON.parse(value);
   })
   @IsOptional()
   readonly dueDate: number | null;

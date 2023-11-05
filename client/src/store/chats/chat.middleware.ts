@@ -49,7 +49,7 @@ export const chatSocketMiddleware = (url: string) => {
         });
         
         socket.on('updateUnseenMessage', (res) => {
-          const userId = store.getState().auth.user._id;
+          const userId = store.getState().auth.user?._id;
           store.dispatch(updateUnseenMessage({ idsToUpdate: res, userId }));
         });
 

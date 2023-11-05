@@ -23,11 +23,11 @@ const EventItem: React.FC<Props> = ({ eventId }) => {
   
   const generateText = () => {
     if (event.type === EventTypeEnum.NewDebt) {
-      return event.author_id === user._id ? t('newDebtByUser') : t('newDebtForUser', { author: author.fullName });
+      return event.author_id === user?._id ? t('newDebtByUser') : t('newDebtForUser', { author: author.fullName });
     }
     
     if (event.type === EventTypeEnum.NewPlan) {
-      return event.author_id === user._id ? t('newPlanByUser') : t('newPlanForUser', { author: author.fullName });
+      return event.author_id === user?._id ? t('newPlanByUser') : t('newPlanForUser', { author: author.fullName });
     }
     
     if (event.type === EventTypeEnum.UserHasLeft) {

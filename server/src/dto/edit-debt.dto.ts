@@ -20,7 +20,7 @@ export class EditDebtDto {
   @Max(9999999)
   readonly debtAmount: number;
   @Transform(({ value }) => {
-    return value !== 'null' ? new Date(value) : JSON.parse(value);
+    return value ? new Date(value) : value;
   })
   @IsOptional()
   readonly dueDate: number | null;

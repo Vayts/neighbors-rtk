@@ -10,6 +10,9 @@ import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import { selectAuthLoading, selectUser } from '@src/store/auth/selectors';
 import { register } from '@src/store/auth/thunks';
 import { STATIC_HREF } from '@constants/core';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
+import { errorManager } from '@helpers/errors.helper';
+import { ErrorEnum } from '@src/types/default.types';
 import styles from './RegisterPage.module.scss';
 
 const initialValue: IRegister = {
@@ -21,6 +24,7 @@ const initialValue: IRegister = {
 };
 
 const RegisterPage: React.FC = () => {
+  useScrollTopOnMount();
   const [values, setValues] = useState(initialValue);
   const isLoading = useAppSelector(selectAuthLoading);
   const user = useAppSelector(selectUser);
@@ -61,7 +65,9 @@ const RegisterPage: React.FC = () => {
   
   const handleSubmit = useCallback((e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    dispatch(register(values));
+    dispatch(register(values))
+      .unwrap()
+      .catch((e) => errorManager(e, ErrorEnum.auth));
   }, [values]);
   
   return (

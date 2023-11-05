@@ -502,6 +502,10 @@ export class NeighborhoodService {
       req,
       neighborhood[0]._id,
     );
+    const duties = await this.dutyService.getByNeighborhoodId(
+      req,
+      neighborhood[0]._id,
+    );
     const inviteCode = await this.neighborhoodInviteModel.findOne({
       neighborhood_id: id,
       expirationDate: { $gt: new Date() },
@@ -518,6 +522,7 @@ export class NeighborhoodService {
       events,
       debts: debts.length,
       plans: plans.length,
+      duties: duties.length,
     };
   }
 }

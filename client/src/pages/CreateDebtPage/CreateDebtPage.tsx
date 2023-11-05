@@ -16,6 +16,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { createDebt } from '@src/store/debts/thunks';
 import { selectUser } from '@src/store/auth/selectors';
 import { selectAllNeighborhoods } from '@src/store/userNeighborhoods/selectors';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './CreateDebtPage.module.scss';
 
 const initialValues: ICreateDebt = {
@@ -28,6 +29,7 @@ const initialValues: ICreateDebt = {
 };
 
 const CreateDebtPage: React.FC = () => {
+  useScrollTopOnMount();
   const { id } = useParams();
   const [values, setValues] = useState<ICreateDebt>({
     ...initialValues,
@@ -41,7 +43,7 @@ const CreateDebtPage: React.FC = () => {
   const neighborhood = useAppSelector((state) => state.userNeighborhoods.entities[values.neighborhood_id]);
   const neighborhoodsSelectArr = useMemo(() => getSelectArrFromNeighborhoods(neighborhoods), [neighborhoods]);
   const members = useAppSelector((state) => state.members.entities);
-  const membersSelectArr = useMemo(() => getSelectArrFromNeighborhoodMembers(neighborhood, members, user._id),
+  const membersSelectArr = useMemo(() => getSelectArrFromNeighborhoodMembers(neighborhood, members, user?._id),
     [neighborhood, members, user]);
   
   const navigate = useNavigate();

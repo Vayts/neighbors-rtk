@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import Select from '@src/components/UI/Select/Select';
 import { createNeighborhood } from '@src/store/userNeighborhoods/thunks';
 import { CURRENT_CURRENCIES } from '@constants/core';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './CreateNeighborhoodPage.module.scss';
 
 const initialValues: ICreateNeighborhood = {
@@ -21,6 +22,7 @@ const initialValues: ICreateNeighborhood = {
 };
 
 const CreateNeighborhoodPage: React.FC = () => {
+  useScrollTopOnMount();
   const [values, setValues] = useState<ICreateNeighborhood>({
     ...initialValues,
     errors: getCreateNeighborhoodValidation(initialValues),

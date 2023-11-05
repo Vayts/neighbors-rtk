@@ -7,6 +7,9 @@ import { IChangePassword } from '@src/types/auth.types';
 import { getChangePasswordValidation } from '@src/validation/auth.validation';
 import BackButton from '@src/components/BackButton/BackButton';
 import { changePassword } from '@src/store/auth/thunks';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
+import { errorManager } from '@helpers/errors.helper';
+import { ErrorEnum } from '@src/types/default.types';
 import styles from './ChangePasswordPage.module.scss';
 
 const initialValues = {
@@ -17,6 +20,7 @@ const initialValues = {
 };
 
 const ChangePasswordPage: React.FC = () => {
+  useScrollTopOnMount();
   const [values, setValues] = useState<IChangePassword>({
     ...initialValues,
     errors: getChangePasswordValidation(initialValues),
@@ -28,10 +32,7 @@ const ChangePasswordPage: React.FC = () => {
   const handleSubmit = () => {
     dispatch(changePassword(values))
       .unwrap()
-      .catch((e) => e)
-      .finally(() => {
-        setValues(initialValues);
-      });
+      .catch((e) => errorManager(e, ErrorEnum.auth));
   };
   
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

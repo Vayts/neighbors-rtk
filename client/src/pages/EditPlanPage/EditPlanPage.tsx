@@ -12,9 +12,11 @@ import { IEditPlan, IPlan } from '@src/types/plan.types';
 import { getEditPlanValidation } from '@src/validation/createPlan.validation';
 import { editPlan } from '@src/store/plans/thunks';
 import { getEditPlanDto } from '@helpers/plans.helper';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './EditPlanPage.module.scss';
 
 const EditPlanPage: React.FC = () => {
+  useScrollTopOnMount();
   const { planId } = useParams();
   const planForEdit = useAppSelector((state) => state.plans.entities[planId]);
   const [searchParams] = useSearchParams();

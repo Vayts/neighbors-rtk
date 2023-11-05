@@ -45,8 +45,13 @@
 .DutyTitleWrapper {
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   margin: 0 0 10px;
+
+  @include for-laptop() {
+    flex-direction: row;
+  }
 }
 
 .DutyTitle {

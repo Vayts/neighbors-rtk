@@ -19,14 +19,14 @@ import { DutyModule } from '../duty/duty.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../../..', 'client/public/img'),
+      rootPath: join(__dirname, '../../..', '/public/img'),
       exclude: ['/api/(.*)'],
       serveRoot: '/img',
     }),
-    // ServeStaticModule.forRoot({
-    //   rootPath: join(__dirname, '../../../..', 'client/dist'),
-    //   exclude: ['/api/(.*)'],
-    // }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../../..', 'client/dist'),
+      exclude: ['/api/(.*)'],
+    }),
     CoreModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),
