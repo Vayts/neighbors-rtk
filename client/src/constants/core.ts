@@ -1,9 +1,5 @@
 import { CurrencyEnum } from '@src/types/default.types';
 
-// export const BASE_URI = 'https://neighbors-15ma.onrender.com';
-//
-// export const BASE_WS = 'wss://neighbors-15ma.onrender.com';
-
 export const BASE_URI = 'http://localhost:4020';
 
 export const BASE_WS = 'ws://localhost:4020';

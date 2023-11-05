@@ -7,9 +7,11 @@ import { getCurrentNeighborhood } from '@src/store/currentNeighborhood/thunks';
 import { useParams } from 'react-router-dom';
 import NeighborhoodInfo from '@src/pages/CurrentNeighborhoodPage/NeighborhoodInfo/NeighborhoodInfo';
 import EventList from '@src/pages/CurrentNeighborhoodPage/EventList/EventList';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './CurrentNeighborhoodPage.module.scss';
 
 const CurrentNeighborhoodPage: React.FC = () => {
+  useScrollTopOnMount();
   const { id } = useParams();
   const isLoading = useAppSelector((state) => state.currentNeighborhood.isLoading);
   const neighborhood = useAppSelector((state) => state.currentNeighborhood.neighborhood);

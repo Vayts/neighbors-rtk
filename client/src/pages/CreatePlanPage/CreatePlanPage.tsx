@@ -23,6 +23,7 @@ import { selectUser } from '@src/store/auth/selectors';
 import { createPlan } from '@src/store/plans/thunks';
 import MembersCheckboxList from '@src/components/UI/MembersCheckboxList/MembersCheckboxList';
 import { errorManager } from '@helpers/errors.helper';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './CreatePlanPage.module.scss';
 
 const initialValues: ICreatePlan = {
@@ -40,6 +41,7 @@ const initialValues: ICreatePlan = {
 };
 
 const CreatePlanPage: React.FC = () => {
+  useScrollTopOnMount();
   const isInitialLoad = React.useRef<boolean>(true);
   const { id } = useParams();
   const [values, setValues] = useState<ICreatePlan>({

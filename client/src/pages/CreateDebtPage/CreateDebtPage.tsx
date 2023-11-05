@@ -16,6 +16,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { createDebt } from '@src/store/debts/thunks';
 import { selectUser } from '@src/store/auth/selectors';
 import { selectAllNeighborhoods } from '@src/store/userNeighborhoods/selectors';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './CreateDebtPage.module.scss';
 
 const initialValues: ICreateDebt = {
@@ -28,6 +29,7 @@ const initialValues: ICreateDebt = {
 };
 
 const CreateDebtPage: React.FC = () => {
+  useScrollTopOnMount();
   const { id } = useParams();
   const [values, setValues] = useState<ICreateDebt>({
     ...initialValues,

@@ -3,6 +3,10 @@
 .EditDebtPageWrapper {
   display: flex;
   justify-content: center;
+
+  @include for-tablet() {
+    width: 100vw;
+  }
 }
 
 .EditDebtFormWrapper {
@@ -23,6 +27,7 @@
   grid-template-areas: "link title .";
   grid-template-columns: minmax(100px,1fr) auto minmax(100px,1fr);
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .EditDebtTitle {

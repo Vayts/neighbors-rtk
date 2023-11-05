@@ -34,7 +34,7 @@ const PlansList: React.FC<Props> = ({ visiblePlans }) => {
           <PlanModal plan={selectedPlan} />
         </Modal>
       )}
-      <ul className={styles.PlansList}>
+      <div className={styles.PlansList}>
         {visiblePlans.map((item) => {
           return (
             <PlanCard
@@ -44,7 +44,7 @@ const PlansList: React.FC<Props> = ({ visiblePlans }) => {
             />
           );
         })}
-      </ul>
+      </div>
     </>
   );
 };

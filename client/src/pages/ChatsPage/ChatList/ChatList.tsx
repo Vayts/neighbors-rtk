@@ -19,7 +19,7 @@ const ChatList: React.FC<Props> = ({ setSelectedRoom, selectedRoom }) => {
   };
   
   return (
-    <div className={styles.ChatListWrapper}>
+    <div className={cn(styles.ChatListWrapper, selectedRoom && styles.ChatListWrapperOpen)}>
       <h3 className={styles.ChatListTitle}>{t('chats')}</h3>
       <div className={styles.ChatListContent}>
         <ul className={styles.ChatList}>

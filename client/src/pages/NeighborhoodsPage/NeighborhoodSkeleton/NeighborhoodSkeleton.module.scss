@@ -1,0 +1,52 @@
+@import "@src/styles/variables";
+@import "@src/styles/mixins";
+
+.SkeletonListWrapper {
+  display: grid;
+  list-style: none;
+  grid-row-gap: 24px;
+  grid-column-gap: 24px;
+  padding: 0;
+  grid-template-columns: repeat(1,1fr);
+  max-width: 1360px;
+  margin: 0 auto;
+
+  @include for-tablet {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  @include for-desktop {
+    grid-template-columns: repeat(3,1fr);
+  }
+}
+
+.SkeletonWrapper {
+  height: 150px;
+  background-color: $component-bg;
+  padding: 25px;
+  position: relative;
+  border-radius: 10px;
+}
+
+.SkeletonIcon {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  font-size: 20px;
+  color: $light-text-color;
+}
+
+.SkeletonTitleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.SkeletonTitle {
+  width: 140px;
+}
+
+.SkeletonRole {
+  width: 100px;
+}

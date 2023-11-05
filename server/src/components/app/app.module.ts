@@ -23,10 +23,10 @@ import { DutyModule } from '../duty/duty.module';
       exclude: ['/api/(.*)'],
       serveRoot: '/img',
     }),
-    // ServeStaticModule.forRoot({
-    //   rootPath: join(__dirname, '../../../..', 'client/dist'),
-    //   exclude: ['/api/(.*)'],
-    // }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../../..', 'client/dist'),
+      exclude: ['/api/(.*)'],
+    }),
     CoreModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),

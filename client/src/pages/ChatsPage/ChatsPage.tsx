@@ -1,8 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import ChatList from '@src/pages/ChatsPage/ChatList/ChatList';
 import ChatWindow from '@src/pages/ChatsPage/ChatWindow/ChatWindow';
-import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
-import { selectUser } from '@src/store/auth/selectors';
+import { useAppDispatch } from '@src/hooks/hooks';
 import { chatSocketDisconnect, chatSocketInit } from '@src/store/chats/actions';
 import styles from './ChatsPage.module.scss';
 
@@ -24,7 +23,7 @@ const ChatsPage: React.FC = () => {
         setSelectedRoom={setSelectedRoom}
         selectedRoom={selectedRoom}
       />
-      {selectedRoom && <ChatWindow roomId={selectedRoom}/>}
+      {selectedRoom && <ChatWindow roomId={selectedRoom} isOpen={Boolean(selectedRoom)} setSelectedRoom={setSelectedRoom}/>}
     </div>
   );
 };

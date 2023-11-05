@@ -17,6 +17,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { createDuty } from '@src/store/duties/thunks';
 import { errorManager } from '@helpers/errors.helper';
 import { getCreateDutyDto } from '@helpers/duties.helper';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './CreateDutyPage.module.scss';
 
 const initialValues: ICreateDuty = {
@@ -28,6 +29,7 @@ const initialValues: ICreateDuty = {
 };
 
 const CreateDutyPage: React.FC = () => {
+  useScrollTopOnMount();
   const { id } = useParams();
   const [isLoading, setLoading] = useState(false);
   const [values, setValues] = useState<ICreateDuty>({

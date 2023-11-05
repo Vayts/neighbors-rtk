@@ -5,14 +5,16 @@ import NeighborhoodsBanner from '@src/pages/NeighborhoodsPage/NeighborhoodsBanne
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@src/hooks/hooks';
 import NeighborhoodsList from '@src/pages/NeighborhoodsPage/NeighborhoodsList/NeighborhoodsList';
-import Loader from '@src/components/Loader/Loader';
 import Modal from '@src/components/Modal/Modal';
 import NeighborhoodsInviteModal from '@src/pages/NeighborhoodsPage/NeighborhoodsInviteModal/NeighborhoodsInviteModal';
 import NeighborhoodSwitcher from '@src/components/NeighborhoodSwitcher/NeighborhoodSwitcher';
 import { getUserNeighborhoods } from '@src/store/userNeighborhoods/thunks';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
+import NeighborhoodSkeleton from '@src/pages/NeighborhoodsPage/NeighborhoodSkeleton/NeighborhoodSkeleton';
 import styles from './NeighborhoodsPage.module.scss';
 
 const NeighborhoodsPage: React.FC = () => {
+  useScrollTopOnMount();
   const [isInviteOpen, setInviteOpen] = useState(false);
   const neighborhoods = useAppSelector((state) => state.userNeighborhoods.ids);
   const isLoading = useAppSelector((state) => state.userNeighborhoods.isLoading);
@@ -60,10 +62,10 @@ const NeighborhoodsPage: React.FC = () => {
           />
         </div>
       </div>
-      {isLoading && <Loader/>}
+      
       {Boolean(!neighborhoods.length) && !isLoading && <NeighborhoodsBanner setInviteOpen={setInviteOpen}/>}
       <div className="p-16">
-        <NeighborhoodsList/>
+        {isLoading ? <NeighborhoodSkeleton amount={3}/> : <NeighborhoodsList/>}
       </div>
     </div>
   );

@@ -10,9 +10,11 @@ import Input from '@src/components/UI/Input/Input';
 import Button from '@src/components/UI/Button/Button';
 import { getEditDutyDto } from '@helpers/duties.helper';
 import { editDuty } from '@src/store/duties/thunks';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './EditDutyPage.module.scss';
 
 const EditDutyPage: React.FC = () => {
+  useScrollTopOnMount();
   const { dutyId } = useParams();
   const dutyForEdit = useAppSelector((state) => state.duties.entities[dutyId]);
   const [searchParams] = useSearchParams();

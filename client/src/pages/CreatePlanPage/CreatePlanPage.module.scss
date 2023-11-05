@@ -3,6 +3,10 @@
 .CreatePlanPageWrapper {
   display: flex;
   justify-content: center;
+
+  @include for-tablet() {
+    width: 100vw;
+  }
 }
 
 .CreatePlanFormWrapper {

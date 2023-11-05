@@ -50,14 +50,21 @@
 }
 
 .MessageAvatar {
-  width: 48px;
-  height: 48px;
-  max-width: 48px;
-  max-height: 48px;
+  width: 38px;
+  height: 38px;
+  max-width: 38px;
+  max-height: 38px;
   margin-right: 15px;
   border: 2px solid transparent;
   background-color: $component-bg;
   border-radius: 50%;
+
+  @include for-tablet() {
+    width: 48px;
+    height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+  }
 
   &--user {
     border-color: $primary-color;
@@ -76,9 +83,14 @@
 
 .MessageTitleWrapper {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 10px;
+
+  @include for-tablet {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 .MessageAuthorFullName {

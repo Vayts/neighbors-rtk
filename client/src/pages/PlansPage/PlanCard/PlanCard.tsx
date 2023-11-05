@@ -43,7 +43,7 @@ const PlanCard: React.FC<Props> = ({ plan, onClick }) => {
   };
   
   return (
-    <li className={styles.PlanWrapper}>
+    <article className={styles.PlanWrapper}>
       {author._id === user?._id && (
         <div className={styles.PlanMenuWrapper}>
           <Menu>
@@ -127,7 +127,7 @@ const PlanCard: React.FC<Props> = ({ plan, onClick }) => {
         content={`${t('author')}: ${author.fullName}`}
       />
       
-    </li>
+    </article>
   );
 };
 

@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router-dom';
 import { LocaleEnum } from '@src/types/locale.types';
 import i18n from 'i18next';
 import { setLanguage } from '@src/store/core/slice';
+import { useScrollTopOnMount } from '@src/hooks/useScrollTopOnMount';
 import styles from './SettingsPage.module.scss';
 
 const SettingsPage: React.FC = () => {
+  useScrollTopOnMount();
   const currentLocale = useAppSelector((state) => state.core.locale);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
