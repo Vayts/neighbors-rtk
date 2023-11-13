@@ -6,6 +6,9 @@
 
 - **Create Neighborhoods:** Drawing from real-life experiences, users can create or join virtual neighborhoods, enabling them to connect with their neighbors
 
+  ![image](https://github.com/Vayts/neighbors-rtk/assets/54949928/24d60bcd-958f-4410-80f1-0b702d6ff90d)
+
+
 - **Debt Management:** Simplify the management of shared expenses and debts within your neighborhood, reflecting the lessons learned from real-world interactions. Keep track of who owes what, settle accounts, and reduce financial misunderstandings.
 
 - **Collaborative Planning:** Plan neighborhood events or initiatives together, inspired by the desire to make your community a better place. Whether it's a community clean-up, a block party, or a fundraiser, everyone can pitch in and coordinate their efforts seamlessly.
