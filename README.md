@@ -39,6 +39,7 @@
 - Nest.js
 - MongoDB
 - i18n
+- Socket.io
 
 ### Todo:
 
