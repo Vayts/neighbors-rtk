@@ -1,4 +1,10 @@
 [DEMO](https://neighbors-15ma.onrender.com) - DEMO LINK
+
+### Demo credentials
+
+login: demo12345678;
+password: DEMO1234;
+
 # Neighbors
 "Neighbors" is a web-based social networking application designed to bring neighbors together, foster stronger community bonds, and simplify the management of shared responsibilities, debts. Developed with a deep understanding of the dynamics of living in close proximity to others.
 
