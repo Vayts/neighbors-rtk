@@ -30,6 +30,11 @@
 
 ![image](https://github.com/Vayts/neighbors-rtk/assets/54949928/44051121-d201-463f-ab1f-73c30ec85b27)
 
+- **User Authentication:** User authentication for neighborhood management
+
+![image](https://github.com/Vayts/neighbors-rtk/assets/54949928/12ffdd2d-8f90-4c1e-8223-77695378a6d5)
+
+
 ### Stack:
 
 - React
