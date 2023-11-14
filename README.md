@@ -10,19 +10,19 @@
 
 - **Debt Management:** Simplify the management of shared expenses and debts within your neighborhood, reflecting the lessons learned from real-world interactions. Keep track of who owes what, settle accounts, and reduce financial misunderstandings.
 
-- ![image](https://github.com/Vayts/neighbors-rtk/assets/54949928/5137a190-073f-48c9-bf01-cfd1b95bb1c3)
+ ![image](https://github.com/Vayts/neighbors-rtk/assets/54949928/5137a190-073f-48c9-bf01-cfd1b95bb1c3)
 
 - **Collaborative Planning:** Plan neighborhood events or initiatives together, inspired by the desire to make your community a better place. Whether it's a community clean-up, a block party, or a fundraiser, everyone can pitch in and coordinate their efforts seamlessly.
 
-- ![image](https://github.com/Vayts/neighbors-rtk/assets/54949928/cd079549-8ba0-421e-b385-08608a84027a)
+ ![image](https://github.com/Vayts/neighbors-rtk/assets/54949928/cd079549-8ba0-421e-b385-08608a84027a)
 
 - **Messaging (currently in development):** Stay in touch with your neighbors through built-in messaging, mirroring the way neighbors naturally communicate. Share information, ask for help, and discuss community matters easily.
 
-- ![image](https://github.com/Vayts/neighbors-rtk/assets/54949928/68647717-18ef-4a81-aa1d-cc1a5b64a56c)
+ ![image](https://github.com/Vayts/neighbors-rtk/assets/54949928/68647717-18ef-4a81-aa1d-cc1a5b64a56c)
 
 - **Profile Customization:** Create a personalized profile, reflecting your own neighborly experiences and interests, to foster a sense of community and help people connect on a more personal level.
 
-![image](https://github.com/Vayts/neighbors-rtk/assets/54949928/44051121-d201-463f-ab1f-73c30ec85b27)
+ ![image](https://github.com/Vayts/neighbors-rtk/assets/54949928/44051121-d201-463f-ab1f-73c30ec85b27)
 
 ### Stack:
 
